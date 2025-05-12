@@ -1,1 +1,29 @@
-<p>login works!</p>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="loginform">
+                <div class="main-div">
+                    <div class="panel">
+                        <h1>Login</h1>
+                        <hr>
+                        <p class="text-success" style="font-weight: bold;">
+                            Please enter your email and password
+                        </p>
+                        <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+                            <div class="column">
+                                <div class="form-group">
+                                    <div class="input-group-prepared">
+                                        <!-- <mat-form-field appearance="fill">
+                                            <mat-label>Input</mat-label>
+                                            <input matInput>
+                                          </mat-form-field> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
