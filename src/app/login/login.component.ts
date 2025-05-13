@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
   constructor(private router: Router, private service:HttpService) { }
 
   ngOnInit(): void {
+    document.body.className="bg_background";
   }
 
   email_pattern = '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9]+.[a-zA-Z]{2,}$';
