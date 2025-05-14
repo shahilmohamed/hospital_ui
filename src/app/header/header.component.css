@@ -1,0 +1,38 @@
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.hospital-name {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.nav-links button {
+    margin: 0 5px;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+.menu-button {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+
+    .menu-button {
+        display: inline-flex;
+    }
+}
+
+.welcome-message {
+    font-size: 16px;
+    font-style: italic;
+    color: #e0f7fa;
+}

@@ -9,7 +9,12 @@ export class HeaderComponent implements OnInit {
 
   constructor() { }
 
+  userName: string = "Dr. Shahil";
   ngOnInit(): void {
+  }
+
+  logout() {
+
   }
 
 }
