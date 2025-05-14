@@ -1,15 +1,25 @@
-<div class="row" style="margin-top:10px;">
-    <div class="col">
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-            <a class="navbar-brand" style="color: white;" routerLink="/home">Hospital</a>
-            <div class="collapse navbar-collapse">
-                <div class="navbar-nav ml-auto">
-                    <span class="nav-item nav-link" style="font-weight:bold; color: whitesmoke;">
-                        <button>Home</button>
-                        <button>Patient details</button>
-                    </span>&nbsp;
-                </div>
-            </div>
-        </nav>
-    </div>
-</div>
+<mat-toolbar color="primary" class="toolbar">
+    <span class="hospital-name">🏥 My Hospital</span>
+    <span class="spacer"></span>
+    <span class="welcome-message">Welcome, {{ userName }}</span>
+    <span class="spacer"></span>
+
+    <nav class="nav-links" fxHide.lt-md>
+        <button mat-button routerLink="/home">Home</button>
+        <button mat-button routerLink="/appointments">Appointments</button>
+        <button mat-button routerLink="/patients">Patient Details</button>
+        <button mat-button (click)="logout()">Logout</button>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item routerLink="/home">Home</button>
+        <button mat-menu-item routerLink="/appointments">Appointments</button>
+        <button mat-menu-item routerLink="/patients">Patient Details</button>
+        <button mat-menu-item (click)="logout()">Logout</button>
+    </mat-menu>
+    <!-- menu button -->
+    <button mat-icon-button [matMenuTriggerFor]="menu" class="menu-button" fxShow.lt-md>
+        <mat-icon>menu</mat-icon>
+    </button>
+</mat-toolbar>
