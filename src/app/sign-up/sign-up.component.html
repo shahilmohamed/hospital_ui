@@ -1,1 +1,123 @@
-<p>sign-up works!</p>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="signupform">
+                <div class="main-div">
+                    <div class="panel">
+                        <h3>Create a new account</h3>
+                        <p>It's quick and easy.</p>
+                        <hr>
+                        <form #f="ngForm" (ngSubmit)="onSubmit(f)" class="example-form">
+                            <!-- Name -->
+                            <div class="column">
+                                <div class="form-group">
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>First name</mat-label>
+                                        <input matInput ngModel #fname="ngModel" name="fname" id="signupfname" required>
+                                    </mat-form-field>
+                                    <mat-form-field class="adjacent-input" appearance="fill">
+                                        <mat-label>Last name</mat-label>
+                                        <input matInput ngModel #lname="ngModel" name="lname" id="signuplname" required>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <!-- Dob -->
+                            <div class="column">
+                                <div class="form-group">
+                                    <mat-form-field class="example-full-width" appearance="fill">
+                                        <mat-label>Date of birth</mat-label>
+                                        <input matInput [matDatepicker]="picker" ngModel #dob="ngModel" name="dob"
+                                            id="signupdob" required>
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <!-- Gender -->
+                            <div class="column">
+                                <div class="form-group">
+                                    <mat-form-field class="example-full-width" appearance="fill">
+                                        <mat-label>Gender</mat-label>
+                                        <mat-select matInut ngModel #gender="ngModel" name="gender" id="signupgender"
+                                            required>
+                                            <mat-option value="male">Male</mat-option>
+                                            <mat-option value="female">Female</mat-option>
+                                            <mat-option value="others">Others</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <!-- specialization -->
+                            <div class="column">
+                                <div class="form-group">
+                                    <mat-form-field class="example-full-width" appearance="fill">
+                                        <mat-label>Role</mat-label>
+                                        <mat-select matInput ngModel #specialization="ngModel" name="specialization"
+                                            id="signupspecialization" required>
+                                            <mat-option value="ayurvedha">Ayurvedha</mat-option>
+                                            <mat-option value="general medicine,">General Medicine</mat-option>
+                                            <mat-option value="general surgery">General Surgery</mat-option>
+                                            <mat-option value="ent">ENT</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <!-- email -->
+                            <div class="column">
+                                <div class="form-group">
+                                    <mat-form-field class="example-full-width" appearance="fill">
+                                        <mat-label>Enter your email</mat-label>
+                                        <input matInput type="email" ngModel #email="ngModel" name="email"
+                                            id="signupmailid" [pattern]="email_pattern" required>
+                                        <div *ngIf="email.touched && !email.valid">
+                                            <div class="alert alert-danger" *ngIf="email.errors?.pattern">
+                                                Enter valid email id
+                                            </div>
+                                        </div>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <!-- password -->
+                            <div class="column">
+                                <div class="form-group">
+                                    <mat-form-field class="example-full-width" appearance="fill">
+                                        <mat-label>Enter your password</mat-label>
+                                        <input matInput ngModel #password="ngModel" name="password" id="signuppassword"
+                                            class="w-100" [pattern]="password_pattern" type="password" required>
+                                        <div *ngIf="password.touched && !password.valid">
+                                            <div class="alert alert-danger" *ngIf="password.errors?.pattern">
+                                                Enter strong password
+                                            </div>
+                                        </div>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <!-- Mobile number -->
+                            <div class="column">
+                                <div class="form-group">
+                                    <mat-form-field class="example-full-width" appearance="fill">
+                                        <mat-label>Mobile number</mat-label>
+                                        <input matInput ngModel #phone="ngModel" name="phone" id="signupphone"
+                                            class="w-10" [pattern]="mobile_number_pattern" type="number" required>
+                                        <div *ngIf="phone.touched && !phone.valid">
+                                            <div class="alert alert-danger" *ngIf="phone.errors?.pattern">
+                                                Enter correct mobile number
+                                            </div>
+                                        </div>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <!-- Signup button -->
+                            <button mat-raised-button class="btn btn-outline-success" [disabled]="!f.valid">Sign
+                                Up</button>
+                            <br>
+                        </form>
+                        <br>
+                        <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+                            routerLink="/login">Already have an account?</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
