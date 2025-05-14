@@ -4,41 +4,43 @@
             <div class="loginform">
                 <div class="main-div">
                     <div class="panel">
-                        <h1>Login</h1>
-                        <hr>
-                        <p class="text-success" style="font-weight: bold;">
-                            Please enter your email and password
-                        </p>
-                        <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+                        <h3>Login</h3>
+                        <br>
+                        <form #f="ngForm" (ngSubmit)="onSubmit(f)" class="example-form">
                             <div class="column">
                                 <!-- Email -->
                                 <div class="form-group">
-                                    <mat-form-field>
+                                    <mat-form-field class="example-full-width" appearance="fill">
                                         <mat-label>Enter your email</mat-label>
                                         <input matInput type="email" ngModel #email="ngModel" name="email"
-                                            id="loginmailid" class="form-control" [pattern]="email_pattern" required>
-                                        <div class="alert alert-danger" *ngIf="email.errors?.pattern">
-                                            **Enter valid email id
+                                            id="loginmailid" [pattern]="email_pattern" required>
+                                        <div  *ngIf="email.touched && !email.valid">
+                                            <div class="alert alert-danger" *ngIf="email.errors?.pattern">
+                                                Enter valid email id
+                                            </div>
                                         </div>
                                     </mat-form-field>
                                 </div>
                                 <!-- Password -->
                                 <div class="form-group">
-                                    <mat-form-field>
+                                    <mat-form-field class="example-full-width" appearance="fill">
                                         <mat-label>Enter your password</mat-label>
                                         <input matInput [type]="hide ? 'password' : 'text'" ngModel #password="ngModel"
-                                            name="password" id="loginpassword" class="form-control w-100"
+                                            name="password" id="loginpassword" class="w-100"
                                             [pattern]="password_pattern" required>
                                         <button mat-icon-button matSuffix (click)="hide = !hide"
                                             [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                                             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                                         </button>
-                                        <div class="alert alert-danger" *ngIf="password.errors?.pattern">
-                                            **Enter valid password
+                                        <div *ngIf="password.touched && !password.valid">
+                                            <div class="alert alert-danger" *ngIf="password.errors?.pattern">
+                                                Enter valid password
+                                            </div>
                                         </div>
                                     </mat-form-field>
                                 </div>
-                                <button class="btn btn-outline-success" [disabled]="!f.valid">Login</button>
+                                <!-- Login button -->
+                                <button mat-raised-button class="btn btn-outline-success" [disabled]="!f.valid">Login</button>
                                 <br>
                                 <span style="color: red;font-weight: bold;margin-top: 5px;">
                                     {{msg}}
@@ -46,8 +48,9 @@
                             </div>
                         </form>
                     </div>
+                    <!-- SignUp button -->
                      <br>
-                    <button class="btn btn-primary" routerLink="/signup">SignUp</button>
+                    <button mat-raised-button class="btn btn-success" routerLink="/signup">Create new account</button>
                 </div>
             </div>
         </div>

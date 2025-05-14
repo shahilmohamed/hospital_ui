@@ -3,7 +3,7 @@
 }
 
 .main-div {
-    background: rgb(252, 252, 252) none ;
+    background: rgb(252, 252, 252) none;
     margin: 10rem auto 30px;
     width: 80%;
     padding: 50px 70px 70px 70px;
@@ -21,4 +21,15 @@
     font-size: 14px;
     margin-bottom: 30px;
     line-height: 24px;
+}
+
+.example-form {
+    margin: auto;
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+}
+
+.example-full-width {
+    width: 100%;
 }

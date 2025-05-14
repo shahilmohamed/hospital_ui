@@ -10,19 +10,25 @@ import { NgForm } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private router: Router, private service:HttpService) { }
+  constructor(private router: Router, private service: HttpService) { }
 
   ngOnInit(): void {
-    document.body.className="bg_background";
+    document.body.className = "bg_background";
   }
 
-  email_pattern = '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9]+.[a-zA-Z]{2,}$';
-  password_pattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-  msg:any="";
-  hide=true;
-  onSubmit(f:any)
-  {
-    
+  email_pattern = '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
+  password_pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#^+=])[A-Za-z\d@$!%*?&#^+=]{8,}$/;
+  msg: any = "";
+  hide = true;
+  onSubmit(f: any) {
+    let obj = {
+      email: f.value.email,
+      password: f.value.password
+    };
+    console.log(obj);
   }
 
+  ngOnDestroy(): void {
+    document.body.className = '';
+  }
 }
