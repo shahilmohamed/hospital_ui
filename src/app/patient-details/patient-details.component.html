@@ -1,0 +1,46 @@
+<!-- Header -->
+<app-header></app-header>
+<!-- Patient details & Search bar -->
+<div class="container md-4 table-responsive">
+    <div class="container">
+        <h2 class="mb-4" style="display: inline;">Patient Details</h2>
+        <span class="float-end">
+            <mat-form-field class="example-form-field" appearance="fill">
+                <mat-label>Search</mat-label>
+                <input matInput type="text" [(ngModel)]="value">
+                <button matSuffix mat-icon-button aria-label="Search" (click)="onClickSearch(value)">
+                    <mat-icon>search</mat-icon>
+                </button>
+            </mat-form-field>
+        </span>
+    </div>
+    <!-- Table -->
+    <table class="table table-bordered table-hover ">
+        <thead class="thead-dark">
+            <tr>
+                <th>Patient ID</th>
+                <th>Name</th>
+                <th>Gender</th>
+                <th>Age</th>
+                <th>Mobile</th>
+                <th>Blood group</th>
+                <th>Address</th>
+                <th>Records</th>
+                <th>Doctor</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let patient of filteredPatients">
+                <td>{{patient.id}}</td>
+                <td>{{patient.name | titlecase}}</td>
+                <td>{{patient.gender | titlecase}}</td>
+                <td>{{patient.age}}</td>
+                <td>{{patient.contact}}</td>
+                <td>{{patient.blood | titlecase}}</td>
+                <td>{{patient.address | titlecase}}</td>
+                <td><a [routerLink]="['/medical-history', patient.id]" mat-raised-button class="btn btn-sm btn-info">View history</a></td>
+                <td>{{patient.doctor | titlecase}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

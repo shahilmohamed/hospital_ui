@@ -18,6 +18,7 @@ import { MatListModule } from '@angular/material/list';
   declarations: [
   ],
   imports: [
+    FormsModule,
     CommonModule,
     MatFormFieldModule,
     MatInputModule,

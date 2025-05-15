@@ -5,10 +5,12 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
+import { PatientDetailsComponent } from './patient-details/patient-details.component';
+import { MedicalHistoryComponent } from './medical-history/medical-history.component';
 
 const routes: Routes = [
   {
-    path:'', redirectTo:'/login', pathMatch:'full'
+    path:'', redirectTo:'/home', pathMatch:'full'
   },
   {
     path:'login', component:LoginComponent
@@ -21,6 +23,13 @@ const routes: Routes = [
   },
   {
     path:'home', component: HomeComponent
+  },
+  {
+    path:'patients', component: PatientDetailsComponent
+  },
+  { 
+    path: 'medical-history/:id', component: MedicalHistoryComponent 
+
   },
   {
     path:'**', component:NotFoundComponent
