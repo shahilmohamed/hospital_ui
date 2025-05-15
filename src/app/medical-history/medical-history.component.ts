@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 export class MedicalHistoryComponent implements OnInit {
 
   patientId: number=0;
+  name:string="Hello";
 
   constructor(private route: ActivatedRoute) {}
 
