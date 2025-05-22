@@ -2,10 +2,82 @@
 <app-header></app-header>
 <br>
 <!-- Medical history -->
- <div class="container md-4 table-responsive">
-    <div class="container">
-        <h2 class="mb-4" style="display: inline;">Patient Details,</h2>
-        <br>
-        <h3 class="mb-4" style="display: inline;">Name: {{name}}</h3>
+<div class="container">
+    <h2 class="mb-4" style="display: inline;">Medical History</h2>
+    <span class="float-end">
+        <mat-form-field class="example-form-field" appearance="fill">
+            <mat-label>Search</mat-label>
+            <input matInput type="text" [(ngModel)]="value">
+            <button matSuffix mat-icon-button aria-label="Search" (click)="onClickSearch(value)">
+                <mat-icon>search</mat-icon>
+            </button>
+        </mat-form-field>
+    </span>
+</div>
+<!-- Table -->
+<div class="container mt-4">
+    <table class="table table-bordered table-hover mt-3">
+        <thead class="thead-dark">
+            <tr>
+                <th>Diagnosis Date</th>
+                <th>Diagnosis</th>
+                <th>Revisit Date</th>
+                <th>Review</th>
+                <th>Prescription</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let entry of history">
+                <td>{{ entry.diagnosisDate }}</td>
+                <td>{{ entry.diagnosis }}</td>
+                <td>{{ entry.revisitDate }}</td>
+                <td>{{ entry.review }}</td>
+                <td>
+                    <button mat-raised-button class="btn btn-sm btn-info" (click)="openPrescription(entry.prescription)">
+                        View Prescription
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal for Prescription -->
+<div class="modal fade" id="prescriptionModal" tabindex="-1" aria-labelledby="prescriptionModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="prescriptionModalLabel">Prescription Details</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <table class="table table-bordered">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Drug</th>
+                            <th>Morning</th>
+                            <th>Afternoon</th>
+                            <th>Night</th>
+                            <th>Days</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let drug of selectedPrescription">
+                            <td>{{ drug.drug }}</td>
+                            <td>{{ drug.morning ? '✓' : '' }}</td>
+                            <td>{{ drug.afternoon ? '✓' : '' }}</td>
+                            <td>{{ drug.night ? '✓' : '' }}</td>
+                            <td>{{ drug.days }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="modal-footer">
+                <button mat-raised-button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
     </div>
- </div>
+</div>
