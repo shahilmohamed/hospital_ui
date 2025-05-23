@@ -13,11 +13,11 @@
                                 <div class="form-group">
                                     <mat-form-field appearance="fill">
                                         <mat-label>First name</mat-label>
-                                        <input matInput ngModel #fname="ngModel" name="fname" id="signupfname" required>
+                                        <input matInput ngModel type="text" #firstname="ngModel" name="firstname" id="signupfname" required>
                                     </mat-form-field>
                                     <mat-form-field class="adjacent-input" appearance="fill">
                                         <mat-label>Last name</mat-label>
-                                        <input matInput ngModel #lname="ngModel" name="lname" id="signuplname" required>
+                                        <input matInput ngModel type="text" #lastname="ngModel" name="lastname" id="signuplname" required>
                                     </mat-form-field>
                                 </div>
                             </div>
@@ -47,15 +47,28 @@
                                     </mat-form-field>
                                 </div>
                             </div>
-                            <!-- specialization -->
+                            <!-- role -->
                             <div class="column">
                                 <div class="form-group">
                                     <mat-form-field class="example-full-width" appearance="fill">
                                         <mat-label>Role</mat-label>
+                                        <mat-select matInput ngModel #role="ngModel" name="role" id="signuprole" required>
+                                            <mat-option value="doctor">Doctor</mat-option>
+                                            <mat-option value="patient">Patient</mat-option>
+                                            <mat-option value="nurse">Nurse</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <!-- specialization -->
+                            <div class="column">
+                                <div class="form-group">
+                                    <mat-form-field class="example-full-width" appearance="fill">
+                                        <mat-label>Specialization</mat-label>
                                         <mat-select matInput ngModel #specialization="ngModel" name="specialization"
                                             id="signupspecialization" required>
                                             <mat-option value="ayurvedha">Ayurvedha</mat-option>
-                                            <mat-option value="general medicine,">General Medicine</mat-option>
+                                            <mat-option value="general medicine">General Medicine</mat-option>
                                             <mat-option value="general surgery">General Surgery</mat-option>
                                             <mat-option value="ent">ENT</mat-option>
                                         </mat-select>
@@ -97,10 +110,10 @@
                                 <div class="form-group">
                                     <mat-form-field class="example-full-width" appearance="fill">
                                         <mat-label>Mobile number</mat-label>
-                                        <input matInput ngModel #phone="ngModel" name="phone" id="signupphone"
-                                            class="w-10" [pattern]="mobile_number_pattern" type="number" required>
-                                        <div *ngIf="phone.touched && !phone.valid">
-                                            <div class="alert alert-danger" *ngIf="phone.errors?.pattern">
+                                        <input matInput ngModel #phoneNumber="ngModel" name="phoneNumber" id="signupphoneNumber" class="w-10"
+                                            [pattern]="mobile_number_pattern" type="text" required>
+                                        <div *ngIf="phoneNumber.touched && !phoneNumber.valid">
+                                            <div class="alert alert-danger" *ngIf="phoneNumber.errors?.pattern">
                                                 Enter correct mobile number
                                             </div>
                                         </div>
