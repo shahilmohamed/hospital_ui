@@ -25,7 +25,18 @@ export class LoginComponent implements OnInit {
       email: f.value.email,
       password: f.value.password
     };
-    console.log(obj);
+    this.service.login(obj).subscribe((response: any) => {
+      if (response.message == 'Login successfully') {
+        this.router.navigate(['/home']);
+        console.log(response);
+        sessionStorage.setItem('email', response.data.email);
+        sessionStorage.setItem('phoneNumber', response.data.phoneNumber);
+        sessionStorage.setItem('firstname', response.data.firstname);
+        sessionStorage.setItem('lastname', response.data.lastname);
+      } else {
+        this.msg = response.msg;
+      }
+    });
   }
 
   ngOnDestroy(): void {
