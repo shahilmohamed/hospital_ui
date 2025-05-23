@@ -10,7 +10,7 @@ import { NgForm } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private router: Router, private service: HttpService) { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
     document.body.className = "bg_background";
@@ -25,7 +25,22 @@ export class LoginComponent implements OnInit {
       email: f.value.email,
       password: f.value.password
     };
-    console.log(obj);
+    // this.service.login(obj)
+    // .subscribe((response: any)=>
+    // {
+    //   if(response.msg=='Login successfully')
+    //   {
+    //     this.router.navigate(['/home']);
+    //     sessionStorage.setItem("email",response.object.email);
+    //     sessionStorage.setItem("phoneNumber",response.object.phoneNumber);
+    //     sessionStorage.setItem("firstname",response.object.firstname);
+    //     sessionStorage.setItem("lastname",response.object.lastname);
+    //   }
+    //   else{
+    //     this.msg=response.msg;
+    //   }
+    // })
+    // private service: HttpService
   }
 
   ngOnDestroy(): void {

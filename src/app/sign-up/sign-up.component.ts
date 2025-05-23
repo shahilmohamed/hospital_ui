@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpService } from '../http.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -16,6 +17,8 @@ export class SignUpComponent implements OnInit {
   email_pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   password_pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#^+=])[A-Za-z\d@$!%*?&#^+=]{8,}$/;
   mobile_number_pattern = /^[6-9]\d{9}$/;
+  incorrect: string="";
+
   onSubmit(f: any) {
     let obj = {
       fname: f.value.fname,
@@ -27,7 +30,18 @@ export class SignUpComponent implements OnInit {
       password: f.value.password,
       mobile: f.value.phone
     };
-    console.log(obj);
+    // this.service.signup(obj)
+    // .subscribe((response:any)=>
+    // {
+    //   console.log(response);
+    //   if (response.msg=="Account created") {
+    //     this.incorrect=response.msg;
+    //   }
+    //   else{
+    //     this.incorrect=response.msg;
+    //   }
+    // })
+    // private service: HttpService
   }
 
   ngOnDestroy(): void {
