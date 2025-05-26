@@ -21,6 +21,7 @@ import { MedicalHistoryComponent } from './medical-history/medical-history.compo
 import { HttpClientModule } from '@angular/common/http';
 import { AddAppointmentsComponent } from './add-appointments/add-appointments.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
+import { AddNewPatientComponent } from './add-new-patient/add-new-patient.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +33,8 @@ import { AppointmentsComponent } from './appointments/appointments.component';
     PatientDetailsComponent,
     MedicalHistoryComponent,
     AddAppointmentsComponent,
-    AppointmentsComponent
+    AppointmentsComponent,
+    AddNewPatientComponent
   ],
   imports: [
     BrowserModule,
