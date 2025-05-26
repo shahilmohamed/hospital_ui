@@ -22,6 +22,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AddAppointmentsComponent } from './add-appointments/add-appointments.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { AddNewPatientComponent } from './add-new-patient/add-new-patient.component';
+import { FooterComponent } from './footer/footer.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +35,8 @@ import { AddNewPatientComponent } from './add-new-patient/add-new-patient.compon
     MedicalHistoryComponent,
     AddAppointmentsComponent,
     AppointmentsComponent,
-    AddNewPatientComponent
+    AddNewPatientComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
