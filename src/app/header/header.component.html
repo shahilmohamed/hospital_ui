@@ -13,13 +13,15 @@
 
     <!-- Mobile Menu -->
     <mat-menu #menu="matMenu">
-        <button mat-menu-item routerLink="/home">Home</button>
-        <button mat-menu-item routerLink="/appointments">Appointments</button>
-        <button mat-menu-item routerLink="/patients">Patient Details</button>
-        <button mat-menu-item (click)="logout()">Logout</button>
+        <button mat-menu-item routerLink="/home"><i class="fas fa-home"></i> Home</button>
+        <button mat-menu-item routerLink="/appointments"><i class="fa-regular fa-eye"></i> Appointments</button>
+        <button mat-menu-item routerLink="/patients"><i class="fas fa-regular fa-stethoscope"></i> Patient Details</button>
+        <button mat-menu-item (click)="logout()"><i class="fas fa-sign-out-alt" fxShow.lt-md></i> Logout</button>
     </mat-menu>
     <!-- menu button -->
     <button mat-icon-button [matMenuTriggerFor]="menu" class="menu-button" fxShow.lt-md>
         <mat-icon>menu</mat-icon>
     </button>
+    <!-- Button icon -->
+     
 </mat-toolbar>
