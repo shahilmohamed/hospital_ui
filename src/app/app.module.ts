@@ -19,7 +19,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { PatientDetailsComponent } from './patient-details/patient-details.component';
 import { MedicalHistoryComponent } from './medical-history/medical-history.component';
 import { HttpClientModule } from '@angular/common/http';
-
+import { AddAppointmentsComponent } from './add-appointments/add-appointments.component';
+import { AppointmentsComponent } from './appointments/appointments.component';
+import { AddNewPatientComponent } from './add-new-patient/add-new-patient.component';
+import { FooterComponent } from './footer/footer.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +32,11 @@ import { HttpClientModule } from '@angular/common/http';
     NotFoundComponent,
     HomeComponent,
     PatientDetailsComponent,
-    MedicalHistoryComponent
+    MedicalHistoryComponent,
+    AddAppointmentsComponent,
+    AppointmentsComponent,
+    AddNewPatientComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
