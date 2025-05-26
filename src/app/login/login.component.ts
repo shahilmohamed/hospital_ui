@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
         sessionStorage.setItem('firstname', response.data.firstname);
         sessionStorage.setItem('lastname', response.data.lastname);
       } else {
-        this.msg = response.msg;
+        this.msg = response.message;
       }
     });
   }
