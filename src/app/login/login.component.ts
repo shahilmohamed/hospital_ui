@@ -27,14 +27,14 @@ export class LoginComponent implements OnInit {
     };
     this.service.login(obj).subscribe((response: any) => {
       if (response.message == 'Login successfully') {
-        this.router.navigate(['/home']);
+        this.router.navigate(['/dashboard']);
         console.log(response);
         sessionStorage.setItem('email', response.data.email);
         sessionStorage.setItem('phoneNumber', response.data.phoneNumber);
         sessionStorage.setItem('firstname', response.data.firstname);
         sessionStorage.setItem('lastname', response.data.lastname);
       } else {
-        this.msg = response.msg;
+        this.msg = response.message;
       }
     });
   }
