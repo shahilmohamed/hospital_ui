@@ -5,25 +5,25 @@
     <span class="spacer"></span>
 
     <nav class="nav-links" fxHide.lt-md>
-        <button mat-button routerLink="dashboard">Home</button>
+        <button mat-button routerLink="/dashboard">Home</button>
         <button mat-button [matMenuTriggerFor]="appointmentsMenu" class="dropdown-toggle">Appointments</button>
         <mat-menu #appointmentsMenu="matMenu">
-            <button mat-menu-item routerLink="addAppointment">
+            <button mat-menu-item routerLink="/dashboard/addAppointment">
                 <mat-icon>add</mat-icon>
                 <span>Add Appointment</span>
             </button>
-            <button mat-menu-item routerLink="viewAppointments">
+            <button mat-menu-item routerLink="/dashboard/viewAppointments">
                 <mat-icon>visibility</mat-icon>
                 <span>View Appointments</span>
             </button>
         </mat-menu>
         <button mat-button [matMenuTriggerFor]="patientsMenu" class="dropdown-toggle">Patient Details</button>
         <mat-menu #patientsMenu="matMenu">
-            <button mat-menu-item routerLink="addNewpatient">
+            <button mat-menu-item routerLink="/dashboard/addNewpatient">
                 <mat-icon>add</mat-icon>
                 <span>Add new patient</span>
             </button>
-            <button mat-menu-item routerLink="patients">
+            <button mat-menu-item routerLink="/dashboard/patients">
                 <mat-icon>visibility</mat-icon>
                 <span>View patients</span>
             </button>
