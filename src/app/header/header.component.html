@@ -8,11 +8,11 @@
         <button mat-button routerLink="/home">Home</button>
         <button mat-button [matMenuTriggerFor]="appointmentsMenu" class="dropdown-toggle">Appointments</button>
         <mat-menu #appointmentsMenu="matMenu">
-            <button mat-menu-item routerLink="">
+            <button mat-menu-item routerLink="addAppointment">
                 <mat-icon>add</mat-icon>
                 <span>Add Appointment</span>
             </button>
-            <button mat-menu-item routerLink="">
+            <button mat-menu-item routerLink="viewAppointments">
                 <mat-icon>visibility</mat-icon>
                 <span>View Appointments</span>
             </button>

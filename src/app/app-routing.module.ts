@@ -7,6 +7,8 @@ import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { PatientDetailsComponent } from './patient-details/patient-details.component';
 import { MedicalHistoryComponent } from './medical-history/medical-history.component';
+import { AddAppointmentsComponent } from './add-appointments/add-appointments.component';
+import { AppointmentsComponent } from './appointments/appointments.component';
 
 const routes: Routes = [
   {
@@ -30,6 +32,12 @@ const routes: Routes = [
   { 
     path: 'medical-history/:id', component: MedicalHistoryComponent 
 
+  },
+  {
+    path:'patients/addAppointment', component: AddAppointmentsComponent
+  },
+  {
+    path: 'patients/viewAppointments', component: AppointmentsComponent
   },
   {
     path:'**', component:NotFoundComponent
