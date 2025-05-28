@@ -49,6 +49,8 @@ export class MedicalHistoryComponent implements OnInit {
 
   value = '';
   filteredHistory = [...this.history];
+  p: number = 1;
+  p1: number = 1;
 
   onClickSearch(value: string): void {
     const query = value.trim().toLowerCase();
