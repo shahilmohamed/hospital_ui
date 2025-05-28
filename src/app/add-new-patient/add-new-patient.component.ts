@@ -12,6 +12,7 @@ export class AddNewPatientComponent implements OnInit {
   constructor(private router: Router, private service: HttpService) { }
 
   ngOnInit(): void {
+    document.body.className = "bg_background_addNewPatient";
   }
 
   mobile_number_pattern = /^[6-9]\d{9}$/;
@@ -19,6 +20,10 @@ export class AddNewPatientComponent implements OnInit {
   onSubmit(f:any)
   {
     console.log(f);
+  }
+  
+  ngOnDestroy(): void {
+    document.body.className = '';
   }
 
 }

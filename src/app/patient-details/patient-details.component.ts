@@ -11,6 +11,7 @@ export class PatientDetailsComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    document.body.className = "bg_background_addNewPatient";
   }
 
   patients = [
@@ -109,6 +110,10 @@ export class PatientDetailsComponent implements OnInit {
       return;
     }
 
+  }
+
+  ngOnDestroy(): void {
+    document.body.className = '';
   }
 
 }

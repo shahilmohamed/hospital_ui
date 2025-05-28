@@ -39,6 +39,7 @@ export class MedicalHistoryComponent implements OnInit {
 
   ngOnInit() {
     this.patientId = Number(this.route.snapshot.paramMap.get('id'));
+    document.body.className = 'bg_background_addNewPatient';
   }
 
    openPrescription(prescription: any): void {
@@ -65,6 +66,10 @@ export class MedicalHistoryComponent implements OnInit {
       return;
     }
 
+  }
+
+  ngOnDestroy(): void {
+    document.body.className = '';
   }
 
 }
