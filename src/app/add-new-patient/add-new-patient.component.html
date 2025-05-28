@@ -42,7 +42,7 @@
                                 <div class="form-group">
                                     <mat-form-field class="example-full-width" appearance="fill">
                                         <mat-label>Blood Group</mat-label>
-                                        <mat-select matInut ngModel #gender="ngModel" name="bloodgroup"
+                                        <mat-select matInut ngModel #bloodGroup="ngModel" name="bloodGroup"
                                             id="addNewpatientbloodgroup" required>
                                             <mat-option value="a+ve">A+ve</mat-option>
                                             <mat-option value="a-ve">A-ve</mat-option>
@@ -61,11 +61,11 @@
                                 <div class="form-group">
                                     <mat-form-field class="example-full-width" appearance="fill">
                                         <mat-label>Mobile number</mat-label>
-                                        <input matInput ngModel #phoneNumber="ngModel" name="phoneNumber"
+                                        <input matInput ngModel #contactNumber="ngModel" name="contactNumber"
                                             id="addNewpatientphoneNumber" class="w-10" [pattern]="mobile_number_pattern"
                                             type="text" required>
-                                        <div *ngIf="phoneNumber.touched && !phoneNumber.valid">
-                                            <div class="alert alert-danger" *ngIf="phoneNumber.errors?.pattern">
+                                        <div *ngIf="contactNumber.touched && !contactNumber.valid">
+                                            <div class="alert alert-danger" *ngIf="contactNumber.errors?.pattern">
                                                 Enter correct mobile number
                                             </div>
                                         </div>
@@ -84,6 +84,7 @@
                             </div>
                             <!-- Add button -->
                             <button mat-raised-button class="btn btn-outline-primary" [disabled]="!f.valid">Add</button>
+                            {{message}}
                         </form>
                     </div>
                 </div>

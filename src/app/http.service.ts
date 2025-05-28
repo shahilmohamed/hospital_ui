@@ -21,4 +21,9 @@ export class HttpService {
     return (this.http.post(`${this.url}/login`,obj));
   }
 
+  addNewPatient(obj:any, id:string)
+  {
+    return (this.http.post(`${this.url}/addPatient/${id}`,obj));
+  }
+
 }

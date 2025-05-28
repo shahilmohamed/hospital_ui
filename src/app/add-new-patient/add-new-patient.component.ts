@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpService } from '../http.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-add-new-patient',
@@ -16,10 +17,38 @@ export class AddNewPatientComponent implements OnInit {
   }
 
   mobile_number_pattern = /^[6-9]\d{9}$/;
+  message: string ="";
 
-  onSubmit(f:any)
+  onSubmit(f:NgForm)
   {
-    console.log(f);
+    let obj = {
+      firstname: f.value.firstname,
+      lastname: f.value.lastname,
+      gender: f.value.gender,
+      contactNumber: f.value.contactNumber,
+      address: f.value.address,
+      bloodGroup: f.value.bloodGroup
+    };
+    const id = sessionStorage.getItem("id");
+    if(id)
+    {
+      this.service.addNewPatient(obj,id).subscribe((response: any) => {
+        if(response.message=="Patient added successfully")
+        {
+          this.router.navigate(['/dashboard/patients'])
+        }
+        else
+        {
+          this.message = response.message;
+        }
+      });
+    }
+    else
+    {
+      this.message = "Not a valid user";
+    }
+    
+
   }
   
   ngOnDestroy(): void {
