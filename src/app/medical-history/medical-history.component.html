@@ -27,7 +27,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let entry of history">
+            <tr *ngFor="let entry of history| paginate:{itemsPerPage: 10, currentPage: p };index as i">
                 <td>{{ entry.diagnosisDate }}</td>
                 <td>{{ entry.diagnosis }}</td>
                 <td>{{ entry.revisitDate }}</td>
@@ -40,6 +40,7 @@
             </tr>
         </tbody>
     </table>
+    <pagination-controls (pageChange)="p= $event" style="float: right;"></pagination-controls>
 </div>
 
 <!-- Modal for Prescription -->
@@ -64,7 +65,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let drug of selectedPrescription">
+                        <tr *ngFor="let drug of selectedPrescription| paginate:{itemsPerPage: 5, currentPage: p1 };index as i">
                             <td>{{ drug.drug }}</td>
                             <td>{{ drug.morning ? '✓' : '' }}</td>
                             <td>{{ drug.afternoon ? '✓' : '' }}</td>
@@ -73,6 +74,7 @@
                         </tr>
                     </tbody>
                 </table>
+                <pagination-controls (pageChange)="p1= $event" style="float: right;"></pagination-controls>
             </div>
 
             <div class="modal-footer">

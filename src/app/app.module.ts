@@ -23,6 +23,7 @@ import { AddAppointmentsComponent } from './add-appointments/add-appointments.co
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { AddNewPatientComponent } from './add-new-patient/add-new-patient.component';
 import { FooterComponent } from './footer/footer.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,7 +51,8 @@ import { FooterComponent } from './footer/footer.component';
     MatFormFieldModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]

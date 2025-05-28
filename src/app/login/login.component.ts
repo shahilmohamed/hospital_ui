@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
         sessionStorage.setItem('phoneNumber', response.data.phoneNumber);
         sessionStorage.setItem('firstname', response.data.firstname);
         sessionStorage.setItem('lastname', response.data.lastname);
+        sessionStorage.setItem('id', response.data.id);
       } else {
         this.msg = response.message;
       }

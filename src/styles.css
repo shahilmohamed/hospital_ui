@@ -11,3 +11,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 /* .bg_background_signup{
     background-color: rgb(163, 103, 219);
 } */
+
+.bg_background_addNewPatient{
+    background-color: aliceblue;
+}
