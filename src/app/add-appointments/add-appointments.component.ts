@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AddAppointmentPopupComponent } from '../add-appointment-popup/add-appointment-popup.component';
 import { Router } from '@angular/router';
 import { HttpService } from '../http.service';
+import { PatientSelectDialogComponent } from '../patient-select-dialog/patient-select-dialog.component';
 
 @Component({
   selector: 'app-add-appointments',
@@ -23,25 +24,47 @@ export class AddAppointmentsComponent implements OnInit {
   onSubmit(f: any){
     const { contactNumber, patientId } = f.value;
 
-    // Example check (replace with actual service call)
-    const patientExists = this.checkPatientExists(contactNumber, patientId);
+     // Simulated fetch — replace with real backend call
+    const matchedPatients = this.fetchPatients(contactNumber, patientId);
 
-    if (patientExists) {
-      this.dialog.open(AddAppointmentPopupComponent, {
-        width: '500px',
-        data: { contactNumber, patientId }
-      });
+    if (matchedPatients.length === 0) {
+      this.snackBar.open('No patient found.', 'Close', { duration: 3000 });
+    } else if (matchedPatients.length === 1) {
+      this.openAppointmentDialog(matchedPatients[0]);
     } else {
-      this.snackBar.open('No patient found.', 'Close', {
-        duration: 3000
+      // Multiple matches — show selection dialog
+      const dialogRef = this.dialog.open(PatientSelectDialogComponent, {
+        width: '500px',
+        data: matchedPatients
+      });
+
+      dialogRef.afterClosed().subscribe((selectedPatient) => {
+        if (selectedPatient) {
+          this.openAppointmentDialog(selectedPatient);
+        }
       });
     }
 
   }
 
-  checkPatientExists(mobile: string, id: string): boolean {
-    // Replace with actual backend API logic
-    return mobile === this.patient.contactNumber || id === this.patient.id;
+  openAppointmentDialog(patient: any) {
+    this.dialog.open(AddAppointmentPopupComponent, {
+      width: '500px',
+      data: patient
+    });
+  }
+
+  fetchPatients(mobile: string, id: string): any[] {
+    // Simulated data — replace with actual backend call
+    const allPatients = [
+      { id: 1, name: 'John Doe', age: 34, mobile: '9999999999' },
+      { id: 2, name: 'Jane Doe', age: 28, mobile: '9999999999' },
+      { id: 3, name: 'Ali Khan', age: 40, mobile: '8888888888' }
+    ];
+
+    return allPatients.filter(p =>
+      (mobile && p.mobile === mobile) || (id && p.id.toString() === id)
+    );
   }
 
   ngOnDestroy(): void {

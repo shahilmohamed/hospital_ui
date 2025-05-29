@@ -25,6 +25,7 @@ import { AddNewPatientComponent } from './add-new-patient/add-new-patient.compon
 import { FooterComponent } from './footer/footer.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { AddAppointmentPopupComponent } from './add-appointment-popup/add-appointment-popup.component';
+import { PatientSelectDialogComponent } from './patient-select-dialog/patient-select-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +40,8 @@ import { AddAppointmentPopupComponent } from './add-appointment-popup/add-appoin
     AppointmentsComponent,
     AddNewPatientComponent,
     FooterComponent,
-    AddAppointmentPopupComponent
+    AddAppointmentPopupComponent,
+    PatientSelectDialogComponent
   ],
   imports: [
     BrowserModule,

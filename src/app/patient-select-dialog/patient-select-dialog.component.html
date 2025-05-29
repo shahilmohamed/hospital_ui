@@ -1,0 +1,12 @@
+<h2 mat-dialog-title>Select Patient</h2>
+<mat-dialog-content>
+  <mat-list>
+    <mat-list-item *ngFor="let patient of patients" (click)="select(patient)" class="selectable-patient">
+      <div mat-line><strong>{{ patient.name }}</strong> (Age: {{ patient.age }})</div>
+      <div mat-line>Mobile: {{ patient.mobile }}</div>
+    </mat-list-item>
+  </mat-list>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()">Cancel</button>
+</mat-dialog-actions>

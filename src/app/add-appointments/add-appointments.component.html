@@ -7,8 +7,10 @@
                     <div class="panel">
                         <h3>Search To Add Appointment</h3>
                         <hr>
+                        <!-- Form -->
                         <form #f="ngForm" (ngSubmit)="onSubmit(f)" class="example-form">
                             <div class="column">
+                                <!-- Contact number -->
                                 <div class="form-group">
                                     <mat-form-field appearance="fill">
                                         <mat-label>Mobile Number</mat-label>
@@ -16,6 +18,7 @@
                                     </mat-form-field>
                                 </div>
                             </div>
+                            <!-- Patient ID -->
                             <div class="column">
                                 <div class="form-group">
                                     <mat-form-field appearance="fill">
@@ -24,6 +27,7 @@
                                     </mat-form-field>
                                 </div>
                             </div>
+                            <!-- Search button -->
                             <button mat-raised-button class="btn btn-outline-success">Search</button>
                         </form>
                     </div>
