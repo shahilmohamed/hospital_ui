@@ -19,7 +19,7 @@ const routes: Routes = [
     path:'patients', component: PatientDetailsComponent
   },
   { 
-    path: 'patients/medical-history/:id', component: MedicalHistoryComponent 
+    path: 'medical-history/:id', component: MedicalHistoryComponent 
 
   },
   {
