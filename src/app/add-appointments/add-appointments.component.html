@@ -1,1 +1,38 @@
-<p>add-appointments works!</p>
+<app-header></app-header>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="addAppointmentform">
+                <div class="main-div">
+                    <div class="panel">
+                        <h3>Search To Add Appointment</h3>
+                        <hr>
+                        <!-- Form -->
+                        <form #f="ngForm" (ngSubmit)="onSubmit(f)" class="example-form">
+                            <div class="column">
+                                <!-- Contact number -->
+                                <div class="form-group">
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>Mobile Number</mat-label>
+                                        <input matInput ngModel type="text" #contactNumber="ngModel" name="contactNumber" id="contactNumberAppointmentForm">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <!-- Patient ID -->
+                            <div class="column">
+                                <div class="form-group">
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>Patient ID</mat-label>
+                                        <input matInput ngModel type="text" #patientId="ngModel" name="patientId" id="patientIDrAppointmentForm">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <!-- Search button -->
+                            <button mat-raised-button class="btn btn-outline-success">Search</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

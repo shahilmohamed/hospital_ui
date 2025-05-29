@@ -1,0 +1,22 @@
+<h2 mat-dialog-title>Add Appointment</h2>
+<mat-dialog-content>
+    <form #appointmentForm="ngForm">
+        <!-- Appointment date -->
+        <mat-form-field appearance="fill" class="w-100">
+            <mat-label>Appointment Date</mat-label>
+            <input matInput [matDatepicker]="picker" ngModel name="appointmentDate" required>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <!-- Disease -->
+        <mat-form-field appearance="fill" class="w-100">
+            <mat-label>Disease</mat-label>
+            <input matInput ngModel name="disease" required>
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+ <!-- Button -->
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button color="primary" (click)="submit()">Save</button>
+</mat-dialog-actions>

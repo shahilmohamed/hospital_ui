@@ -1,1 +1,40 @@
-<p>appointments works!</p>
+<app-header></app-header>
+<br>
+<!-- Appointment list -->
+<div class="container">
+    <h2 class="mb-4" style="display: inline;">Appointments</h2>
+    <span class="float-end">
+        <mat-form-field class="example-form-field" appearance="fill">
+            <mat-label>Search</mat-label>
+            <input matInput type="text" [(ngModel)]="value">
+            <button matSuffix mat-icon-button aria-label="Search" (click)="onClickSearch(value)">
+                <mat-icon>search</mat-icon>
+            </button>
+        </mat-form-field>
+    </span>
+</div>
+<!-- Table -->
+<div class="container md-4 table-responsive">
+    <table class="table table-striped table-hover content-table shadow p-3 bg-white rounded">
+        <thead class="thead-dark">
+            <tr>
+                <th>Si. No.</th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Contact</th>
+                <th>Diagnosis</th>
+                <th>Histroy</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let patient of filteredPatients| paginate:{itemsPerPage: 10, currentPage: p };index as i">
+                <td>{{i+1}}</td>
+                <td>{{patient.id}}</td>
+                <td>{{patient.name | titlecase}}</td>
+                <td>{{patient.contact}}</td>
+                <td>{{patient.diagnosis | titlecase}}</td>
+                <td><a [routerLink]="['/dashboard/medical-history', patient.id]" mat-raised-button class="btn btn-sm btn-info">View history</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

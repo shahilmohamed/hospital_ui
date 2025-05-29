@@ -1,0 +1,6 @@
+.selectable-patient {
+  cursor: pointer;
+}
+.selectable-patient:hover {
+  background-color: #f0f0f0;
+}
