@@ -30,8 +30,8 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let patient of filteredPatients| paginate:{itemsPerPage: 10, currentPage: p };index as i">
-            <!-- <tr *ngFor="let patient of patients| paginate:{itemsPerPage: 10, currentPage: p };index as i"> -->
+            <!-- <tr *ngFor="let patient of filteredPatients| paginate:{itemsPerPage: 10, currentPage: p };index as i"> -->
+            <tr *ngFor="let patient of tempPatients| paginate:{itemsPerPage: 10, currentPage: p };index as i">
                 <td>{{patient.id}}</td>
                 <td>{{patient.firstname+' '+patient.lastname| titlecase}}</td>
                 <td>{{patient.gender| titlecase}}</td>

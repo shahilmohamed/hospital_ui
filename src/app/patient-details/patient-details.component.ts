@@ -13,7 +13,7 @@ export class PatientDetailsComponent implements OnInit {
   patients: Patient[] = [];
   doctorId: string| null = '';
   value = '';
-  filteredPatients: any[] = [...this.patients];
+  tempPatients: any[]= [];
   p:number =1;
 
   constructor(private service: HttpService) { }
@@ -28,7 +28,7 @@ export class PatientDetailsComponent implements OnInit {
   onClickSearch(value: string): void {
     const query = value.trim().toLowerCase();
 
-    this.filteredPatients = this.patients.filter(patient => {
+    this.tempPatients = this.patients.filter(patient => {
       return (
         patient.firstname.toLowerCase().includes(query) ||
         patient.contactNumber.includes(query) ||
@@ -36,7 +36,7 @@ export class PatientDetailsComponent implements OnInit {
       );
     });
     if (!query) {
-      this.filteredPatients = [...this.patients];
+      this.tempPatients = [...this.patients];
       return;
     }
 
@@ -48,6 +48,7 @@ export class PatientDetailsComponent implements OnInit {
     .subscribe((response)=>
     {
       this.patients = response.data;
+      this.tempPatients = [...this.patients];
     })
   }
 
