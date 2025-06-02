@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
+import { PatientResponse } from './model/PatientResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +26,11 @@ export class HttpService {
   addNewPatient(obj:any, id:string)
   {
     return (this.http.post(`${this.url}/addPatient/${id}`,obj));
+  }
+
+  getAllPatients(id:any): Observable<PatientResponse>
+  {
+    return (this.http.get<PatientResponse>(`${this.url}/getAllPatient/${id}`));
   }
 
 }

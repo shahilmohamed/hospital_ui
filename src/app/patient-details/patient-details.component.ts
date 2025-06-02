@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MaterialModule } from '../shared/material.module';
+import { HttpService } from '../http.service';
+import { Patient } from '../model/patient';
 
 @Component({
   selector: 'app-patient-details',
@@ -8,108 +10,46 @@ import { MaterialModule } from '../shared/material.module';
 })
 export class PatientDetailsComponent implements OnInit {
 
-  constructor() { }
+  patients: Patient[] = [];
+  doctorId: string| null = '';
+  value = '';
+  tempPatients: any[]= [];
+  p:number =1;
+
+  constructor(private service: HttpService) { }
 
   ngOnInit(): void {
     document.body.className = "bg_background_addNewPatient";
+    this.doctorId = sessionStorage.getItem("id");
+    this.getAllPatients(this.doctorId);
   }
 
-  patients = [
-    { id: 1, name: 'John Doe', age: 45, gender: 'Male', contact: '1234567890', blood: 'b+', address: 'bangalore', doctor: 'shahil' },
-    { id: 2, name: 'Jane Smith', age: 32, gender: 'Female', contact: '9876543210', blood: 'a+', address: 'preiyakulam', doctor: 'subha' },
-    { id: 3, name: 'Michael Johnson', age: 60, gender: 'Male', contact: '5556667777', blood: 'o+', address: 'madurai', doctor: 'subha' },
-    { id: 4, name: 'John Doe', age: 45, gender: 'Male', contact: '1234567890', blood: 'b+', address: 'bangalore', doctor: 'shahil' },
-    { id: 5, name: 'Jane Smith', age: 32, gender: 'Female', contact: '9876543210', blood: 'a+', address: 'preiyakulam', doctor: 'subha' },
-    { id: 6, name: 'Michael Johnson', age: 60, gender: 'Male', contact: '5556667777', blood: 'o+', address: 'madurai', doctor: 'subha' },
-    { id: 7, name: 'John Doe', age: 45, gender: 'Male', contact: '1234567890', blood: 'b+', address: 'bangalore', doctor: 'shahil' },
-    { id: 8, name: 'Jane Smith', age: 32, gender: 'Female', contact: '9876543210', blood: 'a+', address: 'preiyakulam', doctor: 'subha' },
-    { id: 9, name: 'Michael Johnson', age: 60, gender: 'Male', contact: '5556667777', blood: 'o+', address: 'madurai', doctor: 'subha' },
-    { id: 10, name: 'John Doe', age: 45, gender: 'Male', contact: '1234567890', blood: 'b+', address: 'bangalore', doctor: 'shahil' },
-    { id: 11, name: 'Jane Smith', age: 32, gender: 'Female', contact: '9876543210', blood: 'a+', address: 'preiyakulam', doctor: 'subha' },
-    { id: 12, name: 'Michael Johnson', age: 60, gender: 'Male', contact: '5556667777', blood: 'o+', address: 'madurai', doctor: 'subha' },
-    { id: 13, name: 'John Doe', age: 45, gender: 'Male', contact: '1234567890', blood: 'b+', address: 'bangalore', doctor: 'shahil' },
-    { id: 14, name: 'Jane Smith', age: 32, gender: 'Female', contact: '9876543210', blood: 'a+', address: 'preiyakulam', doctor: 'subha' },
-    { id: 15, name: 'Michael Johnson', age: 60, gender: 'Male', contact: '5556667777', blood: 'o+', address: 'madurai', doctor: 'subha' },
-    { id: 1, name: 'John Doe', age: 45, gender: 'Male', contact: '1234567890', blood: 'b+', address: 'bangalore', doctor: 'shahil' },
-    { id: 2, name: 'Jane Smith', age: 32, gender: 'Female', contact: '9876543210', blood: 'a+', address: 'preiyakulam', doctor: 'subha' },
-    { id: 3, name: 'Michael Johnson', age: 60, gender: 'Male', contact: '5556667777', blood: 'o+', address: 'madurai', doctor: 'subha' },
-    { id: 4, name: 'John Doe', age: 45, gender: 'Male', contact: '1234567890', blood: 'b+', address: 'bangalore', doctor: 'shahil' },
-    { id: 5, name: 'Jane Smith', age: 32, gender: 'Female', contact: '9876543210', blood: 'a+', address: 'preiyakulam', doctor: 'subha' },
-    { id: 6, name: 'Michael Johnson', age: 60, gender: 'Male', contact: '5556667777', blood: 'o+', address: 'madurai', doctor: 'subha' },
-    { id: 7, name: 'John Doe', age: 45, gender: 'Male', contact: '1234567890', blood: 'b+', address: 'bangalore', doctor: 'shahil' },
-    { id: 8, name: 'Jane Smith', age: 32, gender: 'Female', contact: '9876543210', blood: 'a+', address: 'preiyakulam', doctor: 'subha' },
-    { id: 9, name: 'Michael Johnson', age: 60, gender: 'Male', contact: '5556667777', blood: 'o+', address: 'madurai', doctor: 'subha' },
-    { id: 10, name: 'John Doe', age: 45, gender: 'Male', contact: '1234567890', blood: 'b+', address: 'bangalore', doctor: 'shahil' },
-    { id: 11, name: 'Jane Smith', age: 32, gender: 'Female', contact: '9876543210', blood: 'a+', address: 'preiyakulam', doctor: 'subha' },
-    { id: 12, name: 'Michael Johnson', age: 60, gender: 'Male', contact: '5556667777', blood: 'o+', address: 'madurai', doctor: 'subha' },
-    { id: 13, name: 'John Doe', age: 45, gender: 'Male', contact: '1234567890', blood: 'b+', address: 'bangalore', doctor: 'shahil' },
-    { id: 14, name: 'Jane Smith', age: 32, gender: 'Female', contact: '9876543210', blood: 'a+', address: 'preiyakulam', doctor: 'subha' },
-    { id: 15, name: 'Michael Johnson', age: 60, gender: 'Male', contact: '5556667777', blood: 'o+', address: 'madurai', doctor: 'subha' },
-    { id: 1, name: 'John Doe', age: 45, gender: 'Male', contact: '1234567890', blood: 'b+', address: 'bangalore', doctor: 'shahil' },
-    { id: 2, name: 'Jane Smith', age: 32, gender: 'Female', contact: '9876543210', blood: 'a+', address: 'preiyakulam', doctor: 'subha' },
-    { id: 3, name: 'Michael Johnson', age: 60, gender: 'Male', contact: '5556667777', blood: 'o+', address: 'madurai', doctor: 'subha' },
-    { id: 4, name: 'John Doe', age: 45, gender: 'Male', contact: '1234567890', blood: 'b+', address: 'bangalore', doctor: 'shahil' },
-    { id: 5, name: 'Jane Smith', age: 32, gender: 'Female', contact: '9876543210', blood: 'a+', address: 'preiyakulam', doctor: 'subha' },
-    { id: 6, name: 'Michael Johnson', age: 60, gender: 'Male', contact: '5556667777', blood: 'o+', address: 'madurai', doctor: 'subha' },
-    { id: 7, name: 'John Doe', age: 45, gender: 'Male', contact: '1234567890', blood: 'b+', address: 'bangalore', doctor: 'shahil' },
-    { id: 8, name: 'Jane Smith', age: 32, gender: 'Female', contact: '9876543210', blood: 'a+', address: 'preiyakulam', doctor: 'subha' },
-    { id: 9, name: 'Michael Johnson', age: 60, gender: 'Male', contact: '5556667777', blood: 'o+', address: 'madurai', doctor: 'subha' },
-    { id: 10, name: 'John Doe', age: 45, gender: 'Male', contact: '1234567890', blood: 'b+', address: 'bangalore', doctor: 'shahil' },
-    { id: 11, name: 'Jane Smith', age: 32, gender: 'Female', contact: '9876543210', blood: 'a+', address: 'preiyakulam', doctor: 'subha' },
-    { id: 12, name: 'Michael Johnson', age: 60, gender: 'Male', contact: '5556667777', blood: 'o+', address: 'madurai', doctor: 'subha' },
-    { id: 13, name: 'John Doe', age: 45, gender: 'Male', contact: '1234567890', blood: 'b+', address: 'bangalore', doctor: 'shahil' },
-    { id: 14, name: 'Jane Smith', age: 32, gender: 'Female', contact: '9876543210', blood: 'a+', address: 'preiyakulam', doctor: 'subha' },
-    { id: 15, name: 'Michael Johnson', age: 60, gender: 'Male', contact: '5556667777', blood: 'o+', address: 'madurai', doctor: 'subha' },
-    { id: 1, name: 'John Doe', age: 45, gender: 'Male', contact: '1234567890', blood: 'b+', address: 'bangalore', doctor: 'shahil' },
-    { id: 2, name: 'Jane Smith', age: 32, gender: 'Female', contact: '9876543210', blood: 'a+', address: 'preiyakulam', doctor: 'subha' },
-    { id: 3, name: 'Michael Johnson', age: 60, gender: 'Male', contact: '5556667777', blood: 'o+', address: 'madurai', doctor: 'subha' },
-    { id: 4, name: 'John Doe', age: 45, gender: 'Male', contact: '1234567890', blood: 'b+', address: 'bangalore', doctor: 'shahil' },
-    { id: 5, name: 'Jane Smith', age: 32, gender: 'Female', contact: '9876543210', blood: 'a+', address: 'preiyakulam', doctor: 'subha' },
-    { id: 6, name: 'Michael Johnson', age: 60, gender: 'Male', contact: '5556667777', blood: 'o+', address: 'madurai', doctor: 'subha' },
-    { id: 7, name: 'John Doe', age: 45, gender: 'Male', contact: '1234567890', blood: 'b+', address: 'bangalore', doctor: 'shahil' },
-    { id: 8, name: 'Jane Smith', age: 32, gender: 'Female', contact: '9876543210', blood: 'a+', address: 'preiyakulam', doctor: 'subha' },
-    { id: 9, name: 'Michael Johnson', age: 60, gender: 'Male', contact: '5556667777', blood: 'o+', address: 'madurai', doctor: 'subha' },
-    { id: 10, name: 'John Doe', age: 45, gender: 'Male', contact: '1234567890', blood: 'b+', address: 'bangalore', doctor: 'shahil' },
-    { id: 11, name: 'Jane Smith', age: 32, gender: 'Female', contact: '9876543210', blood: 'a+', address: 'preiyakulam', doctor: 'subha' },
-    { id: 12, name: 'Michael Johnson', age: 60, gender: 'Male', contact: '5556667777', blood: 'o+', address: 'madurai', doctor: 'subha' },
-    { id: 13, name: 'John Doe', age: 45, gender: 'Male', contact: '1234567890', blood: 'b+', address: 'bangalore', doctor: 'shahil' },
-    { id: 14, name: 'Jane Smith', age: 32, gender: 'Female', contact: '9876543210', blood: 'a+', address: 'preiyakulam', doctor: 'subha' },
-    { id: 15, name: 'Michael Johnson', age: 60, gender: 'Male', contact: '5556667777', blood: 'o+', address: 'madurai', doctor: 'subha' },
-    { id: 1, name: 'John Doe', age: 45, gender: 'Male', contact: '1234567890', blood: 'b+', address: 'bangalore', doctor: 'shahil' },
-    { id: 2, name: 'Jane Smith', age: 32, gender: 'Female', contact: '9876543210', blood: 'a+', address: 'preiyakulam', doctor: 'subha' },
-    { id: 3, name: 'Michael Johnson', age: 60, gender: 'Male', contact: '5556667777', blood: 'o+', address: 'madurai', doctor: 'subha' },
-    { id: 4, name: 'John Doe', age: 45, gender: 'Male', contact: '1234567890', blood: 'b+', address: 'bangalore', doctor: 'shahil' },
-    { id: 5, name: 'Jane Smith', age: 32, gender: 'Female', contact: '9876543210', blood: 'a+', address: 'preiyakulam', doctor: 'subha' },
-    { id: 6, name: 'Michael Johnson', age: 60, gender: 'Male', contact: '5556667777', blood: 'o+', address: 'madurai', doctor: 'subha' },
-    { id: 7, name: 'John Doe', age: 45, gender: 'Male', contact: '1234567890', blood: 'b+', address: 'bangalore', doctor: 'shahil' },
-    { id: 8, name: 'Jane Smith', age: 32, gender: 'Female', contact: '9876543210', blood: 'a+', address: 'preiyakulam', doctor: 'subha' },
-    { id: 9, name: 'Michael Johnson', age: 60, gender: 'Male', contact: '5556667777', blood: 'o+', address: 'madurai', doctor: 'subha' },
-    { id: 10, name: 'John Doe', age: 45, gender: 'Male', contact: '1234567890', blood: 'b+', address: 'bangalore', doctor: 'shahil' },
-    { id: 11, name: 'Jane Smith', age: 32, gender: 'Female', contact: '9876543210', blood: 'a+', address: 'preiyakulam', doctor: 'subha' },
-    { id: 12, name: 'Michael Johnson', age: 60, gender: 'Male', contact: '5556667777', blood: 'o+', address: 'madurai', doctor: 'subha' },
-    { id: 13, name: 'John Doe', age: 45, gender: 'Male', contact: '1234567890', blood: 'b+', address: 'bangalore', doctor: 'shahil' },
-    { id: 14, name: 'Jane Smith', age: 32, gender: 'Female', contact: '9876543210', blood: 'a+', address: 'preiyakulam', doctor: 'subha' },
-    { id: 15, name: 'Michael Johnson', age: 60, gender: 'Male', contact: '5556667777', blood: 'o+', address: 'madurai', doctor: 'subha' }
-  ];
-  value = '';
-  filteredPatients = [...this.patients];
-  p:number =1;
 
   onClickSearch(value: string): void {
     const query = value.trim().toLowerCase();
 
-    this.filteredPatients = this.patients.filter(patient => {
+    this.tempPatients = this.patients.filter(patient => {
       return (
-        patient.name.toLowerCase().includes(query) ||
-        patient.contact.includes(query) ||
+        patient.firstname.toLowerCase().includes(query) ||
+        patient.contactNumber.includes(query) ||
         patient.id.toString() === query
       );
     });
     if (!query) {
-      this.filteredPatients = [...this.patients];
+      this.tempPatients = [...this.patients];
       return;
     }
 
+  }
+
+  getAllPatients(id: any)
+  {
+    this.service.getAllPatients(id)
+    .subscribe((response)=>
+    {
+      this.patients = response.data;
+      this.tempPatients = [...this.patients];
+    })
   }
 
   ngOnDestroy(): void {

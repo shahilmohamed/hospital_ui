@@ -27,20 +27,19 @@
                 <th>Blood group</th>
                 <th>Address</th>
                 <th>Records</th>
-                <th>Doctor</th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let patient of filteredPatients| paginate:{itemsPerPage: 10, currentPage: p };index as i">
+            <!-- <tr *ngFor="let patient of filteredPatients| paginate:{itemsPerPage: 10, currentPage: p };index as i"> -->
+            <tr *ngFor="let patient of tempPatients| paginate:{itemsPerPage: 10, currentPage: p };index as i">
                 <td>{{patient.id}}</td>
-                <td>{{patient.name | titlecase}}</td>
-                <td>{{patient.gender | titlecase}}</td>
-                <td>{{patient.age}}</td>
-                <td>{{patient.contact}}</td>
-                <td>{{patient.blood | titlecase}}</td>
-                <td>{{patient.address | titlecase}}</td>
-                <td><a [routerLink]="['/dashboard/medical-history', patient.id]" mat-raised-button class="btn btn-sm btn-info">View history</a></td>
-                <td>{{patient.doctor | titlecase}}</td>
+                <td>{{patient.firstname+' '+patient.lastname| titlecase}}</td>
+                <td>{{patient.gender| titlecase}}</td>
+                <td></td>
+                <td>{{patient.contactNumber}}</td>
+                <td>{{patient.bloodGroup| titlecase}}</td>
+                <td>{{patient.address| titlecase}}</td>
+                <td><a [routerLink]="['/dashboard/medical-history', 1]" mat-raised-button class="btn btn-sm btn-info">View history</a></td>
             </tr>
         </tbody>
     </table>
