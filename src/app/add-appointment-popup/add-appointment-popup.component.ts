@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { HttpService } from '../http.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-appointment-popup',
@@ -11,7 +12,7 @@ import { HttpService } from '../http.service';
 export class AddAppointmentPopupComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<AddAppointmentPopupComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any, private router: Router, private service: HttpService) { }
+    @Inject(MAT_DIALOG_DATA) public data: any, private router: Router, private service: HttpService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
   }
@@ -19,7 +20,7 @@ export class AddAppointmentPopupComponent implements OnInit {
   submit() {
     // Save appointment logic
     this.dialogRef.close();
-    alert('Appointment saved successfully!');
+    this.snackBar.open('Appointment added successfully.', 'Close', { duration: 3000 });
   }
 
   formatDateToLocal(date: Date): string {
