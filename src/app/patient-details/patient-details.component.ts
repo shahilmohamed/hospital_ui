@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MaterialModule } from '../shared/material.module';
 import { HttpService } from '../http.service';
-import { Patient } from '../model/patient';
+import { Patient } from '../model/Patient';
 
 @Component({
   selector: 'app-patient-details',
@@ -50,6 +50,17 @@ export class PatientDetailsComponent implements OnInit {
       this.patients = response.data;
       this.tempPatients = [...this.patients];
     })
+  }
+
+  calculateAge(dob: any) {
+    const birthDate = new Date(dob);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    return age;
   }
 
   ngOnDestroy(): void {

@@ -25,6 +25,7 @@ export class AddNewPatientComponent implements OnInit {
       firstname: f.value.firstname,
       lastname: f.value.lastname,
       gender: f.value.gender,
+      dob: this.formatDateToLocal(new Date(f.value.dob)),
       contactNumber: f.value.contactNumber,
       address: f.value.address,
       bloodGroup: f.value.bloodGroup
@@ -49,6 +50,13 @@ export class AddNewPatientComponent implements OnInit {
     }
     
 
+  }
+
+  formatDateToLocal(date: Date): string {
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
   }
   
   ngOnDestroy(): void {

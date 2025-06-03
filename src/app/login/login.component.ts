@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
   password_pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#^+=])[A-Za-z\d@$!%*?&#^+=]{8,}$/;
   msg: any = "";
   hide = true;
+  name: string ="";
   onSubmit(f: any) {
     let obj = {
       email: f.value.email,
@@ -28,11 +29,8 @@ export class LoginComponent implements OnInit {
     this.service.login(obj).subscribe((response: any) => {
       if (response.message == 'Login successfully') {
         this.router.navigate(['/dashboard']);
-        console.log(response);
-        sessionStorage.setItem('email', response.data.email);
-        sessionStorage.setItem('phoneNumber', response.data.phoneNumber);
-        sessionStorage.setItem('firstname', response.data.firstname);
-        sessionStorage.setItem('lastname', response.data.lastname);
+        this.name = response.data.firstname+" "+response.data.lastname;
+        sessionStorage.setItem('name', this.name);
         sessionStorage.setItem('id', response.data.id);
       } else {
         this.msg = response.message;

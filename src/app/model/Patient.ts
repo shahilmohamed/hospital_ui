@@ -7,4 +7,5 @@ export interface Patient
     contactNumber: string;
     address: string;
     bloodGroup: string;
+    age: any;
 }
