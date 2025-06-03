@@ -35,7 +35,7 @@
                 <td>{{patient.id}}</td>
                 <td>{{patient.firstname+' '+patient.lastname| titlecase}}</td>
                 <td>{{patient.gender| titlecase}}</td>
-                <td></td>
+                <td>{{calculateAge(patient.dob)}}</td>
                 <td>{{patient.contactNumber}}</td>
                 <td>{{patient.bloodGroup| titlecase}}</td>
                 <td>{{patient.address| titlecase}}</td>
