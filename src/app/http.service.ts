@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { PatientResponse } from './model/PatientResponse';
+import { Patient } from './model/Patient';
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +32,11 @@ export class HttpService {
   getAllPatients(id:any): Observable<PatientResponse>
   {
     return (this.http.get<PatientResponse>(`${this.url}/getAllPatient/${id}`));
+  }
+
+  addAppointmentSearchPatient(obj: Patient)
+  {
+    return (this.http.post(`${this.url}/searchPatient`,obj));
   }
 
 }
