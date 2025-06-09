@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { HttpService } from '../http.service';
 import { PatientSelectDialogComponent } from '../patient-select-dialog/patient-select-dialog.component';
 import { NgForm } from '@angular/forms';
+import { Appointment } from '../model/Appointment';
 
 @Component({
   selector: 'app-add-appointments',
@@ -33,6 +34,7 @@ export class AddAppointmentsComponent implements OnInit {
     .subscribe(
       (response: any) => {
         const matchedPatients = response.data;
+        console.log(matchedPatients);
 
         if (!matchedPatients || matchedPatients.length === 0) {
           this.snackBar.open('No patient found.', 'Close', { duration: 3000 });
@@ -58,7 +60,7 @@ export class AddAppointmentsComponent implements OnInit {
     );
   }
 
-  openAppointmentDialog(patient: any) {
+  openAppointmentDialog(patient: Appointment) {
     this.dialog.open(AddAppointmentPopupComponent, {
       width: '500px',
       data: patient
