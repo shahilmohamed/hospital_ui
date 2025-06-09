@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { PatientResponse } from './model/PatientResponse';
 import { Patient } from './model/Patient';
+import { Appointment } from './model/Appointment';
 
 @Injectable({
   providedIn: 'root'
@@ -39,4 +40,8 @@ export class HttpService {
     return (this.http.post(`${this.url}/searchPatient`,obj));
   }
 
+  addAppointment(obj: Appointment)
+  {
+    return (this.http.post(`${this.url}/addAppointment`,obj));
+  }
 }

@@ -3,6 +3,8 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { HttpService } from '../http.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Patient } from '../model/Patient';
+import { Appointment } from '../model/Appointment';
 
 @Component({
   selector: 'app-add-appointment-popup',
@@ -17,8 +19,22 @@ export class AddAppointmentPopupComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  submit() {
+  onSubmit(f: any) {
+    let obj:Appointment = {
+      firstname: this.data.firstname,
+      lastname: this.data.lastname,
+      contactNumber: this.data.contactNumber,
+      diagnosis: f.value.diagnosis,
+      diagnosisDate: this.formatDateToLocal(new Date(f.value.diagnosisDate)),
+      isConsulted: false,
+      patient_id: this.data.patient_id
+    }
+    console.log(obj.patient_id);
+    console.log(obj);
     // Save appointment logic
+    this.service.addAppointment(obj).subscribe((response)=>{
+      console.log(response);
+    })
     this.dialogRef.close();
     this.snackBar.open('Appointment added successfully.', 'Close', { duration: 3000 });
   }

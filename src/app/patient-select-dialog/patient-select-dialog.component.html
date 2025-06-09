@@ -2,8 +2,8 @@
 <mat-dialog-content>
   <mat-list>
     <mat-list-item *ngFor="let patient of patients" (click)="select(patient)" class="selectable-patient">
-      <div mat-line><strong>{{ patient.name }}</strong> (Age: {{ patient.age }})</div>
-      <div mat-line>Mobile: {{ patient.mobile }}</div>
+      <div mat-line><strong>{{ patient.firstname+" "+ patient.lastname |titlecase }}</strong> (Age: {{ calculateAge(patient.dob) }})</div>
+      <div mat-line>Mobile: {{ patient.contactNumber }}</div>
     </mat-list-item>
   </mat-list>
 </mat-dialog-content>
