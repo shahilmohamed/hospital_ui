@@ -9,34 +9,33 @@ import { Appointment } from '../model/Appointment';
 @Component({
   selector: 'app-add-appointment-popup',
   templateUrl: './add-appointment-popup.component.html',
-  styleUrls: ['./add-appointment-popup.component.css']
+  styleUrls: ['./add-appointment-popup.component.css'],
 })
 export class AddAppointmentPopupComponent implements OnInit {
+  constructor(
+    public dialogRef: MatDialogRef<AddAppointmentPopupComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private router: Router,
+    private service: HttpService,
+    private snackBar: MatSnackBar
+  ) {}
 
-  constructor(public dialogRef: MatDialogRef<AddAppointmentPopupComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any, private router: Router, private service: HttpService, private snackBar: MatSnackBar) { }
-
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   onSubmit(f: any) {
-    let obj:Appointment = {
+    let obj: any = {
       firstname: this.data.firstname,
       lastname: this.data.lastname,
       contactNumber: this.data.contactNumber,
       diagnosis: f.value.diagnosis,
       diagnosisDate: this.formatDateToLocal(new Date(f.value.diagnosisDate)),
       isConsulted: false,
-      patient_id: this.data.patient_id
-    }
-    console.log(obj.patient_id);
-    console.log(obj);
-    // Save appointment logic
-    this.service.addAppointment(obj).subscribe((response)=>{
-      console.log(response);
-    })
-    this.dialogRef.close();
-    this.snackBar.open('Appointment added successfully.', 'Close', { duration: 3000 });
+      id: this.data.patient_id,
+    };
+    this.service.addAppointment(obj).subscribe((response: any) => {
+      this.dialogRef.close();
+      this.snackBar.open(response.message+'.', 'Close', { duration: 3000 });
+    });
   }
 
   formatDateToLocal(date: Date): string {
@@ -45,5 +44,4 @@ export class AddAppointmentPopupComponent implements OnInit {
     const day = date.getDate().toString().padStart(2, '0');
     return `${year}-${month}-${day}`;
   }
-
 }
