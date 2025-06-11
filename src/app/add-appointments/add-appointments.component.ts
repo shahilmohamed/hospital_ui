@@ -11,27 +11,29 @@ import { Appointment } from '../model/Appointment';
 @Component({
   selector: 'app-add-appointments',
   templateUrl: './add-appointments.component.html',
-  styleUrls: ['./add-appointments.component.css']
+  styleUrls: ['./add-appointments.component.css'],
 })
 export class AddAppointmentsComponent implements OnInit {
-
-  constructor(private dialog: MatDialog, private snackBar: MatSnackBar, private router: Router, private service: HttpService) { }
+  constructor(
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar,
+    private router: Router,
+    private service: HttpService
+  ) {}
 
   ngOnInit(): void {
-    document.body.className = "bg_background_addAppointment";
+    document.body.className = 'bg_background_addAppointment';
   }
 
-  patient = { id: '1', name: 'John Doe', contactNumber: '1234567890', diagnosis: 'fever' };
-  msg: string = "";
-    onSubmit(form: NgForm) {
+  msg: string = '';
+  onSubmit(form: NgForm) {
     const { contactNumber, patientId } = form.value;
-    let obj: any ={
+    let obj: any = {
       contactNumber: form.value.contactNumber,
-      id: form.value.patientId
-    }
+      id: form.value.patientId,
+    };
     // API call to fetch patient data
-    this.service.addAppointmentSearchPatient(obj)
-    .subscribe(
+    this.service.addAppointmentSearchPatient(obj).subscribe(
       (response: any) => {
         const matchedPatients = response.data;
         console.log(matchedPatients);
@@ -43,7 +45,7 @@ export class AddAppointmentsComponent implements OnInit {
         } else {
           const dialogRef = this.dialog.open(PatientSelectDialogComponent, {
             width: '500px',
-            data: matchedPatients
+            data: matchedPatients,
           });
 
           dialogRef.afterClosed().subscribe((selectedPatient) => {
@@ -54,7 +56,9 @@ export class AddAppointmentsComponent implements OnInit {
         }
       },
       (error) => {
-        this.snackBar.open('Error fetching patient data.', 'Close', { duration: 3000 });
+        this.snackBar.open('Error fetching patient data.', 'Close', {
+          duration: 3000,
+        });
         console.error(error);
       }
     );
@@ -63,12 +67,11 @@ export class AddAppointmentsComponent implements OnInit {
   openAppointmentDialog(patient: Appointment) {
     this.dialog.open(AddAppointmentPopupComponent, {
       width: '500px',
-      data: patient
+      data: patient,
     });
   }
 
   ngOnDestroy(): void {
     document.body.className = '';
   }
-
 }
