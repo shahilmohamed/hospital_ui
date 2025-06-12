@@ -44,4 +44,9 @@ export class HttpService {
   {
     return (this.http.post(`${this.url}/addAppointment`,obj));
   }
+
+  getAppointment(obj: Appointment)
+  {
+    return (this.http.post(`${this.url}/getAppointment`, obj));
+  }
 }
