@@ -6,5 +6,5 @@ export interface Appointment
     diagnosis: string;
     diagnosisDate: any;
     isConsulted: boolean;
-    patient_id: number;
+    id: number;
 }
