@@ -15,28 +15,23 @@ export class AppointmentsComponent implements OnInit {
     document.body.className = "bg_background_addNewPatient";
     this.getAllAppointments();
   }
-  patients = [
-    { id: 1, name: 'John Doe', contact: '1234567890', diagnosis: 'fever' },
-    { id: 2, name: 'Jane Smith', contact: '9876543210', diagnosis: 'cold' },
-    { id: 3, name: 'Michael Johnson', contact: '5556667777', diagnosis: 'flu' } 
-  ];
-  appointment: Appointment[] = [];
+  appointments: Appointment[] = [];
   value = '';
-  filteredPatients = [...this.patients];
+  tempPatients: any[]= [];
   p:number =1;
 
   onClickSearch(value: string): void {
     const query = value.trim().toLowerCase();
 
-    this.filteredPatients = this.patients.filter(patient => {
+    this.tempPatients = this.appointments.filter(patient => {
       return (
-        patient.name.toLowerCase().includes(query) ||
-        patient.contact.includes(query) ||
+        patient.firstname.toLowerCase().includes(query) ||
+        patient.contactNumber.includes(query) ||
         patient.id.toString() === query
       );
     });
     if (!query) {
-      this.filteredPatients = [...this.patients];
+      this.tempPatients = [...this.appointments];
       return;
     }
   }
@@ -57,7 +52,8 @@ export class AppointmentsComponent implements OnInit {
     this.service.getAppointment(obj).
     subscribe((response)=>
     {
-      console.log(response);
+      this.appointments = response.data;
+      this.tempPatients = [...this.appointments];
     });
   }
 
