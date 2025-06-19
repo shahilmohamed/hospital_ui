@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { PatientResponse } from './model/PatientResponse';
 import { Patient } from './model/Patient';
 import { Appointment } from './model/Appointment';
+import { AppointmentResponse } from './model/AppointmentResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -45,8 +46,8 @@ export class HttpService {
     return (this.http.post(`${this.url}/addAppointment`,obj));
   }
 
-  getAppointment(obj: Appointment)
+  getAppointment(obj: Appointment): Observable<AppointmentResponse>
   {
-    return (this.http.post(`${this.url}/getAppointment`, obj));
+    return (this.http.post<AppointmentResponse>(`${this.url}/getAppointment`, obj));
   }
 }
