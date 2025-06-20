@@ -19,6 +19,7 @@ export class AppointmentsComponent implements OnInit {
   value = '';
   tempPatients: any[]= [];
   p:number =1;
+  msg: any = "";
 
   onClickSearch(value: string): void {
     const query = value.trim().toLowerCase();
@@ -47,13 +48,20 @@ export class AppointmentsComponent implements OnInit {
     diagnosis: "",
     diagnosisDate: date,
     isConsulted: true,
-    id:0
+    id:0,
+    patient_id:0
     }
     this.service.getAppointment(obj).
     subscribe((response)=>
     {
-      this.appointments = response.data;
-      this.tempPatients = [...this.appointments];
+      if(response.message=='Appointments found')
+      {
+        this.appointments = response.data;
+        this.tempPatients = [...this.appointments];
+      }
+      else{
+        this.msg = response.message;
+      }
     });
   }
 

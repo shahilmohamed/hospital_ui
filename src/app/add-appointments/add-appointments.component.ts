@@ -36,7 +36,6 @@ export class AddAppointmentsComponent implements OnInit {
     this.service.addAppointmentSearchPatient(obj).subscribe(
       (response: any) => {
         const matchedPatients = response.data;
-        console.log(matchedPatients);
 
         if (!matchedPatients || matchedPatients.length === 0) {
           this.snackBar.open('No patient found.', 'Close', { duration: 3000 });
