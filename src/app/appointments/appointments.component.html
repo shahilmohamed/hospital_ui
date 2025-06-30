@@ -26,6 +26,9 @@
             </tr>
         </thead>
         <tbody>
+            <span style="color: red;font-weight: bold;margin-top: 5px;">
+                                    {{msg}}
+                                </span>
             <tr *ngFor="let patient of tempPatients| paginate:{itemsPerPage: 10, currentPage: p };index as i">
                 <td>{{i+1}}</td>
                 <td>{{patient.firstname+' '+patient.lastname | titlecase}}</td>

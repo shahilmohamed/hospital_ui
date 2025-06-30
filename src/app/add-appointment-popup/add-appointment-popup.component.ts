@@ -23,18 +23,19 @@ export class AddAppointmentPopupComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit(f: any) {
-    let obj: any = {
+    let obj: Appointment = {
       firstname: this.data.firstname,
       lastname: this.data.lastname,
       contactNumber: this.data.contactNumber,
       diagnosis: f.value.diagnosis,
       diagnosisDate: this.formatDateToLocal(new Date(f.value.diagnosisDate)),
       isConsulted: false,
-      id: this.data.patient_id,
+      id: Number(sessionStorage.getItem("patient_id"))
     };
     this.service.addAppointment(obj).subscribe((response: any) => {
       this.dialogRef.close();
       this.snackBar.open(response.message+'.', 'Close', { duration: 3000 });
+      sessionStorage.removeItem("patient_id");
     });
   }
 
