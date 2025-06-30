@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../http.service';
 import { Appointment } from '../model/Appointment';
+import { Patient } from '../model/Patient';
 
 @Component({
   selector: 'app-appointments',
@@ -48,8 +49,7 @@ export class AppointmentsComponent implements OnInit {
     diagnosis: "",
     diagnosisDate: date,
     isConsulted: true,
-    id:0,
-    patient_id:0
+    id:0
     }
     this.service.getAppointment(obj).
     subscribe((response)=>

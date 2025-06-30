@@ -16,7 +16,6 @@ export class PatientSelectDialogComponent implements OnInit {
   }
 
   select(patient: Patient) {
-    console.log(patient.id);
     this.dialogRef.close(patient);
   }
 

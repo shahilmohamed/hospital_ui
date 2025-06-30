@@ -6,6 +6,7 @@ import { PatientResponse } from './model/PatientResponse';
 import { Patient } from './model/Patient';
 import { Appointment } from './model/Appointment';
 import { AppointmentResponse } from './model/AppointmentResponse';
+import { SearchPatientResponse } from './model/SearchPatientResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -36,9 +37,9 @@ export class HttpService {
     return (this.http.get<PatientResponse>(`${this.url}/getAllPatient/${id}`));
   }
 
-  addAppointmentSearchPatient(obj: Patient)
+  addAppointmentSearchPatient(obj: Patient): Observable<SearchPatientResponse>
   {
-    return (this.http.post(`${this.url}/searchPatient`,obj));
+    return (this.http.post<SearchPatientResponse>(`${this.url}/searchPatient`, obj));
   }
 
   addAppointment(obj: Appointment)

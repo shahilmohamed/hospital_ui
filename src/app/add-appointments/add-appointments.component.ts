@@ -6,7 +6,8 @@ import { Router } from '@angular/router';
 import { HttpService } from '../http.service';
 import { PatientSelectDialogComponent } from '../patient-select-dialog/patient-select-dialog.component';
 import { NgForm } from '@angular/forms';
-import { Appointment } from '../model/Appointment';
+import { SearchPatient } from '../model/SearchPatient';
+import { SearchPatientResponse } from '../model/SearchPatientResponse';
 
 @Component({
   selector: 'app-add-appointments',
@@ -26,6 +27,7 @@ export class AddAppointmentsComponent implements OnInit {
   }
 
   msg: string = '';
+  matchedPatients: SearchPatient[] =[];
   onSubmit(form: NgForm) {
     const { contactNumber, patientId } = form.value;
     let obj: any = {
@@ -34,21 +36,23 @@ export class AddAppointmentsComponent implements OnInit {
     };
     // API call to fetch patient data
     this.service.addAppointmentSearchPatient(obj).subscribe(
-      (response: any) => {
-        const matchedPatients = response.data;
+      (response: SearchPatientResponse) => {
+        this.matchedPatients = response.data;
 
-        if (!matchedPatients || matchedPatients.length === 0) {
+        if (!this.matchedPatients || this.matchedPatients.length === 0) {
           this.snackBar.open('No patient found.', 'Close', { duration: 3000 });
-        } else if (matchedPatients.length === 1) {
-          this.openAppointmentDialog(matchedPatients[0]);
+        } else if (this.matchedPatients.length === 1) {
+          sessionStorage.setItem("patient_id", "" + this.matchedPatients[0].patient_id);
+          this.openAppointmentDialog(this.matchedPatients[0]);
         } else {
           const dialogRef = this.dialog.open(PatientSelectDialogComponent, {
             width: '500px',
-            data: matchedPatients,
+            data: this.matchedPatients,
           });
 
           dialogRef.afterClosed().subscribe((selectedPatient) => {
             if (selectedPatient) {
+              sessionStorage.setItem("patient_id", "" + selectedPatient.patient_id);
               this.openAppointmentDialog(selectedPatient);
             }
           });
@@ -63,7 +67,7 @@ export class AddAppointmentsComponent implements OnInit {
     );
   }
 
-  openAppointmentDialog(patient: Appointment) {
+  openAppointmentDialog(patient: SearchPatient) {
     this.dialog.open(AddAppointmentPopupComponent, {
       width: '500px',
       data: patient,

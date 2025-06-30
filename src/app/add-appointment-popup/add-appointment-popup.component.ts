@@ -30,12 +30,12 @@ export class AddAppointmentPopupComponent implements OnInit {
       diagnosis: f.value.diagnosis,
       diagnosisDate: this.formatDateToLocal(new Date(f.value.diagnosisDate)),
       isConsulted: false,
-      id: this.data.patient_id,
-      patient_id: 1
+      id: Number(sessionStorage.getItem("patient_id"))
     };
     this.service.addAppointment(obj).subscribe((response: any) => {
       this.dialogRef.close();
       this.snackBar.open(response.message+'.', 'Close', { duration: 3000 });
+      sessionStorage.removeItem("patient_id");
     });
   }
 
