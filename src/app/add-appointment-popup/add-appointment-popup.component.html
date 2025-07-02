@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Add Appointment to </h2>
+<h2 mat-dialog-title>Add Appointment to {{patient_name | titlecase}}</h2>
 <mat-dialog-content>
     <form #f="ngForm" (ngSubmit)="onSubmit(f)">
         <!-- Appointment date  -->

@@ -21,7 +21,7 @@ export class AddAppointmentPopupComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {}
-
+  patient_name: string | null = sessionStorage.getItem("patient_name");
   onSubmit(f: any) {
     let obj: Appointment = {
       firstname: this.data.firstname,
@@ -35,6 +35,7 @@ export class AddAppointmentPopupComponent implements OnInit {
     this.service.addAppointment(obj).subscribe((response: any) => {
       this.dialogRef.close();
       this.snackBar.open(response.message+'.', 'Close', { duration: 3000 });
+      sessionStorage.removeItem("patient_name");
       sessionStorage.removeItem("patient_id");
     });
   }
