@@ -7,6 +7,7 @@ import { PatientDetailsComponent } from '../patient-details/patient-details.comp
 import { MedicalHistoryComponent } from '../medical-history/medical-history.component';
 import { AppointmentsComponent } from '../appointments/appointments.component';
 import { AddNewPatientComponent } from '../add-new-patient/add-new-patient.component';
+import { PrescriptionComponent } from '../prescription/prescription.component';
 
 const routes: Routes = [
   {
@@ -30,6 +31,9 @@ const routes: Routes = [
   },
   {
     path: 'addNewpatient', component: AddNewPatientComponent
+  },
+  {
+    path: 'addPrescription', component: PrescriptionComponent
   }
 ];
 
