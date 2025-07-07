@@ -1,0 +1,51 @@
+<app-header></app-header>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="addPrescriptionform">
+                <div class="main-div shadow p-3 bg-white rounded">
+                    <div class="panel">
+                        <h3>Prescription</h3>
+                        <hr>
+                        <form #f="ngForm" (ngSubmit)="onSubmit(f)" class="example-form">
+                            <!-- Diagnosis -->
+                            <div class="column">
+                                <div class="form-group">
+                                    <mat-form-field class="example-full-width" appearance="fill">
+                                        <mat-label>Diagnosis</mat-label>
+                                        <input matInput ngModel type="text" #address="ngModel" name="diagnosis"
+                                            id="addPrescriptionDiagnosis" required>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <!-- Diagnosis date -->
+                            <div class="column">
+                                <div class="form-group">
+                                    <mat-form-field class="example-full-width" appearance="fill">
+                                        <mat-label>Diagnosis date</mat-label>
+                                        <input matInput [matDatepicker]="picker" ngModel #dob="ngModel" name="diagnosisDate"
+                                            id="addPrescriptionDDate" required>
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <!-- Re-visit date -->
+                            <div class="column">
+                                <div class="form-group">
+                                    <mat-form-field class="example-full-width" appearance="fill">
+                                        <mat-label>Re-visit date</mat-label>
+                                        <input matInput [matDatepicker]="picker" ngModel #dob="ngModel" name="revisitDate"
+                                            id="addPrescriptionRDate" required>
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

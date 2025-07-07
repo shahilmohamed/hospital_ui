@@ -19,3 +19,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .bg_background_addAppointment{
     background-color: aliceblue;
 }
+
+.bg_background_addPrescription{
+    background-color: aliceblue;
+}

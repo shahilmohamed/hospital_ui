@@ -27,6 +27,7 @@ export class AddAppointmentsComponent implements OnInit {
   }
 
   msg: string = '';
+  patient_name: string = '';
   matchedPatients: SearchPatient[] =[];
   onSubmit(form: NgForm) {
     const { contactNumber, patientId } = form.value;
@@ -42,6 +43,8 @@ export class AddAppointmentsComponent implements OnInit {
         if (!this.matchedPatients || this.matchedPatients.length === 0) {
           this.snackBar.open('No patient found.', 'Close', { duration: 3000 });
         } else if (this.matchedPatients.length === 1) {
+          this.patient_name = this.matchedPatients[0].firstname + " " + this.matchedPatients[0].lastname;
+          sessionStorage.setItem("patient_name",this.patient_name);
           sessionStorage.setItem("patient_id", "" + this.matchedPatients[0].patient_id);
           this.openAppointmentDialog(this.matchedPatients[0]);
         } else {
@@ -52,6 +55,8 @@ export class AddAppointmentsComponent implements OnInit {
 
           dialogRef.afterClosed().subscribe((selectedPatient) => {
             if (selectedPatient) {
+              this.patient_name = this.matchedPatients[0].firstname + " " + selectedPatient.lastname;
+              sessionStorage.setItem("patient_name",this.patient_name);
               sessionStorage.setItem("patient_id", "" + selectedPatient.patient_id);
               this.openAppointmentDialog(selectedPatient);
             }

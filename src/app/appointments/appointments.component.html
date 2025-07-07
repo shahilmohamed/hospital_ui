@@ -22,7 +22,7 @@
                 <th>Name</th>
                 <th>Contact</th>
                 <th>Diagnosis</th>
-                <th>Histroy</th>
+                <th>Prescription</th>
             </tr>
         </thead>
         <tbody>
@@ -34,7 +34,7 @@
                 <td>{{patient.firstname+' '+patient.lastname | titlecase}}</td>
                 <td>{{patient.contactNumber}}</td>
                 <td>{{patient.diagnosis | titlecase}}</td>
-                <td><a [routerLink]="['/dashboard/medical-history', patient.id]" mat-raised-button class="btn btn-sm btn-info">View history</a></td>
+                <td><a [routerLink]="['/dashboard/addPrescription']" mat-raised-button class="btn btn-sm btn-info">Add Prescription</a></td>
             </tr>
         </tbody>
     </table>
