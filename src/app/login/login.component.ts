@@ -31,8 +31,6 @@ export class LoginComponent implements OnInit {
       if (response.message == 'Login successfully') {
         this.router.navigate(['/dashboard']);
         this.name = response.data.firstname+" "+response.data.lastname;
-        this.cookieService.set('name', this.name);
-        this.cookieService.set('id', response.data.id);
       } else {
         this.msg = response.message;
       }

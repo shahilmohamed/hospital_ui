@@ -24,7 +24,12 @@ export class HttpService {
 
   login(obj:any)
   {
-    return (this.http.post(`${this.url}/login`,obj));
+    return (this.http.post(`${this.url}/login`,obj,{withCredentials: true}));
+  }
+
+  logout()
+  {
+    return (this.http.get(`${this.url}/logout`, {withCredentials: true}));
   }
 
   addNewPatient(obj:any, id:string)

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { HttpService } from '../http.service';
 
 @Component({
   selector: 'app-header',
@@ -8,17 +9,18 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  constructor(
+    private router: Router,
+    private service: HttpService,
+    private cookieService: CookieService
+  ) {}
 
-  constructor(private router: Router, private cookieService: CookieService) { }
-
-  userName: string = `Dr. ${this.cookieService.get("name")}`;
-  ngOnInit(): void {
-  }
+  userName: string = `Dr. ${this.cookieService.get('name')}`;
+  ngOnInit(): void {}
 
   logout() {
-    this.cookieService.delete("id");
-    this.cookieService.delete("name");
-    this.router.navigate(['/login']);
+    this.service.logout().subscribe(() => {
+      this.router.navigate(['/login']);
+    });
   }
-
 }
