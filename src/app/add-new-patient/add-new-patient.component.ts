@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpService } from '../http.service';
 import { NgForm } from '@angular/forms';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-add-new-patient',
@@ -10,7 +11,7 @@ import { NgForm } from '@angular/forms';
 })
 export class AddNewPatientComponent implements OnInit {
 
-  constructor(private router: Router, private service: HttpService) { }
+  constructor(private router: Router, private service: HttpService, private cookieService: CookieService) { }
 
   ngOnInit(): void {
     document.body.className = "bg_background_addNewPatient";
@@ -30,7 +31,7 @@ export class AddNewPatientComponent implements OnInit {
       address: f.value.address,
       bloodGroup: f.value.bloodGroup
     };
-    const id = sessionStorage.getItem("id");
+    const id = this.cookieService.get("id");
     if(id)
     {
       this.service.addNewPatient(obj,id).subscribe((response: any) => {

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-header',
@@ -8,16 +9,15 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private cookieService: CookieService) { }
 
-  userName: string = `Dr. ${sessionStorage.getItem("name")}`;
+  userName: string = `Dr. ${this.cookieService.get("name")}`;
   ngOnInit(): void {
   }
 
   logout() {
-    sessionStorage.removeItem("id");
-    sessionStorage.removeItem("name");
-    sessionStorage.clear();
+    this.cookieService.delete("id");
+    this.cookieService.delete("name");
     this.router.navigate(['/login']);
   }
 
