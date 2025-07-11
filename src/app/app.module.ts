@@ -27,6 +27,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { AddAppointmentPopupComponent } from './add-appointment-popup/add-appointment-popup.component';
 import { PatientSelectDialogComponent } from './patient-select-dialog/patient-select-dialog.component';
 import { PrescriptionComponent } from './prescription/prescription.component';
+import { CookieService } from 'ngx-cookie-service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,7 +61,7 @@ import { PrescriptionComponent } from './prescription/prescription.component';
     HttpClientModule,
     NgxPaginationModule
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

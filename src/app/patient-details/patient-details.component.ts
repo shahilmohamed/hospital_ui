@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MaterialModule } from '../shared/material.module';
 import { HttpService } from '../http.service';
 import { Patient } from '../model/Patient';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-patient-details',
@@ -16,11 +17,11 @@ export class PatientDetailsComponent implements OnInit {
   tempPatients: any[]= [];
   p:number =1;
 
-  constructor(private service: HttpService) { }
+  constructor(private service: HttpService, private cookieService: CookieService) { }
 
   ngOnInit(): void {
     document.body.className = "bg_background_addNewPatient";
-    this.doctorId = sessionStorage.getItem("id");
+    this.doctorId = this.cookieService.get("id");
     this.getAllPatients(this.doctorId);
   }
 

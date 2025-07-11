@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../http.service';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,7 @@ import { NgForm } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private router: Router, private service: HttpService) { }
+  constructor(private router: Router, private service: HttpService, private cookieService: CookieService) { }
 
   ngOnInit(): void {
     document.body.className = "bg_background";
@@ -30,8 +31,6 @@ export class LoginComponent implements OnInit {
       if (response.message == 'Login successfully') {
         this.router.navigate(['/dashboard']);
         this.name = response.data.firstname+" "+response.data.lastname;
-        sessionStorage.setItem('name', this.name);
-        sessionStorage.setItem('id', response.data.id);
       } else {
         this.msg = response.message;
       }
