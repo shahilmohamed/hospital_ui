@@ -3,6 +3,7 @@ import { MaterialModule } from '../shared/material.module';
 import { HttpService } from '../http.service';
 import { Patient } from '../model/Patient';
 import { CookieService } from 'ngx-cookie-service';
+import { Doctor } from '../model/Doctor';
 
 @Component({
   selector: 'app-patient-details',
@@ -12,7 +13,7 @@ import { CookieService } from 'ngx-cookie-service';
 export class PatientDetailsComponent implements OnInit {
 
   patients: Patient[] = [];
-  doctorId: string| null = '';
+  doctor: Doctor | undefined;
   value = '';
   tempPatients: any[]= [];
   p:number =1;
@@ -21,8 +22,21 @@ export class PatientDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     document.body.className = "bg_background_addNewPatient";
-    this.doctorId = this.cookieService.get("id");
-    this.getAllPatients(this.doctorId);
+    let obj: Doctor = {
+      id: Number(this.cookieService.get("id")),
+      firstname: '',
+      lastname: '',
+      gender: '',
+      email: '',
+      phoneNumber: '',
+      address: '',
+      bloodGroup: '',
+      dob: undefined,
+      password: '',
+      role: '',
+      specialization: ''
+    }
+    this.getAllPatients(obj);
   }
 
 
@@ -43,9 +57,9 @@ export class PatientDetailsComponent implements OnInit {
 
   }
 
-  getAllPatients(id: any)
+  getAllPatients(obj: Doctor)
   {
-    this.service.getAllPatients(id)
+    this.service.getAllPatients(obj)
     .subscribe((response)=>
     {
       this.patients = response.data;
