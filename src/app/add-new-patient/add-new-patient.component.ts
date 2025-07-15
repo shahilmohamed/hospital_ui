@@ -23,6 +23,7 @@ export class AddNewPatientComponent implements OnInit {
   onSubmit(f:NgForm)
   {
     let obj = {
+      id: Number(this.cookieService.get("id")),
       firstname: f.value.firstname,
       lastname: f.value.lastname,
       gender: f.value.gender,
@@ -31,10 +32,9 @@ export class AddNewPatientComponent implements OnInit {
       address: f.value.address,
       bloodGroup: f.value.bloodGroup
     };
-    const id = this.cookieService.get("id");
-    if(id)
+    if (obj.id)
     {
-      this.service.addNewPatient(obj,id).subscribe((response: any) => {
+      this.service.addNewPatient(obj).subscribe((response: any) => {
         if(response.message=="Patient added successfully")
         {
           this.router.navigate(['/dashboard/patients'])
