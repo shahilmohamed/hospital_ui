@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { HttpService } from '../http.service';
 import { NgForm } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
+import { Patient } from '../model/Patient';
 
 @Component({
   selector: 'app-add-new-patient',
@@ -22,8 +23,8 @@ export class AddNewPatientComponent implements OnInit {
 
   onSubmit(f:NgForm)
   {
-    let obj = {
-      id: Number(this.cookieService.get("id")),
+    let obj: Patient = {
+      id: 0,
       firstname: f.value.firstname,
       lastname: f.value.lastname,
       gender: f.value.gender,
@@ -32,7 +33,7 @@ export class AddNewPatientComponent implements OnInit {
       address: f.value.address,
       bloodGroup: f.value.bloodGroup
     };
-    if (obj.id)
+    if (this.cookieService.get("id"))
     {
       this.service.addNewPatient(obj).subscribe((response: any) => {
         if(response.message=="Patient added successfully")

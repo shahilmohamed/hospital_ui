@@ -22,21 +22,7 @@ export class PatientDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     document.body.className = "bg_background_addNewPatient";
-    let obj: Doctor = {
-      id: Number(this.cookieService.get("id")),
-      firstname: '',
-      lastname: '',
-      gender: '',
-      email: '',
-      phoneNumber: '',
-      address: '',
-      bloodGroup: '',
-      dob: undefined,
-      password: '',
-      role: '',
-      specialization: ''
-    }
-    this.getAllPatients(obj);
+    this.getAllPatients();
   }
 
 
@@ -57,9 +43,9 @@ export class PatientDetailsComponent implements OnInit {
 
   }
 
-  getAllPatients(obj: Doctor)
+  getAllPatients()
   {
-    this.service.getAllPatients(obj)
+    this.service.getAllPatients()
     .subscribe((response)=>
     {
       this.patients = response.data;
