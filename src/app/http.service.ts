@@ -20,32 +20,32 @@ export class HttpService {
 
   signup(obj:any)
   {
-    return (this.http.post(`${this.url}/signup`,obj));
+    return (this.http.post(`${this.url}/auth/signup`,obj));
   }
 
   login(obj:any)
   {
-    return (this.http.post(`${this.url}/login`,obj,{withCredentials: true}));
+    return (this.http.post(`${this.url}/auth/login`,obj,{withCredentials: true}));
   }
 
   logout()
   {
-    return (this.http.get(`${this.url}/logout`, {withCredentials: true}));
+    return (this.http.get(`${this.url}/auth/logout`, {withCredentials: true}));
   }
 
   addNewPatient(obj: Patient)
   {
-    return (this.http.post(`${this.url}/addPatient`, obj, {withCredentials: true}));
+    return (this.http.post(`${this.url}/patients/addPatient`, obj, {withCredentials: true}));
   }
 
   getAllPatients(): Observable<PatientResponse>
   {
-    return (this.http.get<PatientResponse>(`${this.url}/getAllPatient`, {withCredentials: true}));
+    return (this.http.get<PatientResponse>(`${this.url}/patients/getAllPatient`, {withCredentials: true}));
   }
 
   addAppointmentSearchPatient(obj: Patient): Observable<SearchPatientResponse>
   {
-    return (this.http.post<SearchPatientResponse>(`${this.url}/searchPatient`, obj, {withCredentials: true}));
+    return (this.http.post<SearchPatientResponse>(`${this.url}/patients/searchPatient`, obj, {withCredentials: true}));
   }
 
   addAppointment(obj: Appointment)

@@ -24,11 +24,11 @@ export class LoginComponent implements OnInit {
   name: string ="";
   onSubmit(f: any) {
     let obj = {
-      email: f.value.email,
+      username: f.value.email,
       password: f.value.password
     };
     this.service.login(obj).subscribe((response: any) => {
-      if (response.message == 'Login successfully') {
+      if (response.message == 'Login successful') {
         this.router.navigate(['/dashboard']);
         this.name = response.data.firstname+" "+response.data.lastname;
       } else {
