@@ -35,7 +35,7 @@ export class HttpService {
 
   addNewPatient(obj: Patient)
   {
-    return (this.http.post(`${this.url}/patients/addPatient`, obj, {withCredentials: true}));
+    return (this.http.post(`${this.url}/patients/add`, obj, {withCredentials: true}));
   }
 
   getAllPatients(): Observable<PatientResponse>
