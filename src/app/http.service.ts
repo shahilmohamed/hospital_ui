@@ -50,11 +50,11 @@ export class HttpService {
 
   addAppointment(obj: Appointment)
   {
-    return (this.http.post(`${this.url}/appointment/add`,obj));
+    return (this.http.post(`${this.url}/appointment/add`,obj, {withCredentials: true}));
   }
 
   getAppointment(obj: Appointment): Observable<AppointmentResponse>
   {
-    return (this.http.post<AppointmentResponse>(`${this.url}/getAppointment`, obj));
+    return (this.http.post<AppointmentResponse>(`${this.url}/appointment/get`, obj, {withCredentials: true}));
   }
 }
