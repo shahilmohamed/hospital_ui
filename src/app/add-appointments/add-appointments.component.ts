@@ -45,7 +45,7 @@ export class AddAppointmentsComponent implements OnInit {
         } else if (this.matchedPatients.length === 1) {
           this.patient_name = this.matchedPatients[0].firstname + " " + this.matchedPatients[0].lastname;
           sessionStorage.setItem("patient_name",this.patient_name);
-          sessionStorage.setItem("patient_id", "" + this.matchedPatients[0].patient_id);
+          sessionStorage.setItem("patient_id", "" + this.matchedPatients[0].id);
           this.openAppointmentDialog(this.matchedPatients[0]);
         } else {
           const dialogRef = this.dialog.open(PatientSelectDialogComponent, {

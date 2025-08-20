@@ -1,4 +1,5 @@
 export interface SearchPatient {
+    id: number;
     firstname: string;
     dob: any;
     patient_id: number;
