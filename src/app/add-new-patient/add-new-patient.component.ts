@@ -20,6 +20,7 @@ export class AddNewPatientComponent implements OnInit {
 
   mobile_number_pattern = /^[6-9]\d{9}$/;
   message: string ="";
+  uploadFile: File[] = [];
 
   onSubmit(f:NgForm)
   {
@@ -52,6 +53,17 @@ export class AddNewPatientComponent implements OnInit {
     }
     
 
+  }
+
+  onFileChange(event: any) {
+    this.uploadFile = Array.from(event.target.files);
+    if (this.uploadFile.length > 0) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        console.log('File content:', this.uploadFile);
+      };
+      reader.readAsDataURL(this.uploadFile[0]);
+    }
   }
 
   formatDateToLocal(date: Date): string {
