@@ -53,14 +53,14 @@ export class AddAppointmentsComponent implements OnInit {
             data: this.matchedPatients,
           });
 
-          dialogRef.afterClosed().subscribe((selectedPatient) => {
-            if (selectedPatient) {
+          dialogRef.afterClosed().subscribe((selectedPatient: SearchPatient) => {
+              if (selectedPatient) {
               this.patient_name = this.matchedPatients[0].firstname + " " + selectedPatient.lastname;
               sessionStorage.setItem("patient_name",this.patient_name);
-              sessionStorage.setItem("patient_id", "" + selectedPatient.patient_id);
-              this.openAppointmentDialog(selectedPatient);
-            }
-          });
+              sessionStorage.setItem("patient_id", "" + selectedPatient.id);
+                this.openAppointmentDialog(selectedPatient);
+              }
+            });
         }
       },
       (error) => {
