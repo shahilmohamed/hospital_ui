@@ -23,10 +23,10 @@
                                 <div class="form-group">
                                     <mat-form-field class="example-full-width" appearance="fill">
                                         <mat-label>Diagnosis date</mat-label>
-                                        <input matInput [matDatepicker]="picker" ngModel #dob="ngModel" name="diagnosisDate"
+                                        <input matInput [matDatepicker]="diagnosisPicker" ngModel #dob="ngModel" name="diagnosisDate"
                                             id="addPrescriptionDDate" required>
-                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                        <mat-datepicker #picker></mat-datepicker>
+                                        <mat-datepicker-toggle matSuffix [for]="diagnosisPicker"></mat-datepicker-toggle>
+                                        <mat-datepicker #diagnosisPicker></mat-datepicker>
                                     </mat-form-field>
                                 </div>
                             </div>
@@ -35,13 +35,68 @@
                                 <div class="form-group">
                                     <mat-form-field class="example-full-width" appearance="fill">
                                         <mat-label>Re-visit date</mat-label>
-                                        <input matInput [matDatepicker]="picker" ngModel #dob="ngModel" name="revisitDate"
-                                            id="addPrescriptionRDate" required>
-                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                        <mat-datepicker #picker></mat-datepicker>
+                                        <input matInput [matDatepicker]="revisitPicker" ngModel #revisitdate="ngModel"
+                                            name="revisitDate" id="addPrescriptionRDate" required>
+                                        <mat-datepicker-toggle matSuffix [for]="revisitPicker"></mat-datepicker-toggle>
+                                        <mat-datepicker #revisitPicker></mat-datepicker>
                                     </mat-form-field>
                                 </div>
                             </div>
+                            <!-- Review -->
+                            <div class="column">
+                                <div class="form-group">
+                                    <mat-form-field class="example-full-width" appearance="fill">
+                                        <mat-label>Review</mat-label>
+                                        <input matInput ngModel type="text" #address="ngModel" name="review"
+                                            id="addPrescriptionReview" required>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <!-- Medicine Rows -->
+                            <!-- <div formArrayName="medicines">
+                                <div *ngFor="let med of medicineArray.controls; let i = index" [formGroupName]="i"
+                                    class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center mb-4 p-3 rounded-xl border"> -->
+
+                                    <!-- Medicine Search Dropdown -->
+                                    <!-- <mat-form-field appearance="outline" class="w-full">
+                                        <mat-label>Medicine</mat-label>
+                                        <input type="text" matInput placeholder="Search medicine"
+                                            [matAutocomplete]="auto" formControlName="name">
+                                        <mat-autocomplete #auto="matAutocomplete">
+                                            <mat-option *ngFor="let m of medicines" [value]="m">{{ m }}</mat-option>
+                                        </mat-autocomplete>
+                                    </mat-form-field> -->
+
+                                    <!-- Dosage -->
+                                    <!-- <mat-form-field appearance="outline" class="w-full">
+                                        <mat-label>Dosage</mat-label>
+                                        <input matInput placeholder="e.g. 1-0-1" formControlName="dosage">
+                                    </mat-form-field> -->
+
+                                    <!-- Duration -->
+                                    <!-- <mat-form-field appearance="outline" class="w-full">
+                                        <mat-label>Duration (Days)</mat-label>
+                                        <input matInput type="number" formControlName="duration">
+                                    </mat-form-field> -->
+
+                                    <!-- Remove Button -->
+                                    <!-- <button mat-icon-button color="warn" (click)="removeMedicine(i)">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                </div>
+                            </div> -->
+                            <!-- Add Medicine Button -->
+                            <!-- <div class="mb-4">
+                                <button mat-stroked-button color="primary" (click)="addMedicine()" type="button">
+                                    <mat-icon>add</mat-icon> Add Medicine
+                                </button>
+                            </div> -->
+
+                            <!-- Save Button -->
+                            <button mat-raised-button color="primary" class="rounded-xl px-6 py-2"
+                                (click)="savePrescription()">
+                                Save Prescription
+                            </button>
                         </form>
                     </div>
                 </div>

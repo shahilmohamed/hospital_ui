@@ -37,3 +37,17 @@
 .example-full-width {
     width: 100%;
 }
+
+mat-card {
+  padding: 20px;
+  background: #ffffff;
+}
+
+mat-form-field {
+  display: block;
+}
+
+mat-chip {
+  background: #e3f2fd;
+  margin: 4px;
+}
