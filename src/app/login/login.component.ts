@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
     this.service.login(obj).subscribe((response: any) => {
       if (response.message == 'Login successful') {
         this.router.navigate(['/dashboard']);
-        this.name = response.data.firstname+" "+response.data.lastname;
+        // this.name = response.data.firstname+" "+response.data.lastname;
       } else {
         this.msg = response.message;
       }
