@@ -16,7 +16,8 @@ export class HttpService {
 
   constructor(private http: HttpClient) { }
 
-  private url : string = "http://localhost:8080";
+  // private url : string = "http://localhost:8081";
+  private url : string = environment.url;
 
   signup(obj:any)
   {
