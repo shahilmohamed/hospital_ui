@@ -11,7 +11,7 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): boolean 
     {
-      if(this.cookieService.get("jwtToken")!=null)
+      if(localStorage.getItem("login")!=null)
       {
         return true;
       }

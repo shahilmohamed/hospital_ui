@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { AuthGuard } from '../auth.guard';
 import { AddAppointmentsComponent } from '../add-appointments/add-appointments.component';
@@ -13,13 +12,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../shared/material.module';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { HttpClientModule } from '@angular/common/http';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatInputModule } from '@angular/material/input';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AppRoutingModule } from '../app-routing.module';
-import { BrowserModule } from '@angular/platform-browser';
 import { HeaderComponent } from '../header/header.component';
 import { FooterComponent } from '../footer/footer.component';
 import { AddAppointmentPopupComponent } from '../add-appointment-popup/add-appointment-popup.component';
@@ -41,17 +33,10 @@ import { PrescriptionComponent } from '../prescription/prescription.component';
     AddAppointmentPopupComponent
   ],
   imports: [
-    BrowserModule,
-    AppRoutingModule,
     CommonModule,
     DashboardRoutingModule,
     FormsModule,
-    BrowserAnimationsModule,
     MaterialModule,
-    MatDatepickerModule,
-    MatInputModule,
-    MatNativeDateModule,
-    MatFormFieldModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
