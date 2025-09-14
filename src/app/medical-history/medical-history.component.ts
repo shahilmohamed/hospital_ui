@@ -18,6 +18,7 @@ export class MedicalHistoryComponent implements OnInit {
   selectedPrescription: any=null;
 
   history: History[] = [];
+  msg: string = '';
 
   constructor(private route: ActivatedRoute, private service: HttpService) { }
 
@@ -40,7 +41,12 @@ export class MedicalHistoryComponent implements OnInit {
   getMedicalHistory(patient: Patient) {
     this.service.getMedicalHistory(patient)
       .subscribe((response: MedicalHistoryResponse) => {
-        this.history = response.data;
+        if (response.message === 'Medical History Found') {
+          this.history = response.data;
+        }
+        else {
+          this.msg = response.message;
+        }
       });
   }
 
