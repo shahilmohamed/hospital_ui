@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddAppointmentsComponent } from 'src/app/add-appointments/add-appointments.component';
-import { AuthGuard } from 'src/app/auth.guard';
 import { HomeComponent } from 'src/app/home/home.component';
 import { PatientDetailsComponent } from '../patient-details/patient-details.component';
 import { MedicalHistoryComponent } from '../medical-history/medical-history.component';
@@ -20,7 +19,7 @@ const routes: Routes = [
     path:'patients', component: PatientDetailsComponent
   },
   { 
-    path: 'medical-history/:id', component: MedicalHistoryComponent 
+    path: 'medical-history/:id', component: MedicalHistoryComponent
 
   },
   {

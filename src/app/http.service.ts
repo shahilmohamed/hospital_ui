@@ -7,7 +7,7 @@ import { Patient } from './model/Patient';
 import { Appointment } from './model/Appointment';
 import { AppointmentResponse } from './model/AppointmentResponse';
 import { SearchPatientResponse } from './model/SearchPatientResponse';
-import { Doctor } from './model/Doctor';
+import { MedicalHistoryResponse } from './model/MedicalHistoryResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +16,8 @@ export class HttpService {
 
   constructor(private http: HttpClient) { }
 
-  private url : string = "http://localhost:8080";
+  // private url : string = "http://localhost:8081";
+  private url : string = environment.url;
 
   signup(obj:any)
   {
@@ -43,6 +44,11 @@ export class HttpService {
     return (this.http.get<PatientResponse>(`${this.url}/patients/getAllPatient`, {withCredentials: true}));
   }
 
+  getPatientById(id: number): Observable<Patient>
+  {
+    return (this.http.get<Patient>(`${this.url}/patients/getPatientById/${id}`, {withCredentials: true}));
+  }
+
   addAppointmentSearchPatient(obj: Patient): Observable<SearchPatientResponse>
   {
     return (this.http.post<SearchPatientResponse>(`${this.url}/patients/searchPatient`, obj, {withCredentials: true}));
@@ -56,5 +62,10 @@ export class HttpService {
   getAppointment(obj: Appointment): Observable<AppointmentResponse>
   {
     return (this.http.post<AppointmentResponse>(`${this.url}/appointment/get`, obj, {withCredentials: true}));
+  }
+
+  getMedicalHistory(obj: Patient): Observable<MedicalHistoryResponse>
+  {
+    return (this.http.post<MedicalHistoryResponse>(`${this.url}/history/get`, obj, {withCredentials: true}));
   }
 }

@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as bootstrap from 'bootstrap';
+import { HttpService } from '../http.service';
+import { Patient } from './../model/Patient';
+import { MedicalHistoryResponse } from '../model/MedicalHistoryResponse';
+import { History } from '../model/History';
 
 @Component({
   selector: 'app-medical-history',
@@ -13,60 +17,71 @@ export class MedicalHistoryComponent implements OnInit {
   name: string = "";
   selectedPrescription: any=null;
 
-  history = [
-    {
-      diagnosisDate: '2024-12-01',
-      diagnosis: 'Flu',
-      revisitDate: '2024-12-10',
-      review: 'Mild improvement',
-      prescription: [
-        { drug: 'Paracetamol', morning: true, afternoon: false, night: true, days: 5 },
-        { drug: 'Antibiotic A', morning: true, afternoon: true, night: true, days: 7 }
-      ]
-    },
-    {
-      diagnosisDate: '2025-01-15',
-      diagnosis: 'Cold and cough',
-      revisitDate: '2025-01-25',
-      review: 'Fully recovered',
-      prescription: [
-        { drug: 'Cough Syrup', morning: false, afternoon: true, night: true, days: 3 }
-      ]
-    }
-  ];
+  history: History[] = [];
+  msg: string = '';
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private service: HttpService) { }
 
   ngOnInit() {
     this.patientId = Number(this.route.snapshot.paramMap.get('id'));
     document.body.className = 'bg_background_addNewPatient';
+    const patient: Patient = {
+      id: this.patientId,
+      firstname: '',
+      lastname: '',
+      gender: '',
+      contactNumber: '',
+      address: '',
+      bloodGroup: '',
+      dob: undefined
+    };
+    this.getMedicalHistory(patient);
+    this.getPatientDetails(this.patientId);
+  }
+  getMedicalHistory(patient: Patient) {
+    this.service.getMedicalHistory(patient)
+      .subscribe((response: MedicalHistoryResponse) => {
+        if (response.message === 'Medical History Found') {
+          this.history = response.data;
+        }
+        else {
+          this.msg = response.message;
+        }
+      });
   }
 
-   openPrescription(prescription: any): void {
-    this.selectedPrescription = prescription;
-    const modal = document.getElementById('prescriptionModal');
-    if (modal) new bootstrap.Modal(modal).show();
+  getPatientDetails(id: number) {
+    this.service.getPatientById(id)
+      .subscribe((response: any) => {
+        this.name = response.data.firstname + ' ' + response.data.lastname;
+      });
   }
+
+  //  openPrescription(prescription: any): void {
+  //   // this.selectedPrescription = prescription;
+  //   // const modal = document.getElementById('prescriptionModal');
+  //   // if (modal) new bootstrap.Modal(modal).show();
+  // }
 
   value = '';
   filteredHistory = [...this.history];
   p: number = 1;
   p1: number = 1;
 
-  onClickSearch(value: string): void {
-    const query = value.trim().toLowerCase();
+  // onClickSearch(value: string): void {
+  //   const query = value.trim().toLowerCase();
 
-    this.filteredHistory = this.history.filter(patient => {
-      return (
-        patient.diagnosis.toLowerCase().includes(query) 
-      );
-    });
-    if (!query) {
-      this.filteredHistory = [...this.history];
-      return;
-    }
+  //   this.filteredHistory = this.history.filter(patient => {
+  //     // return (
+  //     //   patient.diagnosis.toLowerCase().includes(query) 
+  //     // );
+  //   });
+  //   if (!query) {
+  //     this.filteredHistory = [...this.history];
+  //     return;
+  //   }
 
-  }
+  // }
 
   ngOnDestroy(): void {
     document.body.className = '';
