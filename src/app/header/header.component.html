@@ -28,6 +28,17 @@
                 <span>View patients</span>
             </button>
         </mat-menu>
+        <button mat-button [matMenuTriggerFor]="drugsMenu" class="dropdown-toggle">Drugs</button>
+        <mat-menu #drugsMenu="matMenu">
+            <button mat-menu-item routerLink="/dashboard/addDrugs">
+                <mat-icon>add</mat-icon>
+                <span>Add New Drugs</span>
+            </button>
+            <button mat-menu-item routerLink="/dashboard/viewDrugs">
+                <mat-icon>visibility</mat-icon>
+                <span>View Drugs</span>
+            </button>
+        </mat-menu>
         <button mat-button (click)="logout()">Logout</button>
     </nav>
 
@@ -36,6 +47,7 @@
         <button mat-menu-item routerLink="/dashboard"><i class="fas fa-home"></i> Home</button>
         <button mat-menu-item [matMenuTriggerFor]="appointmentsMenu"><i class="fas fa-calendar-check"></i> Appointments</button>
         <button mat-menu-item [matMenuTriggerFor]="patientsMenu"><i class="fas fa-procedures"></i> Patient Details</button>
+        <button mat-menu-item [matMenuTriggerFor]="drugsMenu"><i class="fas fa-solid fa-pills"></i> Drugs</button>
         <button mat-menu-item (click)="logout()"><i class="fas fa-sign-out-alt" fxShow.lt-md></i> Logout</button>
     </mat-menu>
     <!-- menu button -->

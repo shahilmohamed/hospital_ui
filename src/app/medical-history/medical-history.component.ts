@@ -5,8 +5,8 @@ import { HttpService } from '../http.service';
 import { Patient } from './../model/Patient';
 import { MedicalHistoryResponse } from '../model/MedicalHistoryResponse';
 import { PatientHistory } from '../model/PatientHistory';
-import { DrugsResponse } from '../model/DrugsResponse';
-import { Drug } from '../model/Drug';
+import { PrescriptionResponse } from '../model/PrescriptionResponse';
+import { Prescription } from '../model/Prescription';
 
 @Component({
   selector: 'app-medical-history',
@@ -17,7 +17,7 @@ export class MedicalHistoryComponent implements OnInit {
 
   patientId: number = 0;
   name: string = "";
-  selectedPrescription: Drug[] = [];
+  selectedPrescription: Prescription[] = [];
   history: PatientHistory[] = [];
   msg: string = '';
   value = '';
@@ -38,7 +38,7 @@ export class MedicalHistoryComponent implements OnInit {
       contactNumber: '',
       address: '',
       bloodGroup: '',
-      dob: undefined
+      dob: ""
     };
     this.getMedicalHistory(patient);
     this.getPatientDetails(this.patientId);
@@ -74,7 +74,7 @@ export class MedicalHistoryComponent implements OnInit {
       patient_id: 0
     };
     this.service.getPrescriptionById(history)
-      .subscribe((response: DrugsResponse) => {
+      .subscribe((response: PrescriptionResponse) => {
         this.selectedPrescription = response.data;
         const modal = document.getElementById('prescriptionModal');
         if (modal) new bootstrap.Modal(modal).show();

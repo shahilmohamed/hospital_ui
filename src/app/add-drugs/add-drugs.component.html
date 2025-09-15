@@ -1,0 +1,53 @@
+<app-header></app-header>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="addNewpatientform">
+                <div class="main-div shadow p-3 bg-white rounded">
+                    <div class="panel">
+                        <h3>Add New Drug</h3>
+                        <form #f="ngForm" (ngSubmit)="onSubmit(f)" class="example-form">
+                            <div class="column">
+                                <div class="form-group">
+                                    <mat-form-field class="example-full-width" appearance="fill">
+                                        <mat-label>Drug Name</mat-label>
+                                        <input matInput ngModel type="text" #drugName="ngModel" name="name"
+                                            id="addNewDrugName" required>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="column">
+                                <div class="form-group">
+                                    <mat-form-field class="example-full-width" appearance="fill">
+                                        <mat-label>MRP</mat-label>
+                                        <input matInput ngModel type="number" #mrp="ngModel" name="mrp"
+                                            id="addNewDrugMRP" required>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="column">
+                                <div class="form-group">
+                                    <mat-form-field class="example-full-width" appearance="fill">
+                                        <mat-label>Per Piece Rate</mat-label>
+                                        <input matInput ngModel type="number" #perPieceRate="ngModel"
+                                            name="perPieceRate" id="addNewDrugPerPieceRate" required>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="column">
+                                <div class="form-group">
+                                    <mat-form-field class="example-full-width" appearance="fill">
+                                        <mat-label>Quantity</mat-label>
+                                        <input matInput ngModel type="number" #quantity="ngModel" name="quantity"
+                                            id="addNewDrugQuantity" step="1" required>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <button mat-raised-button class="btn btn-outline-primary" [disabled]="!f.valid">Add</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
