@@ -8,6 +8,7 @@ import { Appointment } from './model/Appointment';
 import { AppointmentResponse } from './model/AppointmentResponse';
 import { SearchPatientResponse } from './model/SearchPatientResponse';
 import { MedicalHistoryResponse } from './model/MedicalHistoryResponse';
+import { PatientHistory } from './model/PatientHistory';
 
 @Injectable({
   providedIn: 'root'
@@ -36,7 +37,7 @@ export class HttpService {
 
   addNewPatient(obj: Patient)
   {
-    return (this.http.post(`${this.url}/patients/add`, obj, {withCredentials: true}));
+    return (this.http.post(`${this.url}/patients/addPatient`, obj, {withCredentials: true}));
   }
 
   getAllPatients(): Observable<PatientResponse>
@@ -56,16 +57,21 @@ export class HttpService {
 
   addAppointment(obj: Appointment)
   {
-    return (this.http.post(`${this.url}/appointment/add`,obj, {withCredentials: true}));
+    return (this.http.post(`${this.url}/appointment/addAppointment`,obj, {withCredentials: true}));
   }
 
   getAppointment(obj: Appointment): Observable<AppointmentResponse>
   {
-    return (this.http.post<AppointmentResponse>(`${this.url}/appointment/get`, obj, {withCredentials: true}));
+    return (this.http.post<AppointmentResponse>(`${this.url}/appointment/getAppointment`, obj, {withCredentials: true}));
   }
 
   getMedicalHistory(obj: Patient): Observable<MedicalHistoryResponse>
   {
-    return (this.http.post<MedicalHistoryResponse>(`${this.url}/history/get`, obj, {withCredentials: true}));
+    return (this.http.post<MedicalHistoryResponse>(`${this.url}/history/getHistory`, obj, {withCredentials: true}));
+  }
+
+  getPrescriptionById(obj: PatientHistory)
+  {
+    return (this.http.post<any>(`${this.url}/prescription/getPrescription`, obj, {withCredentials: true}));
   }
 }
