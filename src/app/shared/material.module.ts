@@ -16,6 +16,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatCardModule } from '@angular/material/card';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { MatCardModule } from '@angular/material/card';
     MatSnackBarModule,
     MatAutocompleteModule,
     MatChipsModule,
-    MatCardModule
+    MatCardModule,
+    MatNativeDateModule
 
   ],
   exports: [
@@ -57,7 +59,8 @@ import { MatCardModule } from '@angular/material/card';
     MatSnackBarModule,
     MatAutocompleteModule,
     MatChipsModule,
-    MatCardModule
+    MatCardModule,
+    MatNativeDateModule
   ]
 })
 export class MaterialModule { }

@@ -1,4 +1,4 @@
-export interface History {
+export interface PatientHistory {
     id: number;
     diagnosisDate: string;
     diagnosis: string;

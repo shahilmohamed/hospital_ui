@@ -4,7 +4,9 @@ import * as bootstrap from 'bootstrap';
 import { HttpService } from '../http.service';
 import { Patient } from './../model/Patient';
 import { MedicalHistoryResponse } from '../model/MedicalHistoryResponse';
-import { History } from '../model/History';
+import { PatientHistory } from '../model/PatientHistory';
+import { DrugsResponse } from '../model/DrugsResponse';
+import { Drug } from '../model/Drug';
 
 @Component({
   selector: 'app-medical-history',
@@ -15,10 +17,13 @@ export class MedicalHistoryComponent implements OnInit {
 
   patientId: number = 0;
   name: string = "";
-  selectedPrescription: any=null;
-
-  history: History[] = [];
+  selectedPrescription: Drug[] = [];
+  history: PatientHistory[] = [];
   msg: string = '';
+  value = '';
+  filteredHistory:PatientHistory[] = [];
+  p: number = 1;
+  p1: number = 1;
 
   constructor(private route: ActivatedRoute, private service: HttpService) { }
 
@@ -43,6 +48,7 @@ export class MedicalHistoryComponent implements OnInit {
       .subscribe((response: MedicalHistoryResponse) => {
         if (response.message === 'Medical History Found') {
           this.history = response.data;
+          this.filteredHistory = [...this.history];
         }
         else {
           this.msg = response.message;
@@ -57,31 +63,38 @@ export class MedicalHistoryComponent implements OnInit {
       });
   }
 
-  //  openPrescription(prescription: any): void {
-  //   // this.selectedPrescription = prescription;
-  //   // const modal = document.getElementById('prescriptionModal');
-  //   // if (modal) new bootstrap.Modal(modal).show();
-  // }
+  viewPrescription(historyId: number) {
+    const history: PatientHistory = {
+      id: historyId,
+      diagnosisDate: '',
+      diagnosis: '',
+      revisitDate: '',
+      review: '',
+      doctor_id: 0,
+      patient_id: 0
+    };
+    this.service.getPrescriptionById(history)
+      .subscribe((response: DrugsResponse) => {
+        this.selectedPrescription = response.data;
+        const modal = document.getElementById('prescriptionModal');
+        if (modal) new bootstrap.Modal(modal).show();
+      });
+  }
 
-  value = '';
-  filteredHistory = [...this.history];
-  p: number = 1;
-  p1: number = 1;
+  onClickSearch(value: string): void {
+    const query = value.trim().toLowerCase();
 
-  // onClickSearch(value: string): void {
-  //   const query = value.trim().toLowerCase();
+    this.filteredHistory = this.history.filter(patient => {
+      return (
+        patient.diagnosis.toLowerCase().includes(query) 
+      );
+    });
+    if (!query) {
+      this.filteredHistory = [...this.history];
+      return;
+    }
 
-  //   this.filteredHistory = this.history.filter(patient => {
-  //     // return (
-  //     //   patient.diagnosis.toLowerCase().includes(query) 
-  //     // );
-  //   });
-  //   if (!query) {
-  //     this.filteredHistory = [...this.history];
-  //     return;
-  //   }
-
-  // }
+  }
 
   ngOnDestroy(): void {
     document.body.className = '';
