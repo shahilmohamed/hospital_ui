@@ -7,6 +7,8 @@ import { MedicalHistoryComponent } from '../medical-history/medical-history.comp
 import { AppointmentsComponent } from '../appointments/appointments.component';
 import { AddNewPatientComponent } from '../add-new-patient/add-new-patient.component';
 import { PrescriptionComponent } from '../prescription/prescription.component';
+import { AddDrugsComponent } from '../add-drugs/add-drugs.component';
+import { DrugsDetailsComponent } from '../drugs-details/drugs-details.component';
 
 const routes: Routes = [
   {
@@ -33,6 +35,12 @@ const routes: Routes = [
   },
   {
     path: 'addPrescription', component: PrescriptionComponent
+  },
+  {
+    path: 'addDrugs', component: AddDrugsComponent
+  },
+  {
+    path: 'viewDrugs', component: DrugsDetailsComponent
   }
 ];
 

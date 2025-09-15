@@ -1,0 +1,44 @@
+<!-- Header -->
+<app-header></app-header>
+<br>
+<!-- Patient details & Search bar -->
+<div class="container">
+    <h2 class="mb-4" style="display: inline;">Drug Details</h2>
+    <span class="float-end">
+        <mat-form-field class="example-form-field" appearance="fill">
+            <mat-label>Search</mat-label>
+            <input matInput type="text" [(ngModel)]="value">
+            <button matSuffix mat-icon-button aria-label="Search" (click)="onClickSearch(value)">
+                <mat-icon>search</mat-icon>
+            </button>
+        </mat-form-field>
+    </span>
+</div>
+<!-- Table -->
+<div class="container md-4 table-responsive">
+    <table class="table table-striped table-hover content-table shadow p-3 bg-white rounded">
+        <thead class="thead-dark">
+            <tr>
+                <th>Drug ID</th>
+                <th>Name</th>
+                <th>MRP</th>
+                <th>Per Piece Rate</th>
+                <th>Quantity</th>
+                <th>Added Date</th>
+                <th>Updated Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let drug of tempDrugs| paginate:{itemsPerPage: 10, currentPage: p };index as i">
+                <td>{{drug.id}}</td>
+                <td>{{drug.name| titlecase}}</td>
+                <td>{{drug.mrp}}</td>
+                <td>{{drug.perPiecePrice}}</td>
+                <td>{{drug.quantity}}</td>
+                <td>{{drug.addedDate}}</td>
+                <td>{{drug.updatedDate}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <pagination-controls (pageChange)="p= $event" style="float: right;"></pagination-controls>
+</div>

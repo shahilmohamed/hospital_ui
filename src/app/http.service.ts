@@ -9,6 +9,8 @@ import { AppointmentResponse } from './model/AppointmentResponse';
 import { SearchPatientResponse } from './model/SearchPatientResponse';
 import { MedicalHistoryResponse } from './model/MedicalHistoryResponse';
 import { PatientHistory } from './model/PatientHistory';
+import { Drug } from './model/Drug';
+import { DrugsResponse } from './model/DrugsResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -73,5 +75,14 @@ export class HttpService {
   getPrescriptionById(obj: PatientHistory)
   {
     return (this.http.post<any>(`${this.url}/prescription/getPrescription`, obj, {withCredentials: true}));
+  }
+
+  addDrugs(obj: Drug)
+  {
+    return (this.http.post(`${this.url}/drugs/addDrug`, obj, {withCredentials: true}));
+  }
+  getAllDrugs(): Observable<DrugsResponse>
+  {
+    return (this.http.get<DrugsResponse>(`${this.url}/drugs/getDrugs`, {withCredentials: true}));
   }
 }

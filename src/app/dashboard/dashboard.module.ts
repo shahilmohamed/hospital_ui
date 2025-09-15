@@ -17,6 +17,8 @@ import { FooterComponent } from '../footer/footer.component';
 import { AddAppointmentPopupComponent } from '../add-appointment-popup/add-appointment-popup.component';
 import { PatientSelectDialogComponent } from '../patient-select-dialog/patient-select-dialog.component';
 import { PrescriptionComponent } from '../prescription/prescription.component';
+import { AddDrugsComponent } from '../add-drugs/add-drugs.component';
+import { DrugsDetailsComponent } from '../drugs-details/drugs-details.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { PrescriptionComponent } from '../prescription/prescription.component';
     PatientSelectDialogComponent,
     PrescriptionComponent,
     AddAppointmentsComponent,
-    AddAppointmentPopupComponent
+    AddAppointmentPopupComponent,
+    AddDrugsComponent,
+    DrugsDetailsComponent
   ],
   imports: [
     CommonModule,
