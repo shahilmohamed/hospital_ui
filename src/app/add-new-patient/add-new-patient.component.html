@@ -62,7 +62,7 @@
                                     <mat-form-field class="example-full-width" appearance="fill">
                                         <mat-label>Date of birth</mat-label>
                                         <input matInput [matDatepicker]="picker" ngModel #dob="ngModel" name="dob"
-                                            id="signupdob" required>
+                                            id="signupdob" required [max]="today">
                                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                         <mat-datepicker #picker></mat-datepicker>
                                     </mat-form-field>
@@ -105,7 +105,6 @@
                             </div> -->
                             <!-- Add button -->
                             <button mat-raised-button class="btn btn-outline-primary" [disabled]="!f.valid">Add</button>
-                            {{message}}
                         </form>
                     </div>
                 </div>

@@ -75,7 +75,7 @@ export class MedicalHistoryComponent implements OnInit {
     };
     this.service.getPrescriptionById(history)
       .subscribe((response: PrescriptionResponse) => {
-        this.selectedPrescription = response.data;
+        this.selectedPrescription = response.data || [];
         const modal = document.getElementById('prescriptionModal');
         if (modal) new bootstrap.Modal(modal).show();
       });

@@ -4,6 +4,7 @@ import { HttpService } from '../http.service';
 import { NgForm } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { Patient } from '../model/Patient';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-new-patient',
@@ -12,15 +13,15 @@ import { Patient } from '../model/Patient';
 })
 export class AddNewPatientComponent implements OnInit {
 
-  constructor(private router: Router, private service: HttpService, private cookieService: CookieService) { }
+  constructor(private router: Router, private service: HttpService, private cookieService: CookieService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     document.body.className = "bg_background_addNewPatient";
   }
 
   mobile_number_pattern = /^[6-9]\d{9}$/;
-  message: string ="";
   uploadFile: File[] = [];
+  today: Date = new Date();
 
   onSubmit(f:NgForm)
   {
@@ -37,19 +38,21 @@ export class AddNewPatientComponent implements OnInit {
     if (this.cookieService.get("id"))
     {
       this.service.addNewPatient(obj).subscribe((response: any) => {
-        if(response.message=="Patient added successfully")
+        if(response.message=="Patient Added Successfully")
         {
-          this.router.navigate(['/dashboard/patients'])
+          this.router.navigate(['/dashboard/patients']);
+          this.snackBar.open(response.message+'.', 'Close', { duration: 3000 });
         }
         else
         {
-          this.message = response.message;
+          this.router.navigate(['/dashboard/addNewpatient']);
+          this.snackBar.open(response.message+'.', 'Close', { duration: 3000 });
         }
       });
     }
     else
     {
-      this.message = "Not a valid user";
+      this.snackBar.open("Not A Valid User!!!", 'Close', { duration: 3000 });
     }
     
 
