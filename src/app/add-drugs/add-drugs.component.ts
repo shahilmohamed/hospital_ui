@@ -3,6 +3,7 @@ import { Drug } from '../model/Drug';
 import { CookieService } from 'ngx-cookie-service';
 import { HttpService } from '../http.service';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-drugs',
@@ -13,7 +14,8 @@ export class AddDrugsComponent implements OnInit {
   constructor(
     private router: Router,
     private service: HttpService,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {}
@@ -23,7 +25,7 @@ export class AddDrugsComponent implements OnInit {
       id: 0,
       name: f.value.name,
       mrp: f.value.mrp,
-      perPiecePrice: f.value.perPiecePrice,
+      perPieceRate: f.value.perPieceRate,
       quantity: f.value.quantity,
       addedDate: this.formatDateToLocal(new Date()),
       updatedDate: this.formatDateToLocal(new Date()),
@@ -31,8 +33,9 @@ export class AddDrugsComponent implements OnInit {
     this.service.addDrugs(obj).subscribe((response: any) => {
       if (response.message == 'Drugs Added Successfully') {
         this.router.navigate(['/dashboard/viewDrugs']);
+        this.snackBar.open(response.message+'.', 'Close', { duration: 3000 });
       } else {
-        alert(response.message);
+        this.snackBar.open(response.message, 'Close', { duration: 3000 });
       }
     });
   }
