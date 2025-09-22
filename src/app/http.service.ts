@@ -67,6 +67,11 @@ export class HttpService {
     return (this.http.post<AppointmentResponse>(`${this.url}/appointment/getAppointment`, obj, {withCredentials: true}));
   }
 
+  getAppointmentById(app: Appointment): Observable<Appointment>
+  {
+    return (this.http.post<Appointment>(`${this.url}/appointment/getAppointmentById`, app, {withCredentials: true}));
+  }
+
   getMedicalHistory(obj: Patient): Observable<MedicalHistoryResponse>
   {
     return (this.http.post<MedicalHistoryResponse>(`${this.url}/history/getHistory`, obj, {withCredentials: true}));
