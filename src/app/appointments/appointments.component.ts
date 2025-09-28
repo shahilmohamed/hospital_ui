@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../http.service';
 import { Appointment } from '../model/Appointment';
-import { Patient } from '../model/Patient';
+import { ToastrService } from 'ngx-toastr';
+import { MatDialog } from '@angular/material/dialog';
+import { PrescriptionComponent } from '../prescription/prescription.component';
 
 @Component({
   selector: 'app-appointments',
@@ -10,7 +12,9 @@ import { Patient } from '../model/Patient';
 })
 export class AppointmentsComponent implements OnInit {
 
-  constructor(private service: HttpService) { }
+  constructor(private service: HttpService, 
+    private toastr: ToastrService,
+     private dialog: MatDialog) { }
 
   ngOnInit(): void {
     document.body.className = "bg_background_addNewPatient";
@@ -21,6 +25,7 @@ export class AppointmentsComponent implements OnInit {
   tempPatients: any[]= [];
   p:number =1;
   msg: any = "";
+  selectedAppointment: Appointment = <Appointment>{};
 
   onClickSearch(value: string): void {
     const query = value.trim().toLowerCase();
@@ -54,6 +59,10 @@ export class AppointmentsComponent implements OnInit {
     this.service.getAppointment(obj).
     subscribe((response)=>
     {
+      if(response.status==204)
+      {
+        this.toastr.info(response.message, "Info");
+      }
       if(response.message=='Appointments found')
       {
         this.appointments = response.data;
@@ -72,6 +81,19 @@ export class AppointmentsComponent implements OnInit {
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const year = date.getFullYear();
     return `${year}-${month}-${day}`;
+  }
+
+  addPrescription(appointment: Appointment)
+  {
+    this.openPrescriptionDialog(appointment);
+  }
+
+  openPrescriptionDialog(appointment: Appointment)
+  {
+    this.dialog.open(PrescriptionComponent, {
+      width: '500px',
+      data: appointment
+    })
   }
 
   ngOnDestroy(): void {

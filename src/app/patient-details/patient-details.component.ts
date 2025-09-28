@@ -4,6 +4,7 @@ import { HttpService } from '../http.service';
 import { Patient } from '../model/Patient';
 import { CookieService } from 'ngx-cookie-service';
 import { Doctor } from '../model/Doctor';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-patient-details',
@@ -18,7 +19,7 @@ export class PatientDetailsComponent implements OnInit {
   tempPatients: any[]= [];
   p:number =1;
 
-  constructor(private service: HttpService, private cookieService: CookieService) { }
+  constructor(private service: HttpService, private cookieService: CookieService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     document.body.className = "bg_background_addNewPatient";
@@ -48,8 +49,15 @@ export class PatientDetailsComponent implements OnInit {
     this.service.getAllPatients()
     .subscribe((response)=>
     {
-      this.patients = response.data;
-      this.tempPatients = [...this.patients];
+      if(response.status==403)
+      {
+        this.toastr.error(response.message, 'Error');
+      }
+      else
+      {
+        this.patients = response.data;
+        this.tempPatients = [...this.patients];
+      }
     })
   }
 

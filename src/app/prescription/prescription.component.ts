@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { HttpService } from '../http.service';
 import { ActivatedRoute } from '@angular/router';
 import { Appointment } from './../model/Appointment';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Drug } from './../model/Drug';
+import { DrugsResponse } from './../model/DrugsResponse';
 
 @Component({
   selector: 'app-prescription',
@@ -13,92 +13,42 @@ import { Appointment } from './../model/Appointment';
 })
 export class PrescriptionComponent implements OnInit {
 
-  medicineControl = new FormControl('');
-  medicines: string[] = ['Paracetamol', 'Amoxicillin', 'Ibuprofen', 'Cetrizine', 'Metformin', 'Omeprazole'];
-  filteredMedicines!: Observable<string[]>;
-  selectedMedicines: string[] = [];
-  prescriptionForm!: FormGroup;
-  appointmentDetails: Appointment | null = null;
-
-  constructor(private fb: FormBuilder, private service: HttpService, private route: ActivatedRoute) { }
+  
+  constructor(private service: HttpService, 
+    private route: ActivatedRoute,
+    public dialogRef: MatDialogRef<Appointment>,
+    @Inject(MAT_DIALOG_DATA) public data: Appointment) { }
 
   ngOnInit(): void {
     document.body.className = "bg_background_addPrescription";
-    const appointmentId = this.route.snapshot.paramMap.get('id');
-    this.prescriptionForm = this.fb.group({
-      patientName: ['', Validators.required],
-      medicines: this.fb.array([])
-    });
-
-    // Start with one empty medicine row
-    this.addMedicine();
-    this.filteredMedicines = this.medicineControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value || ''))
-    );
-
-    this.fetchAppointmentDetails(appointmentId);
+    this.getDrugs();
   }
-  fetchAppointmentDetails(appointmentId: string | null) {
-    if (appointmentId) {
-      const appointment: Appointment = {
-        firstname: '',
-        lastname: '',
-        contactNumber: '',
-        diagnosis: '',
-        diagnosisDate: null,
-        isConsulted: false,
-        id: Number(appointmentId)
-      };
-      this.service.getAppointmentById(appointment).subscribe(
-        (response: Appointment) => {
-          this.appointmentDetails = response;
-          this.prescriptionForm.patchValue({
-            patientName: `${response.firstname} ${response.lastname}`
-          });
-          console.log('Appointment Details:', response);
-        },
-        error => {
-          console.error('Error fetching appointment details', error);
-        }
-      );
-    }
+
+  appointmentDetails: Appointment = {
+    id: this.data.id,
+    firstname: this.data.firstname,
+    lastname: this.data.lastname,
+    contactNumber: this.data.contactNumber,
+    diagnosis: this.data.diagnosis,
+    diagnosisDate: this.data.diagnosisDate,
+    isConsulted: true
   }
+
+  patientName: string = this.appointmentDetails.firstname + " " + this.appointmentDetails.lastname;
+  drugs: Drug[] = [];
+  selectedDrug: Drug | null = null;
 
   onSubmit(f:any){
 
   }
 
-  
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    return this.medicines.filter(med => med.toLowerCase().includes(filterValue));
-  }
-
-  get medicineArray(): FormArray {
-    return this.prescriptionForm.get('medicines') as FormArray;
-  }
-
-  addMedicine(): void {
-    const medicineGroup = this.fb.group({
-      name: ['', Validators.required],
-      dosage: ['', Validators.required],
-      duration: ['', Validators.required]
-    });
-    this.medicineArray.push(medicineGroup);
-  }
-
-  removeMedicine(index: number): void {
-    this.medicineArray.removeAt(index);
-  }
-
-  savePrescription(): void {
-    if (this.prescriptionForm.valid) {
-      console.log('Prescription Data:', this.prescriptionForm.value);
-      alert('Prescription saved successfully!');
-    } else {
-      alert('Please fill all required fields.');
-    }
+  getDrugs()
+  {
+    this.service.getAllDrugs()
+    .subscribe((response: DrugsResponse)=>
+    {
+      this.drugs = response.data;
+    })
   }
 
   ngOnDestroy(): void {
