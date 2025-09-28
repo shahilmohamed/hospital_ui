@@ -34,7 +34,7 @@ const routes: Routes = [
     path: 'addNewpatient', component: AddNewPatientComponent
   },
   {
-    path: 'addPrescription', component: PrescriptionComponent
+    path: 'addPrescription/:id', component: PrescriptionComponent
   },
   {
     path: 'addDrugs', component: AddDrugsComponent
