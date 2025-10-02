@@ -17,10 +17,15 @@
             <input matInput [(ngModel)]="appointmentDetails.contactNumber" name="contactNumber" required readonly>
         </mat-form-field>
         <mat-form-field>
-            <mat-label>Select Medicine</mat-label>
-            <mat-select [(value)]="selectedDrug">
-                <mat-option *ngFor="let drugs of drugs" [value]="drugs.id">
-                    {{drugs.name}}
+        <mat-label>Select Medicine</mat-label>
+            <mat-select [(value)]="selectedDrug" panelClass="custom-select-panel"
+                        (openedChange)="onOpenChange($event)">
+                <mat-option *ngFor="let drug of drugs" [value]="drug.id">
+                {{ drug.name }}
+                </mat-option>
+
+                <mat-option *ngIf="loading" disabled>
+                Loading more...
                 </mat-option>
             </mat-select>
         </mat-form-field>

@@ -12,6 +12,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { CookieService } from 'ngx-cookie-service';
 import { BrowserModule } from '@angular/platform-browser';
 import { ToastrModule } from 'ngx-toastr';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +33,8 @@ import { ToastrModule } from 'ngx-toastr';
       timeOut: 3000,
       positionClass: 'toast-top-right',
       preventDuplicates: true,
-    })
+    }),
+    InfiniteScrollModule
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]

@@ -51,3 +51,9 @@ mat-chip {
   background: #e3f2fd;
   margin: 4px;
 }
+
+::ng-deep .custom-select-panel .scroll-container {
+  max-height: 250px;
+  overflow-y: auto;
+}
+
