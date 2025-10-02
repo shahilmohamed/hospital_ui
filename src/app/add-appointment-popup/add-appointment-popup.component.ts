@@ -22,6 +22,7 @@ export class AddAppointmentPopupComponent implements OnInit {
 
   ngOnInit(): void {}
   patient_name: string | null = sessionStorage.getItem("patient_name");
+  today: Date = new Date();
   onSubmit(f: any) {
     let obj: Appointment = {
       firstname: this.data.firstname,

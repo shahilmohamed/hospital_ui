@@ -19,6 +19,7 @@ export class SignUpComponent implements OnInit {
   password_pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#^+=])[A-Za-z\d@$!%*?&#^+=]{8,}$/;
   mobile_number_pattern = /^[6-9]\d{9}$/;
   incorrect: string="";
+  today: Date = new Date();
 
   onSubmit(f: any) {
     let obj = {
