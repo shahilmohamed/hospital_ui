@@ -3,6 +3,7 @@ import { HttpService } from '../http.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Drug } from '../model/Drug';
 import { DrugsResponse } from '../model/DrugsResponse';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-drugs-details',
@@ -12,7 +13,8 @@ import { DrugsResponse } from '../model/DrugsResponse';
 export class DrugsDetailsComponent implements OnInit {
   constructor(
     private service: HttpService,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -28,8 +30,17 @@ export class DrugsDetailsComponent implements OnInit {
   getAllDrugs(): void {
     this.service.getAllDrugs().subscribe(
       (response: DrugsResponse) => {
-        this.drugs = response.data;
-        this.tempDrugs = [...this.drugs];
+        if(response.status==204)
+        {
+          this.toastr.info(response.message, "Info");
+        }
+        else if (response.status == 403) {
+          this.toastr.error(response.message, 'Error');
+        }
+        else {
+          this.drugs = response.data;
+          this.tempDrugs = [...this.drugs];
+        }
       },
       (error) => {
         console.error('Error fetching drug details:', error);

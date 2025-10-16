@@ -63,7 +63,11 @@ export class AppointmentsComponent implements OnInit {
       {
         this.toastr.info(response.message, "Info");
       }
-      if(response.message=='Appointments found')
+      else if(response.status==403)
+      {
+        this.toastr.error(response.message, 'Error');
+      }
+      else if(response.message=='Appointments found')
       {
         this.appointments = response.data;
         this.tempPatients = [...this.appointments];

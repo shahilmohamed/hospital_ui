@@ -53,6 +53,10 @@ export class PatientDetailsComponent implements OnInit {
       {
         this.toastr.error(response.message, 'Error');
       }
+      else if(response.status==204)
+      {
+        this.toastr.info(response.message, "Info");
+      }
       else
       {
         this.patients = response.data;
