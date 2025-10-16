@@ -95,4 +95,9 @@ export class HttpService {
   {
     return (this.http.post<DrugsResponse>(`${this.url}/drugs/getDrugPage`, obj, {withCredentials: true}));
   }
+
+  getSearchDrug(obj: any)
+  {
+    return (this.http.post<DrugsResponse>(`${this.url}/drugs/searchDrug`, obj, {withCredentials: true}));
+  }
 }

@@ -1,24 +1,29 @@
 <h2 mat-dialog-title>Add Prescription to {{patientName | titlecase}}</h2>
 <mat-dialog-content>
     <form #f="ngForm" (ngSubmit)="onSubmit(f)">
-        <!-- Appointment date  -->
-        <mat-form-field appearance="fill" class="w-100">
-            <mat-label>Appointment Date</mat-label>
-            <input matInput [(ngModel)]="appointmentDetails.diagnosisDate" name="diagnosisDate" required readonly>
-        </mat-form-field>
-        <!-- diagnosis -->
-        <mat-form-field appearance="fill" class="w-100">
-            <mat-label>Disease</mat-label>
-            <input matInput [(ngModel)]="appointmentDetails.diagnosis" name="diagnosis" required readonly>
-        </mat-form-field>
-         <!-- Contact Number -->
-        <mat-form-field appearance="fill" class="w-100">
-            <mat-label>Contact Number</mat-label>
-            <input matInput [(ngModel)]="appointmentDetails.contactNumber" name="contactNumber" required readonly>
-        </mat-form-field>
-        <mat-form-field>
-        <mat-label>Select Medicine</mat-label>
-            <mat-select [(value)]="selectedDrug" panelClass="custom-select-panel"
+        <mat-card class="p-4">
+            <!-- Appointment date  -->
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Appointment Date</mat-label>
+                <input matInput [(ngModel)]="appointmentDetails.diagnosisDate" name="diagnosisDate" required readonly>
+            </mat-form-field>
+            <!-- diagnosis -->
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Disease</mat-label>
+                <input matInput [(ngModel)]="appointmentDetails.diagnosis" name="diagnosis" required readonly>
+            </mat-form-field>
+            <!-- Contact Number -->
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Contact Number</mat-label>
+                <input matInput [(ngModel)]="appointmentDetails.contactNumber" name="contactNumber" required readonly>
+            </mat-form-field>
+
+            <!-- Drug -->
+            <div class="row">
+                <div class="col-md-3 mb-3">
+                    <mat-form-field>
+                        <mat-label>Select Medicine</mat-label>
+                        <!-- <mat-select [(value)]="selectedDrug" panelClass="custom-select-panel"
                         (openedChange)="onOpenChange($event)">
                 <mat-option *ngFor="let drug of drugs" [value]="drug.id">
                 {{ drug.name }}
@@ -27,12 +32,89 @@
                 <mat-option *ngIf="loading" disabled>
                 Loading more...
                 </mat-option>
-            </mat-select>
-        </mat-form-field>
-        <!-- Button -->
-        <mat-dialog-actions align="end">
-            <button mat-button mat-dialog-close>Cancel</button>
-            <button mat-button color="primary" [disabled]="!f.valid" >Save</button>
-        </mat-dialog-actions>
+            </mat-select> -->
+
+                        <input type="text" matInput [matAutocomplete]="auto"
+                            (input)="onSearchChange(($any($event.target)).value)" [value]="selectedDrugName" />
+                        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onOptionSelected($event)">
+                            <mat-option *ngFor="let drug of drugs" [value]="drug.name">
+                                {{ drug.name }}
+                            </mat-option>
+                            <mat-option *ngIf="loading" disabled>
+                                Loading more...
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                </div>
+
+                <!-- Morning -->
+                <div class="col-md-2 mb-3">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Morning</mat-label>
+                        <input matInput type="number" min="0" max="1" [(ngModel)]="dosage.morning" name="morning" />
+                    </mat-form-field>
+                </div>
+
+                <!-- Afternoon -->
+                <div class="col-md-2 mb-3">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Afternoon</mat-label>
+                        <input matInput type="number" min="0" max="1" [(ngModel)]="dosage.afternoon" name="afternoon" />
+                    </mat-form-field>
+                </div>
+
+                <!-- Evening -->
+                <div class="col-md-2 mb-3">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Evening</mat-label>
+                        <input matInput type="number" min="0" max="1" [(ngModel)]="dosage.evening" name="evening" />
+                    </mat-form-field>
+                </div>
+
+                <!-- Days -->
+                <div class="col-md-2 mb-3">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Days</mat-label>
+                        <input matInput type="number" min="1" [(ngModel)]="days" name="days" required />
+                    </mat-form-field>
+                </div>
+            </div>
+            <mat-dialog-actions align="end">
+                <button mat-button color="primary" (click)="addDrug()">Add</button>
+            </mat-dialog-actions>
+            <div *ngIf="prescriptionList.length > 0">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Medicine</th>
+                            <th>Morning</th>
+                            <th>Afternoon</th>
+                            <th>Evening</th>
+                            <th>Days</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of prescriptionList; let i = index">
+                            <td>{{ item.id }}</td>
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.dosageMorning }}</td>
+                            <td>{{ item.dosageAfternoon }}</td>
+                            <td>{{ item.dosageNight }}</td>
+                            <td>{{ item.durationDays }}</td>
+                            <td><button mat-button color="warn" (click)="removeDrug(i)">Remove</button></td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+            </div>
+            <!-- Button -->
+            <mat-dialog-actions align="end">
+                <button mat-button mat-dialog-close>Cancel</button>
+                <button mat-button color="primary" [disabled]="!f.valid">Save</button>
+            </mat-dialog-actions>
+        </mat-card>
     </form>
 </mat-dialog-content>

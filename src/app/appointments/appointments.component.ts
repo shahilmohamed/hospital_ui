@@ -91,7 +91,7 @@ export class AppointmentsComponent implements OnInit {
   openPrescriptionDialog(appointment: Appointment)
   {
     this.dialog.open(PrescriptionComponent, {
-      width: '500px',
+      width: '800px',
       data: appointment
     })
   }

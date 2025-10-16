@@ -57,3 +57,11 @@ mat-chip {
   overflow-y: auto;
 }
 
+.full-width {
+  width: 300px;
+}
+
+::ng-deep .mat-autocomplete-panel {
+  max-height: 250px !important;
+  overflow-y: auto !important;
+}
