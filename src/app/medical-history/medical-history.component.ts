@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as bootstrap from 'bootstrap';
+import { HttpService } from '../http.service';
+import { Patient } from './../model/Patient';
+import { MedicalHistoryResponse } from '../model/MedicalHistoryResponse';
+import { PatientHistory } from '../model/PatientHistory';
+import { PrescriptionResponse } from '../model/PrescriptionResponse';
+import { Prescription } from '../model/Prescription';
 
 @Component({
   selector: 'app-medical-history',
@@ -11,47 +17,69 @@ export class MedicalHistoryComponent implements OnInit {
 
   patientId: number = 0;
   name: string = "";
-  selectedPrescription: any=null;
+  selectedPrescription: Prescription[] = [];
+  history: PatientHistory[] = [];
+  msg: string = '';
+  value = '';
+  filteredHistory:PatientHistory[] = [];
+  p: number = 1;
+  p1: number = 1;
 
-  history = [
-    {
-      diagnosisDate: '2024-12-01',
-      diagnosis: 'Flu',
-      revisitDate: '2024-12-10',
-      review: 'Mild improvement',
-      prescription: [
-        { drug: 'Paracetamol', morning: true, afternoon: false, night: true, days: 5 },
-        { drug: 'Antibiotic A', morning: true, afternoon: true, night: true, days: 7 }
-      ]
-    },
-    {
-      diagnosisDate: '2025-01-15',
-      diagnosis: 'Cold and cough',
-      revisitDate: '2025-01-25',
-      review: 'Fully recovered',
-      prescription: [
-        { drug: 'Cough Syrup', morning: false, afternoon: true, night: true, days: 3 }
-      ]
-    }
-  ];
-
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private service: HttpService) { }
 
   ngOnInit() {
     this.patientId = Number(this.route.snapshot.paramMap.get('id'));
     document.body.className = 'bg_background_addNewPatient';
+    const patient: Patient = {
+      id: this.patientId,
+      firstname: '',
+      lastname: '',
+      gender: '',
+      contactNumber: '',
+      address: '',
+      bloodGroup: '',
+      dob: ""
+    };
+    this.getMedicalHistory(patient);
+    this.getPatientDetails(this.patientId);
+  }
+  getMedicalHistory(patient: Patient) {
+    this.service.getMedicalHistory(patient)
+      .subscribe((response: MedicalHistoryResponse) => {
+        if (response.message === 'Medical History Found') {
+          this.history = response.data;
+          this.filteredHistory = [...this.history];
+        }
+        else {
+          this.msg = response.message;
+        }
+      });
   }
 
-   openPrescription(prescription: any): void {
-    this.selectedPrescription = prescription;
-    const modal = document.getElementById('prescriptionModal');
-    if (modal) new bootstrap.Modal(modal).show();
+  getPatientDetails(id: number) {
+    this.service.getPatientById(id)
+      .subscribe((response: any) => {
+        this.name = response.data.firstname + ' ' + response.data.lastname;
+      });
   }
 
-  value = '';
-  filteredHistory = [...this.history];
-  p: number = 1;
-  p1: number = 1;
+  viewPrescription(historyId: number) {
+    const history: PatientHistory = {
+      id: historyId,
+      diagnosisDate: '',
+      diagnosis: '',
+      revisitDate: '',
+      review: '',
+      doctor_id: 0,
+      patient_id: 0
+    };
+    this.service.getPrescriptionById(history)
+      .subscribe((response: PrescriptionResponse) => {
+        this.selectedPrescription = response.data || [];
+        const modal = document.getElementById('prescriptionModal');
+        if (modal) new bootstrap.Modal(modal).show();
+      });
+  }
 
   onClickSearch(value: string): void {
     const query = value.trim().toLowerCase();

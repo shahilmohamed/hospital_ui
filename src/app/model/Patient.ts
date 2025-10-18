@@ -7,5 +7,5 @@ export interface Patient
     contactNumber: string;
     address: string;
     bloodGroup: string;
-    dob: any;
+    dob: string;
 }

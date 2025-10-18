@@ -39,7 +39,7 @@
                 <td>{{patient.contactNumber}}</td>
                 <td>{{patient.bloodGroup| titlecase}}</td>
                 <td>{{patient.address| titlecase}}</td>
-                <td><a [routerLink]="['/dashboard/medical-history', 1]" mat-raised-button class="btn btn-sm btn-info">View history</a></td>
+                <td><a [routerLink]="['/dashboard/medical-history', patient.id]" mat-raised-button class="btn btn-sm btn-info">View history</a></td>
             </tr>
         </tbody>
     </table>

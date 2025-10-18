@@ -34,7 +34,7 @@
                 <td>{{patient.firstname+' '+patient.lastname | titlecase}}</td>
                 <td>{{patient.contactNumber}}</td>
                 <td>{{patient.diagnosis | titlecase}}</td>
-                <td><a [routerLink]="['/dashboard/addPrescription']" mat-raised-button class="btn btn-sm btn-info">Add Prescription</a></td>
+                <td><button (click)="addPrescription(patient)" class="btn btn-sm btn-info">Add Prescription</button></td>
             </tr>
         </tbody>
     </table>
