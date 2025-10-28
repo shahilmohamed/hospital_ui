@@ -11,8 +11,7 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): boolean 
     {
-      if(localStorage.getItem("login")==="200")
-      {
+      if (this.cookieService.check('name')) {
         return true;
       }
       this.router.navigate(['/login'])
