@@ -11,11 +11,17 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): boolean 
     {
-      if (this.cookieService.check('name')) {
-        return true;
+      // if (this.cookieService.check('name')) {
+      //   return true;
+      // }
+      // this.router.navigate(['/login'])
+      // return false;
+      const isAuthenticated = this.cookieService.check('name');
+      if (!isAuthenticated) {
+        this.router.navigate(['/login']);
+        return false;
       }
-      this.router.navigate(['/login'])
-      return false;
+      return true;
     }
   
 }
