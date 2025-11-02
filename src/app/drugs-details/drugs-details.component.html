@@ -1,14 +1,14 @@
 <!-- Header -->
 <app-header></app-header>
 <br>
-<!-- Patient details & Search bar -->
+<!-- Drug details & Search bar -->
 <div class="container">
     <h2 class="mb-4" style="display: inline;">Drug Details</h2>
     <span class="float-end">
         <mat-form-field class="example-form-field" appearance="fill">
             <mat-label>Search</mat-label>
             <input matInput type="text" [(ngModel)]="value">
-            <button matSuffix mat-icon-button aria-label="Search" (click)="onClickSearch(value)">
+            <button matSuffix mat-icon-button aria-label="Search" (click)="getSearchDrug(value)">
                 <mat-icon>search</mat-icon>
             </button>
         </mat-form-field>
@@ -29,7 +29,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let drug of tempDrugs| paginate:{itemsPerPage: 10, currentPage: p };index as i">
+            <tr *ngFor="let drug of tempDrugs| paginate:{itemsPerPage: 10, currentPage: page, totalItems: totalPage * 10};index as i">
                 <td>{{drug.id}}</td>
                 <td>{{drug.name| titlecase}}</td>
                 <td>{{drug.mrp}}</td>
@@ -40,5 +40,7 @@
             </tr>
         </tbody>
     </table>
-    <pagination-controls (pageChange)="p= $event" style="float: right;"></pagination-controls>
+    <pagination-controls (pageChange)="getPage($event)" [maxSize]="7" [responsive]="true" [previousLabel]="'Previous'"
+        [nextLabel]="'Next'" style="float: right;">
+    </pagination-controls>
 </div>

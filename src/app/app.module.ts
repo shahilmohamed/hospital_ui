@@ -7,11 +7,13 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './shared/material.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { CookieService } from 'ngx-cookie-service';
 import { BrowserModule } from '@angular/platform-browser';
 import { ToastrModule } from 'ngx-toastr';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,9 +34,17 @@ import { ToastrModule } from 'ngx-toastr';
       timeOut: 3000,
       positionClass: 'toast-top-right',
       preventDuplicates: true,
-    })
+    }),
+    InfiniteScrollModule
   ],
-  providers: [CookieService],
+  providers: [
+    CookieService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
