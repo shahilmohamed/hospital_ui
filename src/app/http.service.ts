@@ -11,6 +11,7 @@ import { MedicalHistoryResponse } from './model/MedicalHistoryResponse';
 import { PatientHistory } from './model/PatientHistory';
 import { Drug } from './model/Drug';
 import { DrugsResponse } from './model/DrugsResponse';
+import { DoctorResponse } from './model/DoctorResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -104,5 +105,14 @@ export class HttpService {
   getPatientPage(obj: any)
   {
     return (this.http.post<PatientResponse>(`${this.url}/patients/getPatientPage`, obj, {withCredentials: true}));
+  }
+
+  getDoctorById(id: number): Observable<DoctorResponse>
+  {
+    return (this.http.get<DoctorResponse>(`${this.url}/doctors/getDoctorById/${id}`, {withCredentials: true}))
+  }
+  addHistory(obj: any)
+  {
+    return (this.http.post(`${this.url}/history/addHistory`, obj, {withCredentials: true}));
   }
 }

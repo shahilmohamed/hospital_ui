@@ -9,6 +9,9 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { Prescription } from '../model/Prescription';
 import { Patient } from '../model/Patient';
 import { Doctor } from '../model/Doctor';
+import { MedicalHistory } from '../model/MedicalHistory';
+import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'app-prescription',
@@ -25,8 +28,20 @@ export class PrescriptionComponent implements OnInit {
 
   ngOnInit(): void {
     document.body.className = 'bg_background_addPrescription';
-    // this.getDrugs();
     this.loadDrugs();
+
+    this.searchSubject
+      .pipe(debounceTime(400), distinctUntilChanged())
+      .subscribe((searchTerm) => {
+        if (searchTerm.length >= 2) {
+          this.searchQuery = searchTerm;
+          this.page = 0;
+          this.drugs = [];
+          this.loadDrugs();
+        } else {
+          this.drugs = [];
+        }
+      });
   }
 
   appointmentDetails: Appointment = {
@@ -36,7 +51,9 @@ export class PrescriptionComponent implements OnInit {
     contactNumber: this.data.contactNumber,
     diagnosis: this.data.diagnosis,
     diagnosisDate: this.data.diagnosisDate,
-    isConsulted: true
+    isConsulted: true,
+    doctor_id: this.data.doctor_id,
+    patient_id: this.data.patient_id,
   };
 
   patientName: string =
@@ -54,9 +71,44 @@ export class PrescriptionComponent implements OnInit {
   prescriptionList: Prescription[] = [];
   patient: Patient | null = null;
   doctor: Doctor | null = null;
+  today: Date = new Date();
+  searchSubject = new Subject<string>();
 
-  onSubmit(f: any) {
-    console.log(f.value);
+  async onSubmit(f: any) {
+    try {
+      const patientResponse: any = await this.service
+        .getPatientById(this.appointmentDetails.patient_id)
+        .toPromise();
+      this.patient = patientResponse.data;
+
+      const doctorResponse: any = await this.service
+        .getDoctorById(this.appointmentDetails.doctor_id)
+        .toPromise();
+      this.doctor = doctorResponse.data[0];
+
+      if (!this.doctor || !this.patient) {
+        console.error('Doctor or patient not found');
+        return;
+      }
+
+      const medicalHistory: MedicalHistory = {
+        diagnosisDate: this.appointmentDetails.diagnosisDate,
+        diagnosis: this.appointmentDetails.diagnosis,
+        revisitDate: this.formatDateToLocal(new Date(f.value.revisitDate)),
+        review: f.value.review,
+        doctor: this.doctor,
+        patient: this.patient,
+        prescriptions: this.prescriptionList,
+        appointment_id: this.appointmentDetails.id,
+      };
+
+      const historyResponse = await this.service
+        .addHistory(medicalHistory)
+        .toPromise();
+      this.dialogRef.close(true);
+    } catch (error) {
+      console.error('Error while submitting form', error);
+    }
   }
 
   getDrugs() {
@@ -76,8 +128,6 @@ export class PrescriptionComponent implements OnInit {
     this.service.getSearchDrug(payload).subscribe(
       (response: DrugsResponse) => {
         this.drugs = [...this.drugs, ...response.data];
-        // this.page++;
-        // this.loading = false;
         if (this.page === 0) {
           this.drugs = response.data;
         } else {
@@ -97,17 +147,13 @@ export class PrescriptionComponent implements OnInit {
   }
 
   onSearchChange(query: string) {
-    this.searchQuery = query;
-    this.page = 0;
-    this.drugs = [];
-    this.loadDrugs();
+    this.searchSubject.next(query);
   }
 
   onOptionSelected(event: MatAutocompleteSelectedEvent) {
     const selectedDrug = this.drugs.find(
       (drug) => drug.name === event.option.value
     );
-    console.log(event);
     if (selectedDrug) {
       this.selectedDrugId = selectedDrug.id;
       this.selectedDrugName = selectedDrug.name;
@@ -119,7 +165,7 @@ export class PrescriptionComponent implements OnInit {
       const panel = document.querySelector('.custom-select-panel');
       if (panel) {
         panel.addEventListener('scroll', () => {
-          const threshold = 50; 
+          const threshold = 50;
           if (
             panel.scrollTop + panel.clientHeight >=
             panel.scrollHeight - threshold
@@ -157,8 +203,14 @@ export class PrescriptionComponent implements OnInit {
     this.prescriptionList.splice(index, 1);
   }
 
-  ngOnDestroy(): void {
-    document.body.className = ""
+  formatDateToLocal(date: Date): string {
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
   }
 
+  ngOnDestroy(): void {
+    document.body.className = '';
+  }
 }

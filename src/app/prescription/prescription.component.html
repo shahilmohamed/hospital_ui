@@ -18,24 +18,19 @@
                 <input matInput [(ngModel)]="appointmentDetails.contactNumber" name="contactNumber" required readonly>
             </mat-form-field>
 
+            <!-- Review -->
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Review</mat-label>
+                <textarea matInput ngModel name="review" rows="10" required></textarea>   
+            </mat-form-field>
+
             <!-- Drug -->
             <div class="row">
                 <div class="col-md-3 mb-3">
                     <mat-form-field>
                         <mat-label>Select Medicine</mat-label>
-                        <!-- <mat-select [(value)]="selectedDrug" panelClass="custom-select-panel"
-                        (openedChange)="onOpenChange($event)">
-                <mat-option *ngFor="let drug of drugs" [value]="drug.id">
-                {{ drug.name }}
-                </mat-option>
-
-                <mat-option *ngIf="loading" disabled>
-                Loading more...
-                </mat-option>
-            </mat-select> -->
-
                         <input type="text" matInput [matAutocomplete]="auto"
-                            (input)="onSearchChange(($any($event.target)).value)" [value]="selectedDrugName" />
+                            (input)="onSearchChange(($any($event.target)).value)" [value]="selectedDrugName" required/>
                         <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onOptionSelected($event)">
                             <mat-option *ngFor="let drug of drugs" [value]="drug.name">
                                 {{ drug.name }}
@@ -80,7 +75,7 @@
                 </div>
             </div>
             <mat-dialog-actions align="end">
-                <button mat-button color="primary" (click)="addDrug()">Add</button>
+                <button mat-button color="primary" type="button" (click)="addDrug()">Add</button>
             </mat-dialog-actions>
             <div *ngIf="prescriptionList.length > 0">
                 <table class="table table-bordered table-striped">
@@ -110,10 +105,17 @@
                 </table>
 
             </div>
+            <!-- Revisit Date -->
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Revisit Date</mat-label>
+                <input matInput [matDatepicker]="picker" ngModel name="revisitDate" [min]="today" required>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
             <!-- Button -->
             <mat-dialog-actions align="end">
-                <button mat-button mat-dialog-close>Cancel</button>
-                <button mat-button color="primary" [disabled]="!f.valid">Save</button>
+                <button mat-button mat-dialog-close type="button">Cancel</button>
+                <button mat-button color="primary" type="submit" [disabled]="!f.valid || prescriptionList.length === 0">Save</button>
             </mat-dialog-actions>
         </mat-card>
     </form>

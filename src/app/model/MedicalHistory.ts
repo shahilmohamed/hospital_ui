@@ -2,7 +2,7 @@ import { Doctor } from "./Doctor";
 import { Patient } from "./Patient";
 import { Prescription } from "./Prescription";
 
-export interface MedicalHistoryRequest {
+export interface MedicalHistory {
     diagnosisDate: Date;
     diagnosis: string;
     revisitDate: string;

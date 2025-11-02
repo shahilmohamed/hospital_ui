@@ -23,7 +23,7 @@ export class AppointmentsComponent implements OnInit {
   appointments: Appointment[] = [];
   value = '';
   tempPatients: any[]= [];
-  p:number =1;
+  page:number =1;
   msg: any = "";
   selectedAppointment: Appointment = <Appointment>{};
 
@@ -54,7 +54,9 @@ export class AppointmentsComponent implements OnInit {
     diagnosis: "",
     diagnosisDate: date,
     isConsulted: true,
-    id:0
+    id:0,
+    doctor_id:0,
+    patient_id:0
     }
     this.service.getAppointment(obj).
     subscribe((response)=>
@@ -94,10 +96,15 @@ export class AppointmentsComponent implements OnInit {
 
   openPrescriptionDialog(appointment: Appointment)
   {
-    this.dialog.open(PrescriptionComponent, {
+    const dialogRef = this.dialog.open(PrescriptionComponent, {
       width: '800px',
       data: appointment
-    })
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === true) {
+        this.getAllAppointments();
+      }
+    });
   }
 
   ngOnDestroy(): void {
