@@ -7,8 +7,8 @@
     <span class="float-end">
         <mat-form-field class="example-form-field" appearance="fill">
             <mat-label>Search</mat-label>
-            <input matInput type="text" [(ngModel)]="value">
-            <button matSuffix mat-icon-button aria-label="Search" (click)="getSearchDrug(value)">
+            <input matInput type="text" [(ngModel)]="value" (keyup.enter) = "getSearchDrug(value)">
+            <button matSuffix mat-icon-button aria-label="Search" (click)="getSearchDrug(value)" type="submit">
                 <mat-icon>search</mat-icon>
             </button>
         </mat-form-field>

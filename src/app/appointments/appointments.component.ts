@@ -63,6 +63,7 @@ export class AppointmentsComponent implements OnInit {
     {
       if(response.status==204)
       {
+        this.appointments = [];
         this.toastr.info(response.message, "Info");
       }
       else if(response.status==403)

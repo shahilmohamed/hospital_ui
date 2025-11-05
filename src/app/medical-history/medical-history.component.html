@@ -8,7 +8,7 @@
     <span class="float-end">
         <mat-form-field class="example-form-field" appearance="fill">
             <mat-label>Search</mat-label>
-            <input matInput type="text" [(ngModel)]="value">
+            <input matInput type="text" [(ngModel)]="value" (keyup.enter) = "onClickSearch(value)">
             <button matSuffix mat-icon-button aria-label="Search" (click)="onClickSearch(value)">
                 <mat-icon>search</mat-icon>
             </button>
