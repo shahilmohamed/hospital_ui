@@ -6,4 +6,6 @@ export interface Appointment {
     diagnosisDate: any;
     isConsulted: boolean;
     id: number;
+    doctor_id: number;
+    patient_id: number;
 }

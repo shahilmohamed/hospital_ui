@@ -22,6 +22,7 @@ export class AddAppointmentPopupComponent implements OnInit {
 
   ngOnInit(): void {}
   patient_name: string | null = sessionStorage.getItem("patient_name");
+  today: Date = new Date();
   onSubmit(f: any) {
     let obj: Appointment = {
       firstname: this.data.firstname,
@@ -30,7 +31,9 @@ export class AddAppointmentPopupComponent implements OnInit {
       diagnosis: f.value.diagnosis,
       diagnosisDate: this.formatDateToLocal(new Date(f.value.diagnosisDate)),
       isConsulted: false,
-      id: Number(sessionStorage.getItem("patient_id"))
+      id: Number(sessionStorage.getItem("patient_id")),
+      doctor_id: this.data.doctor_id,
+      patient_id: this.data.patient_id
     };
     this.service.addAppointment(obj).subscribe((response: any) => {
       this.dialogRef.close();

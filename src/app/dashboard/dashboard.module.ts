@@ -19,6 +19,7 @@ import { PatientSelectDialogComponent } from '../patient-select-dialog/patient-s
 import { PrescriptionComponent } from '../prescription/prescription.component';
 import { AddDrugsComponent } from '../add-drugs/add-drugs.component';
 import { DrugsDetailsComponent } from '../drugs-details/drugs-details.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { DrugsDetailsComponent } from '../drugs-details/drugs-details.component'
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    InfiniteScrollModule
   ],
   providers: [AuthGuard],
 })
