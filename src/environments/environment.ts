@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  url : "https://hospital-backend-production-88b8.up.railway.app"
+  // url : "https://hospital-backend-production-88b8.up.railway.app"
+  url : "https://splendid-possibility-production.up.railway.app"
 };
 
 /*

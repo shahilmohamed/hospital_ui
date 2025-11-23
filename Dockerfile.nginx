@@ -1,0 +1,26 @@
+# Alternative Dockerfile using NGINX (if you prefer NGINX over Node.js)
+# Note: This version uses a fixed port. For Railway, the Node.js version (Dockerfile) is recommended.
+
+# Step 1: Build Angular app
+FROM node:14 AS build
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci
+
+COPY . .
+RUN npm run build
+
+# Step 2: Serve using NGINX
+FROM nginx:alpine
+
+# Copy custom nginx config
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Copy built files
+COPY --from=build /app/dist/hospitalUI /usr/share/nginx/html
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
+
