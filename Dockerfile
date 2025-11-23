@@ -18,7 +18,7 @@ COPY --from=build /app/package*.json ./
 COPY --from=build /app/server.js ./
 
 # Install only production dependencies
-RUN npm ci --only=production
+RUN npm install --production --no-optional --ignore-scripts
 
 # Expose port (Railway will set PORT env variable)
 ENV PORT=3000
