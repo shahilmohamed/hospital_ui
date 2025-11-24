@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+
+# Build artifacts (will be generated during build)
+dist/
+
+# Docker files (not needed for Netlify)
+Dockerfile
+Dockerfile.nginx
+.dockerignore
+nginx.conf
+server.js
+
+# Development files
+*.log
+.DS_Store
+.vscode/
+.idea/
+
+# Test files
+*.spec.ts
+karma.conf.js
+
+# Git
+.git/
+.gitignore
+

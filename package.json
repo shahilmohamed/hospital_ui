@@ -3,10 +3,13 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "node server.js",
+    "start:dev": "ng serve",
+    "build": "ng build --prod",
+    "build:dev": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "postinstall": "npm run build"
   },
   "private": true,
   "dependencies": {
@@ -28,7 +31,8 @@
     "ngx-toastr": "^14.3.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.11.4"
+    "zone.js": "~0.11.4",
+    "express": "^4.18.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^12.2.18",
