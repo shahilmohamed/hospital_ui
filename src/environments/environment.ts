@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   // url : "https://hospital-backend-production-88b8.up.railway.app"
-  url : "https://reasonable-youthfulness-production.up.railway.app"
+  // url : "https://reasonable-youthfulness-production.up.railway.app"
+  url : "http://localhost:8080"
   
 };
 
