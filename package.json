@@ -6,7 +6,7 @@
     "start": "node server.js",
     "start:railway": "npm run build && node server.js",
     "start:dev": "ng serve",
-    "build": "ng build --configuration production",
+    "build": "ng build --prod",
     "build:dev": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
@@ -48,9 +48,5 @@
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
     "typescript": "~4.3.5"
-  },
-  "engines": {
-    "node": ">=14.0.0",
-    "npm": ">=6.0.0"
   }
 }
