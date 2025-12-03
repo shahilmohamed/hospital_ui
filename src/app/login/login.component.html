@@ -39,8 +39,15 @@
                                         </div>
                                     </mat-form-field>
                                 </div>
+                                <!-- Cookie Warning -->
+                                <div *ngIf="cookieDeclined" class="alert alert-warning" style="margin-top: 10px; padding: 10px; border-radius: 4px;">
+                                    <strong>⚠️ Cookie Consent Required</strong>
+                                    <p style="margin: 5px 0 0 0; font-size: 14px;">
+                                        Cookies are required for authentication. Please accept cookies in the banner below to continue.
+                                    </p>
+                                </div>
                                 <!-- Login button -->
-                                <button mat-raised-button class="btn btn-outline-success" [disabled]="!f.valid">Login</button>
+                                <button mat-raised-button class="btn btn-outline-success" [disabled]="!f.valid || cookieDeclined">Login</button>
                                 <br>
                                 <span style="color: red;font-weight: bold;margin-top: 5px;">
                                     {{msg}}

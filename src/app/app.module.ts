@@ -14,12 +14,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ToastrModule } from 'ngx-toastr';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { CookieConsentComponent } from './cookie-consent/cookie-consent.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     SignUpComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    CookieConsentComponent
   ],
   imports: [
     BrowserModule,
