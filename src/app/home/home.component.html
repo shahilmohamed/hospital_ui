@@ -1,1 +1,107 @@
 <app-header></app-header>
+<div class="home-container">
+  <div class="welcome-section">
+    <h1 class="welcome-title">Welcome to Hospital Management System</h1>
+    <p class="welcome-subtitle">Manage your hospital operations efficiently and effectively</p>
+  </div>
+
+  <div class="cards-grid">
+    <!-- Appointments Section -->
+    <mat-card class="feature-card appointments-card" (click)="navigateTo('/dashboard/viewAppointments')">
+      <div class="card-icon">
+        <mat-icon class="large-icon">event</mat-icon>
+      </div>
+      <mat-card-header>
+        <mat-card-title>Appointments</mat-card-title>
+        <mat-card-subtitle>Manage patient appointments</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="card-actions">
+          <button mat-raised-button color="primary"
+            (click)="navigateTo('/dashboard/addAppointment'); $event.stopPropagation()">
+            <mat-icon>add</mat-icon>
+            Add Appointment
+          </button>
+          <button mat-raised-button color="accent"
+            (click)="navigateTo('/dashboard/viewAppointments'); $event.stopPropagation()">
+            <mat-icon>visibility</mat-icon>
+            View Appointments
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Patient Details Section -->
+    <mat-card class="feature-card patients-card" (click)="navigateTo('/dashboard/patients')">
+      <div class="card-icon">
+        <mat-icon class="large-icon">people</mat-icon>
+      </div>
+      <mat-card-header>
+        <mat-card-title>Patient Details</mat-card-title>
+        <mat-card-subtitle>Manage patient information</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="card-actions">
+          <button mat-raised-button color="primary"
+            (click)="navigateTo('/dashboard/addNewpatient'); $event.stopPropagation()">
+            <mat-icon>person_add</mat-icon>
+            Add New Patient
+          </button>
+          <button mat-raised-button color="accent"
+            (click)="navigateTo('/dashboard/patients'); $event.stopPropagation()">
+            <mat-icon>list</mat-icon>
+            View Patients
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Drugs Section -->
+    <mat-card class="feature-card drugs-card" (click)="navigateTo('/dashboard/viewDrugs')">
+      <div class="card-icon">
+        <mat-icon class="large-icon">medication</mat-icon>
+      </div>
+      <mat-card-header>
+        <mat-card-title>Drugs Management</mat-card-title>
+        <mat-card-subtitle>Manage hospital drugs inventory</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="card-actions">
+          <button mat-raised-button color="primary"
+            (click)="navigateTo('/dashboard/addDrugs'); $event.stopPropagation()">
+            <mat-icon>add_circle</mat-icon>
+            Add New Drugs
+          </button>
+          <button mat-raised-button color="accent"
+            (click)="navigateTo('/dashboard/viewDrugs'); $event.stopPropagation()">
+            <mat-icon>inventory</mat-icon>
+            View Drugs
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Quick Stats Section -->
+  <div class="stats-section">
+    <h2 class="section-title">Quick Access</h2>
+    <div class="quick-access-grid">
+      <div class="quick-access-item" (click)="navigateTo('/dashboard/viewAppointments')">
+        <mat-icon>calendar_today</mat-icon>
+        <span>Today's Appointments</span>
+      </div>
+      <div class="quick-access-item" (click)="navigateTo('/dashboard/patients')">
+        <mat-icon>person_search</mat-icon>
+        <span>Search Patients</span>
+      </div>
+      <div class="quick-access-item" (click)="navigateTo('/dashboard/viewDrugs')">
+        <mat-icon>local_pharmacy</mat-icon>
+        <span>Drug Inventory</span>
+      </div>
+      <div class="quick-access-item" (click)="navigateTo('/dashboard/addAppointment')">
+        <mat-icon>schedule</mat-icon>
+        <span>Schedule Appointment</span>
+      </div>
+    </div>
+  </div>
+</div>

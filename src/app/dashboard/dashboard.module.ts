@@ -20,6 +20,7 @@ import { PrescriptionComponent } from '../prescription/prescription.component';
 import { AddDrugsComponent } from '../add-drugs/add-drugs.component';
 import { DrugsDetailsComponent } from '../drugs-details/drugs-details.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     ReactiveFormsModule,
     HttpClientModule,
     NgxPaginationModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    RouterModule
   ],
   providers: [AuthGuard],
 })
