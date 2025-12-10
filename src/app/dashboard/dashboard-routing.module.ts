@@ -9,6 +9,7 @@ import { AddNewPatientComponent } from '../add-new-patient/add-new-patient.compo
 import { PrescriptionComponent } from '../prescription/prescription.component';
 import { AddDrugsComponent } from '../add-drugs/add-drugs.component';
 import { DrugsDetailsComponent } from '../drugs-details/drugs-details.component';
+import { UpdateDrugComponent } from '../update-drug/update-drug.component';
 
 const routes: Routes = [
   {
@@ -41,6 +42,9 @@ const routes: Routes = [
   },
   {
     path: 'viewDrugs', component: DrugsDetailsComponent
+  },
+  {
+    path: 'updateDrug', component: UpdateDrugComponent
   }
 ];
 

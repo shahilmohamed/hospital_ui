@@ -1,0 +1,56 @@
+<div class="dialog-container">
+    <div class="dialog-header">
+        <div class="header-icon">
+            <mat-icon>medication</mat-icon>
+        </div>
+        <h2 mat-dialog-title class="dialog-title">Update Drug Information</h2>
+        <p class="dialog-subtitle">Modify the drug details below</p>
+    </div>
+    
+    <mat-dialog-content class="dialog-content">
+        <form #f="ngForm" (ngSubmit)="onSubmit(f)" class="drug-form">
+            <div class="form-row">
+                <mat-form-field appearance="outline" class="form-field">
+                    <mat-label>Drug Name</mat-label>
+                    <mat-icon matPrefix>local_pharmacy</mat-icon>
+                    <input matInput [(ngModel)]="drugDetails.name" type="text" #drugName="ngModel" name="name" id="addNewDrugName" required>
+                </mat-form-field>
+            </div>
+
+            <div class="form-row">
+                <mat-form-field appearance="outline" class="form-field">
+                    <mat-label>MRP (₹)</mat-label>
+                    <mat-icon matPrefix>currency_rupee</mat-icon>
+                    <input matInput [(ngModel)]="drugDetails.mrp" type="number" #mrp="ngModel" name="mrp" id="addNewDrugMRP" required min="0" step="0.01">
+                </mat-form-field>
+            </div>
+
+            <div class="form-row">
+                <mat-form-field appearance="outline" class="form-field">
+                    <mat-label>Per Piece Rate (₹)</mat-label>
+                    <mat-icon matPrefix>currency_rupee</mat-icon>
+                    <input matInput [(ngModel)]="drugDetails.perPieceRate" type="number" #perPieceRate="ngModel" name="perPieceRate" id="addNewDrugPerPieceRate" required min="0" step="0.01">
+                </mat-form-field>
+            </div>
+
+            <div class="form-row">
+                <mat-form-field appearance="outline" class="form-field">
+                    <mat-label>Quantity</mat-label>
+                    <mat-icon matPrefix>inventory</mat-icon>
+                    <input matInput [(ngModel)]="drugDetails.quantity" type="number" #quantity="ngModel" name="quantity" id="addNewDrugQuantity" required min="0">
+                </mat-form-field>
+            </div>
+
+            <mat-dialog-actions class="dialog-actions">
+                <button mat-stroked-button type="button" mat-dialog-close class="cancel-btn">
+                    <mat-icon>close</mat-icon>
+                    Cancel
+                </button>
+                <button mat-raised-button color="primary" [disabled]="!f.valid" type="submit" class="save-btn">
+                    <mat-icon>save</mat-icon>
+                    Update Drug
+                </button>
+            </mat-dialog-actions>
+        </form>
+    </mat-dialog-content>
+</div>

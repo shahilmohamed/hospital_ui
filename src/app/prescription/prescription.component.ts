@@ -12,6 +12,7 @@ import { Doctor } from '../model/Doctor';
 import { MedicalHistory } from '../model/MedicalHistory';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-prescription',
@@ -23,7 +24,8 @@ export class PrescriptionComponent implements OnInit {
     private service: HttpService,
     private route: ActivatedRoute,
     public dialogRef: MatDialogRef<Appointment>,
-    @Inject(MAT_DIALOG_DATA) public data: Appointment
+    @Inject(MAT_DIALOG_DATA) public data: Appointment,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -102,9 +104,18 @@ export class PrescriptionComponent implements OnInit {
         appointment_id: this.appointmentDetails.id,
       };
 
-      const historyResponse = await this.service
+      const historyResponse: any = await this.service
         .addHistory(medicalHistory)
         .toPromise();
+      if(historyResponse.status == 200){
+        this.toastr.success(historyResponse.message, 'Success');
+      }
+      else if(historyResponse.status == 204){
+        this.toastr.info(historyResponse.message, 'Info');
+      }
+      else if(historyResponse.status == 403){
+        this.toastr.error(historyResponse.message, 'Error');
+      }
       this.dialogRef.close(true);
     } catch (error) {
       console.error('Error while submitting form', error);

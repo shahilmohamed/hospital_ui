@@ -4,6 +4,9 @@ import { CookieService } from 'ngx-cookie-service';
 import { Drug } from '../model/Drug';
 import { DrugsResponse } from '../model/DrugsResponse';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { UpdateDrugComponent } from '../update-drug/update-drug.component';
 
 @Component({
   selector: 'app-drugs-details',
@@ -14,7 +17,9 @@ export class DrugsDetailsComponent implements OnInit {
   constructor(
     private service: HttpService,
     private cookieService: CookieService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: Router,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -28,6 +33,8 @@ export class DrugsDetailsComponent implements OnInit {
   value = '';
   page: number = 1;
   totalPage: number = 0;
+  showDeleteDialog: boolean = false;
+  selectedDrug: Drug | null = null;
 
   getAllDrugs(): void {
     this.service.getAllDrugs().subscribe(
@@ -89,6 +96,59 @@ export class DrugsDetailsComponent implements OnInit {
         console.error('Error fetching drug details:', error);
       }
     );
+  }
+
+  async editDrug(drug: Drug): Promise<void> {
+    const dialogRef =this.dialog.open(UpdateDrugComponent, {
+      width: '600px',
+      data: drug,
+      panelClass: 'update-drug-dialog'
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === true) {
+        this.getDrugPage(0, 10, '');
+      }
+    });
+  }
+
+  deleteDrug(drug: Drug): void {
+    this.selectedDrug = drug;
+    this.showDeleteDialog = true;
+  }
+
+  onCancelDelete(): void {
+    this.showDeleteDialog = false;
+    this.selectedDrug = null;
+  }
+
+  onConfirmDelete(): void {
+    if (this.selectedDrug) {
+      this.service.deleteDrug(this.selectedDrug).subscribe(
+        () => {
+          this.toastr.success('Drug deleted successfully', 'Success');
+          this.refreshComponent();
+        },
+        (error) => {
+          console.error('Error deleting drug:', error);
+          this.toastr.error('Unable to delete drug', 'Error');
+          this.showDeleteDialog = false;
+          this.selectedDrug = null;
+        }
+      );
+    }
+  }
+
+  refreshComponent(): void {
+    this.page = 1;
+    this.value = '';
+    this.drugs = [];
+    this.tempDrugs = [];
+    this.totalPage = 0;
+    
+    this.showDeleteDialog = false;
+    this.selectedDrug = null;
+    
+    this.getDrugPage(0, 10, '');
   }
 
   ngOnDestroy(): void {

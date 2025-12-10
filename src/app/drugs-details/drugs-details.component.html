@@ -1,46 +1,89 @@
 <!-- Header -->
 <app-header></app-header>
-<br>
-<!-- Drug details & Search bar -->
-<div class="container">
-    <h2 class="mb-4" style="display: inline;">Drug Details</h2>
-    <span class="float-end">
-        <mat-form-field class="example-form-field" appearance="fill">
-            <mat-label>Search</mat-label>
-            <input matInput type="text" [(ngModel)]="value">
-            <button matSuffix mat-icon-button aria-label="Search" (click)="getSearchDrug(value)">
-                <mat-icon>search</mat-icon>
-            </button>
-        </mat-form-field>
-    </span>
-</div>
-<!-- Table -->
-<div class="container md-4 table-responsive">
-    <table class="table table-striped table-hover content-table shadow p-3 bg-white rounded">
-        <thead class="thead-dark">
-            <tr>
+
+<div class="drugs-container">
+  <!-- Title and Search Section -->
+  <div class="title-search-container">
+    <h2 class="section-title-inline">Drug Details</h2>
+    <mat-form-field class="search-form-field-inline" appearance="fill">
+      <mat-label>Search</mat-label>
+      <input matInput type="text" [(ngModel)]="value" (keyup.enter)="getSearchDrug(value)">
+      <button matSuffix mat-icon-button aria-label="Search" (click)="getSearchDrug(value)">
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+
+  <!-- Table Card -->
+  <div class="table-card-container">
+    <mat-card class="table-card">
+      <mat-card-content>
+        <div class="table-responsive">
+          <table class="drugs-table">
+            <thead>
+              <tr>
                 <th>Drug ID</th>
                 <th>Name</th>
                 <th>MRP</th>
                 <th>Per Piece Rate</th>
                 <th>Quantity</th>
-                <th>Added Date</th>
-                <th>Updated Date</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let drug of tempDrugs| paginate:{itemsPerPage: 10, currentPage: page, totalItems: totalPage * 10};index as i">
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let drug of tempDrugs | paginate:{itemsPerPage: 10, currentPage: page, totalItems: totalPage * 10}; index as i">
                 <td>{{drug.id}}</td>
-                <td>{{drug.name| titlecase}}</td>
-                <td>{{drug.mrp}}</td>
-                <td>{{drug.perPieceRate}}</td>
-                <td>{{drug.quantity}}</td>
-                <td>{{drug.addedDate}}</td>
-                <td>{{drug.updatedDate}}</td>
-            </tr>
-        </tbody>
-    </table>
-    <pagination-controls (pageChange)="getPage($event)" [maxSize]="7" [responsive]="true" [previousLabel]="'Previous'"
-        [nextLabel]="'Next'" style="float: right;">
-    </pagination-controls>
+                <td class="drug-name">{{drug.name | titlecase}}</td>
+                <td>₹{{drug.mrp}}</td>
+                <td>₹{{drug.perPieceRate}}</td>
+                <td>
+                  <span class="quantity-badge" [class.low-stock]="drug.quantity < 10">
+                    {{drug.quantity}}
+                  </span>
+                </td>
+                <td class="action-buttons">
+                  <button mat-raised-button color="primary" class="action-btn edit-btn" (click)="editDrug(drug)">
+                    <mat-icon>edit</mat-icon>
+                    Edit
+                  </button>
+                  <button mat-raised-button color="warn" class="action-btn delete-btn" (click)="deleteDrug(drug)">
+                    <mat-icon>delete</mat-icon>
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="pagination-container">
+          <pagination-controls 
+            (pageChange)="getPage($event)" 
+            [maxSize]="7" 
+            [responsive]="true" 
+            [previousLabel]="'Previous'"
+            [nextLabel]="'Next'">
+          </pagination-controls>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<!-- Delete Confirmation Dialog -->
+<div class="delete-dialog-overlay" *ngIf="showDeleteDialog" (click)="onCancelDelete()">
+  <div class="delete-dialog-container" (click)="$event.stopPropagation()">
+    <div class="delete-dialog-header">
+      <h2 mat-dialog-title>Delete drug?</h2>
+    </div>
+    <div class="delete-dialog-content">
+      <p>Are you sure you want to delete <strong>{{selectedDrug?.name | titlecase}}?</strong></p>
+      <p>This action cannot be undone.</p>
+    </div>
+    <div class="delete-dialog-actions">
+      <button mat-button (click)="onCancelDelete()">Cancel</button>
+      <button mat-raised-button color="warn" (click)="onConfirmDelete()">
+        Delete
+      </button>
+    </div>
+  </div>
 </div>

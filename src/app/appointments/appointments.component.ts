@@ -18,7 +18,9 @@ export class AppointmentsComponent implements OnInit {
 
   ngOnInit(): void {
     document.body.className = "bg_background_addNewPatient";
-    this.getAllAppointments();
+    // this.getAllAppointments();
+    this.today = this.getTodayDate();
+    this.getTodayAppointments(0, 10, '', this.today);
   }
   appointments: Appointment[] = [];
   value = '';
@@ -26,59 +28,61 @@ export class AppointmentsComponent implements OnInit {
   page:number =1;
   msg: any = "";
   selectedAppointment: Appointment = <Appointment>{};
+  totalPage: number = 0;
+  today: string = '';
 
-  onClickSearch(value: string): void {
-    const query = value.trim().toLowerCase();
+  // onClickSearch(value: string): void {
+  //   const query = value.trim().toLowerCase();
 
-    this.tempPatients = this.appointments.filter(patient => {
-      return (
-        patient.firstname.toLowerCase().includes(query) ||
-        patient.contactNumber.includes(query) ||
-        patient.id.toString() === query
-      );
-    });
-    if (!query) {
-      this.tempPatients = [...this.appointments];
-      return;
-    }
-  }
+  //   this.tempPatients = this.appointments.filter(patient => {
+  //     return (
+  //       patient.firstname.toLowerCase().includes(query) ||
+  //       patient.contactNumber.includes(query) ||
+  //       patient.id.toString() === query
+  //     );
+  //   });
+  //   if (!query) {
+  //     this.tempPatients = [...this.appointments];
+  //     return;
+  //   }
+  // }
 
-  getAllAppointments()
-  {
-    const date =this.getTodayDate();
-    let obj: Appointment = {
+  // getAllAppointments()
+  // {
+  //   const date =this.getTodayDate();
+  //   let obj: Appointment = {
       
-    firstname: "",
-    lastname: "",
-    contactNumber: "",
-    diagnosis: "",
-    diagnosisDate: date,
-    isConsulted: true,
-    id:0,
-    doctor_id:0,
-    patient_id:0
-    }
-    this.service.getAppointment(obj).
-    subscribe((response)=>
-    {
-      if(response.status==204)
-      {
-        this.toastr.info(response.message, "Info");
-      }
-      else if(response.status==403)
-      {
-        this.toastr.error(response.message, 'Error');
-      }
-      else if(response.message=='Appointments found')
-      {
-        this.appointments = response.data;
-        this.tempPatients = [...this.appointments];
-      }
-      else{
-        this.msg = response.message;
-      }
-    });
-  }
+  //   firstname: "",
+  //   lastname: "",
+  //   contactNumber: "",
+  //   diagnosis: "",
+  //   diagnosisDate: date,
+  //   isConsulted: true,
+  //   id:0,
+  //   doctor_id:0,
+  //   patient_id:0
+  //   }
+  //   this.service.getAppointment(obj).
+  //   subscribe((response)=>
+  //   {
+  //     if(response.status==204)
+  //     {
+  //       this.toastr.info(response.message, "Info");
+  //     }
+  //     else if(response.status==403)
+  //     {
+  //       this.toastr.error(response.message, 'Error');
+  //     }
+  //     else if(response.message=='Appointments found')
+  //     {
+  //       this.appointments = response.data;
+  //       this.tempPatients = [...this.appointments];
+  //     }
+  //     else{
+  //       this.msg = response.message;
+  //     }
+  //   });
+  // }
 
   getTodayDate(): any
   {
@@ -102,9 +106,47 @@ export class AppointmentsComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result === true) {
-        this.getAllAppointments();
+        this.appointments = [];
+        this.tempPatients = [];
+        this.totalPage = 0;
+        this.page = 1;
+        this.value = '';
+        this.today = this.getTodayDate();
+        this.getTodayAppointments(0, 10, '', this.today);
       }
     });
+  }
+
+  async getTodayAppointments(page: number, size: number, search: string, today: string){
+    const obj: any = {
+      page: page,
+      size: size,
+      search: search,
+      date: today
+    }
+    const response = await this.service.getAppointmentPage(obj).subscribe((response: any) => {
+      if(response.status == 200){
+        this.appointments = response.data;
+        this.tempPatients = [...this.appointments];
+        this.totalPage = response.totalPage;
+      }
+      else if(response.status == 204){
+        this.toastr.info(response.message, 'Info');
+      }
+      else if(response.status == 403){
+        this.toastr.error(response.message, 'Error');
+      }
+    });
+  }
+
+  getPage(pageNumber: number): void {
+    this.page = pageNumber;
+    this.getTodayAppointments(pageNumber - 1, 10, this.value, this.today);
+  }
+
+  getSearchAppointments(value: string): void {
+    this.value = value;
+    this.getTodayAppointments(0, 10, value, this.today);
   }
 
   ngOnDestroy(): void {
