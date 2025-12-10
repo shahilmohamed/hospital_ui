@@ -1,4 +1,416 @@
-.content-table th,
-.content-table td {
-    padding: 15px 20px;
+.drugs-container {
+  position: relative;
+  min-height: calc(100vh - 64px);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 40px 20px;
+  box-sizing: border-box;
+}
+
+.welcome-section {
+  text-align: center;
+  margin-bottom: 50px;
+  color: white;
+  animation: fadeInDown 0.8s ease-out;
+}
+
+.welcome-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  letter-spacing: 1px;
+}
+
+.welcome-subtitle {
+  font-size: 1.3rem;
+  opacity: 0.95;
+  font-weight: 300;
+}
+
+/* Title and Search Section */
+.title-search-container {
+  max-width: 1400px;
+  margin: 0 auto 30px;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  animation: fadeInUp 0.6s ease-out;
+  animation-fill-mode: both;
+}
+
+.section-title-inline {
+  color: white;
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  flex: 1;
+}
+
+.search-form-field-inline {
+  min-width: 300px;
+  max-width: 400px;
+  background-color: white;
+  border-radius: 4px;
+}
+
+.search-form-field-inline ::ng-deep .mat-form-field-wrapper {
+  padding-bottom: 0;
+}
+
+.search-form-field-inline ::ng-deep .mat-form-field-flex {
+  background-color: white;
+  border-radius: 4px;
+}
+
+.search-form-field-inline ::ng-deep .mat-form-field-underline {
+  display: none;
+}
+
+.search-form-field-inline ::ng-deep .mat-form-field-underline::before {
+  display: none;
+}
+
+.search-form-field-inline ::ng-deep .mat-form-field-infix {
+  border-top: none;
+}
+
+.search-form-field-inline ::ng-deep input {
+  background-color: white;
+}
+
+.table-card-container {
+  max-width: 1400px;
+  margin: 0 auto 30px;
+  padding: 0 20px;
+  animation: fadeInUp 0.6s ease-out;
+  animation-fill-mode: both;
+  animation-delay: 0.2s;
+}
+
+.table-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.table-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  background: white;
+}
+
+mat-card-content {
+  padding: 20px;
+}
+
+/* Table Styles */
+.table-responsive {
+  overflow-x: auto;
+  margin-top: 20px;
+}
+
+.drugs-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.drugs-table thead {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.drugs-table th {
+  padding: 18px 20px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.drugs-table tbody tr {
+  border-bottom: 1px solid #e0e0e0;
+  transition: all 0.2s ease;
+}
+
+.drugs-table tbody tr:hover {
+  background-color: #f5f5f5;
+  transform: scale(1.01);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.drugs-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.drugs-table td {
+  padding: 18px 20px;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.drug-name {
+  font-weight: 600;
+  color: #667eea;
+}
+
+.quantity-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  background: #e8f5e9;
+  color: #2e7d32;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.quantity-badge.low-stock {
+  background: #ffebee;
+  color: #c62828;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  min-width: auto;
+}
+
+.action-btn mat-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+}
+
+.action-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.edit-btn:hover {
+  background-color: #5a6fd8;
+}
+
+.delete-btn:hover {
+  background-color: #d32f2f;
+}
+
+.pagination-container {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+}
+
+.pagination-container ::ng-deep .ngx-pagination {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.pagination-container ::ng-deep .ngx-pagination li {
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.pagination-container ::ng-deep .ngx-pagination li:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.pagination-container ::ng-deep .ngx-pagination .current {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 8px;
+}
+
+/* Animations */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .welcome-title {
+    font-size: 2rem;
+  }
+
+  .welcome-subtitle {
+    font-size: 1rem;
+  }
+
+  .title-search-container {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 10px;
+  }
+
+  .search-form-field-inline {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .table-card-container {
+    padding: 0 10px;
+  }
+
+  .drugs-table {
+    font-size: 0.85rem;
+  }
+
+  .drugs-table th,
+  .drugs-table td {
+    padding: 12px 10px;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+  }
+
+  .action-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .drugs-container {
+    padding: 20px 10px;
+  }
+
+  .welcome-title {
+    font-size: 1.5rem;
+  }
+
+  .drugs-table th,
+  .drugs-table td {
+    padding: 10px 8px;
+    font-size: 0.8rem;
+  }
+
+  .drugs-table th {
+    font-size: 0.75rem;
+  }
+
+  .action-btn {
+    padding: 6px 12px;
+    font-size: 0.75rem;
+  }
+}
+
+/* Delete Dialog Styles */
+.delete-dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.delete-dialog-container {
+  background: white;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 420px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.3s ease-out;
+  overflow: hidden;
+}
+
+.delete-dialog-header {
+  padding: 24px 24px 0;
+}
+
+.delete-dialog-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.delete-dialog-content {
+  padding: 20px 24px;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.delete-dialog-content p {
+  margin: 0 0 12px 0;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.delete-dialog-content p:last-child {
+  margin-bottom: 0;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.delete-dialog-actions {
+  padding: 8px 16px 16px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
