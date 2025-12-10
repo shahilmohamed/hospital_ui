@@ -73,6 +73,11 @@ export class HttpService {
     return (this.http.post<Appointment>(`${this.url}/appointment/getAppointmentById`, app, {withCredentials: true}));
   }
 
+  getAppointmentPage(obj: any): Observable<AppointmentResponse>
+  {
+    return (this.http.post<AppointmentResponse>(`${this.url}/appointment/getAppointmentPage`, obj, {withCredentials: true}));
+  }
+
   getMedicalHistory(obj: Patient): Observable<MedicalHistoryResponse>
   {
     return (this.http.post<MedicalHistoryResponse>(`${this.url}/history/getHistory`, obj, {withCredentials: true}));
@@ -102,6 +107,19 @@ export class HttpService {
     return (this.http.post<DrugsResponse>(`${this.url}/drugs/searchDrug`, obj, {withCredentials: true}));
   }
 
+  getDrugById(drug: Drug): Observable<any>
+  {
+    return (this.http.post(`${this.url}/drugs/getDrugById`, drug, {withCredentials: true}));
+  }
+  updateDrug(drug: Drug): Observable<any>
+  {
+    return (this.http.put(`${this.url}/drugs/updateDrug`, drug, {withCredentials: true}));
+  }
+  deleteDrug(drug: Drug): Observable<any>
+  {
+    return (this.http.delete(`${this.url}/drugs/delete`, {body: drug, withCredentials: true}));
+  }
+
   getPatientPage(obj: any)
   {
     return (this.http.post<PatientResponse>(`${this.url}/patients/getPatientPage`, obj, {withCredentials: true}));
@@ -111,8 +129,10 @@ export class HttpService {
   {
     return (this.http.get<DoctorResponse>(`${this.url}/doctors/getDoctorById/${id}`, {withCredentials: true}))
   }
+
   addHistory(obj: any)
   {
     return (this.http.post(`${this.url}/history/addHistory`, obj, {withCredentials: true}));
   }
+
 }

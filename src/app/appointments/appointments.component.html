@@ -7,7 +7,7 @@
         <mat-form-field class="example-form-field" appearance="fill">
             <mat-label>Search</mat-label>
             <input matInput type="text" [(ngModel)]="value">
-            <button matSuffix mat-icon-button aria-label="Search" (click)="onClickSearch(value)">
+            <button matSuffix mat-icon-button aria-label="Search" (click)="getSearchAppointments(value)">
                 <mat-icon>search</mat-icon>
             </button>
         </mat-form-field>
@@ -29,7 +29,7 @@
             <span style="color: red;font-weight: bold;margin-top: 5px;">
                                     {{msg}}
                                 </span>
-            <tr *ngFor="let patient of tempPatients| paginate:{itemsPerPage: 10, currentPage: page };index as i">
+            <tr *ngFor="let patient of tempPatients| paginate:{itemsPerPage: 10, currentPage: page, totalItems: totalPage * 10 };index as i">
                 <td>{{i+1}}</td>
                 <td>{{patient.firstname+' '+patient.lastname | titlecase}}</td>
                 <td>{{patient.contactNumber}}</td>
@@ -38,7 +38,7 @@
             </tr>
         </tbody>
     </table>
-    <pagination-controls (pageChange)="page = $event" [maxSize]="7" [responsive]="true" [previousLabel]="'Previous'"
+    <pagination-controls (pageChange)="getPage($event)" [maxSize]="7" [responsive]="true" [previousLabel]="'Previous'"
         [nextLabel]="'Next'" style="float: right;">
     </pagination-controls>
 </div>

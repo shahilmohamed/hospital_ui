@@ -21,6 +21,7 @@ import { AddDrugsComponent } from '../add-drugs/add-drugs.component';
 import { DrugsDetailsComponent } from '../drugs-details/drugs-details.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { RouterModule } from '@angular/router';
+import { UpdateDrugComponent } from '../update-drug/update-drug.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { RouterModule } from '@angular/router';
     AddAppointmentsComponent,
     AddAppointmentPopupComponent,
     AddDrugsComponent,
-    DrugsDetailsComponent
+    DrugsDetailsComponent,
+    UpdateDrugComponent
   ],
   imports: [
     CommonModule,
