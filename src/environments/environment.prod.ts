@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  url: "https://reasonable-youthfulness-production.up.railway.app"
+  url: "https://hospital-backend-production-6228.up.railway.app"
 };
