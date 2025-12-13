@@ -33,7 +33,7 @@
                             (input)="onSearchChange(($any($event.target)).value)" [value]="selectedDrugName" required/>
                         <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onOptionSelected($event)">
                             <mat-option *ngFor="let drug of drugs" [value]="drug.name">
-                                {{ drug.name }}
+                                {{ drug.name | titlecase}}
                             </mat-option>
                             <mat-option *ngIf="loading" disabled>
                                 Loading more...
