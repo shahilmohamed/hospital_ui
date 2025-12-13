@@ -4,6 +4,7 @@
     <mat-list-item *ngFor="let patient of patients" (click)="select(patient)" class="selectable-patient">
       <div mat-line><strong>{{ patient.firstname+" "+ patient.lastname |titlecase }}</strong> (Age: {{ calculateAge(patient.dob) }})</div>
       <div mat-line>Mobile: {{ patient.contactNumber }}</div>
+      <div mat-line>Gender: {{ patient.gender | titlecase}}</div>
     </mat-list-item>
   </mat-list>
 </mat-dialog-content>
