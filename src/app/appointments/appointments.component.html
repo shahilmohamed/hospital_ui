@@ -1,44 +1,64 @@
+<!-- Header -->
 <app-header></app-header>
-<br>
-<!-- Appointment list -->
-<div class="container">
-    <h2 class="mb-4" style="display: inline;">Appointments</h2>
-    <span class="float-end">
-        <mat-form-field class="example-form-field" appearance="fill">
-            <mat-label>Search</mat-label>
-            <input matInput type="text" [(ngModel)]="value">
-            <button matSuffix mat-icon-button aria-label="Search" (click)="getSearchAppointments(value)">
-                <mat-icon>search</mat-icon>
-            </button>
-        </mat-form-field>
-    </span>
-</div>
-<!-- Table -->
-<div class="container md-4 table-responsive">
-    <table class="table table-striped table-hover content-table shadow p-3 bg-white rounded">
-        <thead class="thead-dark">
-            <tr>
+
+<div class="appointments-container">
+  <!-- Title and Search Section -->
+  <div class="title-search-container">
+    <h2 class="section-title-inline">Appointments</h2>
+    <mat-form-field class="search-form-field-inline" appearance="fill">
+      <mat-label>Search</mat-label>
+      <input matInput type="text" [(ngModel)]="value" (keyup.enter)="getSearchAppointments(value)"/>
+      <button matSuffix mat-icon-button aria-label="Search" (click)="getSearchAppointments(value)" >
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+
+  <!-- Table -->
+  <div class="table-card-container">
+    <mat-card class="table-card">
+      <mat-card-content>
+        <div class="error-message" *ngIf="msg">
+          <span>{{ msg }}</span>
+        </div>
+        <div class="table-responsive">
+          <table class="appointments-table">
+            <thead>
+              <tr>
                 <th>Si. No.</th>
                 <th>Name</th>
                 <th>Contact</th>
                 <th>Diagnosis</th>
                 <th>Prescription</th>
-            </tr>
-        </thead>
-        <tbody>
-            <span style="color: red;font-weight: bold;margin-top: 5px;">
-                                    {{msg}}
-                                </span>
-            <tr *ngFor="let patient of tempPatients| paginate:{itemsPerPage: 10, currentPage: page, totalItems: totalPage * 10 };index as i">
-                <td>{{i+1}}</td>
-                <td>{{patient.firstname+' '+patient.lastname | titlecase}}</td>
-                <td>{{patient.contactNumber}}</td>
-                <td>{{patient.diagnosis | titlecase}}</td>
-                <td><button (click)="addPrescription(patient)" class="btn btn-sm btn-info">Add Prescription</button></td>
-            </tr>
-        </tbody>
-    </table>
-    <pagination-controls (pageChange)="getPage($event)" [maxSize]="7" [responsive]="true" [previousLabel]="'Previous'"
-        [nextLabel]="'Next'" style="float: right;">
-    </pagination-controls>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor=" let patient of tempPatients | paginate : { itemsPerPage: 10, currentPage: page, totalItems: totalPage * 10 }; index as i ">
+                <td>{{ i + 1 }}</td>
+                <td class="patient-name">
+                  {{ patient.firstname + " " + patient.lastname | titlecase }}
+                </td>
+                <td>{{ patient.contactNumber }}</td>
+                <td>
+                  <span class="diagnosis-badge">
+                    {{ patient.diagnosis | titlecase }}
+                  </span>
+                </td>
+                <td class="action-buttons">
+                  <button mat-raised-button color="primary" class="action-btn prescription-btn" (click)="addPrescription(patient)" >
+                    <mat-icon>add_circle</mat-icon>
+                    Add Prescription
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="pagination-container">
+          <pagination-controls (pageChange)="getPage($event)" [maxSize]="7" [responsive]="true" [previousLabel]="'Previous'" [nextLabel]="'Next'" >
+          </pagination-controls>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>
