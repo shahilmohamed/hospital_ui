@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { HttpService } from '../http.service';
 import { Drug } from '../model/Drug';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-update-drug',
@@ -13,7 +14,8 @@ export class UpdateDrugComponent implements OnInit {
   constructor(
     private service: HttpService,
     private dialogRef: MatDialogRef<UpdateDrugComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Drug
+    @Inject(MAT_DIALOG_DATA) public data: Drug,
+    private snackBar: MatSnackBar
   ) { }
 
   drugDetails: Drug ={
@@ -45,7 +47,7 @@ export class UpdateDrugComponent implements OnInit {
         this.dialogRef.close(false);
       }
     }else{
-      console.log("inside else");
+      this.snackBar.open('No Changes Made!!!', 'Close', { duration: 3000})
     }
     
   }
