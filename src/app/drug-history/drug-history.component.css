@@ -1,30 +1,9 @@
-.drugs-container {
+.drug-history-container {
   position: relative;
   min-height: calc(100vh - 64px);
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   padding: 40px 20px;
   box-sizing: border-box;
-}
-
-.welcome-section {
-  text-align: center;
-  margin-bottom: 50px;
-  color: white;
-  animation: fadeInDown 0.8s ease-out;
-}
-
-.welcome-title {
-  font-size: 3rem;
-  font-weight: 700;
-  margin-bottom: 15px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-  letter-spacing: 1px;
-}
-
-.welcome-subtitle {
-  font-size: 1.3rem;
-  opacity: 0.95;
-  font-weight: 300;
 }
 
 /* Title and Search Section */
@@ -40,14 +19,25 @@
   animation-fill-mode: both;
 }
 
+.title-section {
+  flex: 1;
+}
+
 .section-title-inline {
   color: white;
   font-size: 2rem;
   font-weight: 600;
-  margin: 0;
+  margin: 0 0 10px 0;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-  text-align: center;
-  flex: 1;
+}
+
+.drug-name-display {
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 400;
+  margin: 0;
+  opacity: 0.95;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .search-form-field-inline {
@@ -158,9 +148,11 @@ mat-card-content {
   color: #333;
 }
 
-.drug-name {
-  font-weight: 600;
-  color: #667eea;
+.no-data {
+  text-align: center;
+  padding: 40px 20px !important;
+  color: #999;
+  font-style: italic;
 }
 
 .quantity-badge {
@@ -173,96 +165,32 @@ mat-card-content {
   font-size: 0.9rem;
 }
 
-.quantity-badge.low-stock {
+.quantity-badge.added-quantity {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+
+.quantity-badge.sold-quantity {
+  background: #fff3e0;
+  color: #f57c00;
+}
+
+.stock-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.stock-badge.in-stock {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.stock-badge.out-of-stock {
   background: #ffebee;
   color: #c62828;
-}
-
-.action-buttons {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.action-btn {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  padding: 8px 16px;
-  font-size: 0.85rem;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-  min-width: auto;
-}
-
-.action-btn mat-icon {
-  font-size: 18px;
-  width: 18px;
-  height: 18px;
-}
-
-.action-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.edit-btn:hover {
-  background-color: #5a6fd8;
-}
-
-.delete-btn:hover {
-  background-color: #d32f2f;
-}
-
-.history-btn:hover {
-  background-color: #ffdd03;
-}
-
-/* Animated Trash Can Icon - Angular Material Compatible */
-.delete-btn mat-icon.trash-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 20px;
-  height: 20px;
-  position: relative;
-  overflow: visible;
-}
-
-.delete-btn mat-icon.trash-icon svg.trash-can {
-  width: 20px;
-  height: 20px;
-  color: currentColor;
-  transition: transform 0.2s ease;
-  overflow: visible;
-  display: block;
-}
-
-.delete-btn:hover mat-icon.trash-icon svg.trash-can {
-  transform: scale(1.15);
-}
-
-/* Trash Lid Group - contains both lid paths */
-.delete-btn mat-icon.trash-icon svg .trash-lid-group {
-  transform-origin: 12px 6px;
-  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  transform: rotate(0deg);
-}
-
-.delete-btn:hover mat-icon.trash-icon svg .trash-lid-group {
-  transform: rotate(-50deg) translateY(-2px) translateX(1px);
-}
-
-.delete-btn mat-icon.trash-icon svg .trash-lid {
-  transition: all 0.3s ease;
-}
-
-.delete-btn mat-icon.trash-icon svg .trash-body {
-  transition: all 0.3s ease;
-}
-
-.delete-btn:hover mat-icon.trash-icon svg .trash-body {
-  opacity: 0.9;
 }
 
 .pagination-container {
@@ -320,18 +248,14 @@ mat-card-content {
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .welcome-title {
-    font-size: 2rem;
-  }
-
-  .welcome-subtitle {
-    font-size: 1rem;
-  }
-
   .title-search-container {
     flex-direction: column;
     align-items: flex-start;
     padding: 0 10px;
+  }
+
+  .title-section {
+    width: 100%;
   }
 
   .search-form-field-inline {
@@ -351,24 +275,19 @@ mat-card-content {
   .drugs-table td {
     padding: 12px 10px;
   }
-
-  .action-buttons {
-    flex-direction: column;
-  }
-
-  .action-btn {
-    width: 100%;
-    justify-content: center;
-  }
 }
 
 @media (max-width: 480px) {
-  .drugs-container {
+  .drug-history-container {
     padding: 20px 10px;
   }
 
-  .welcome-title {
+  .section-title-inline {
     font-size: 1.5rem;
+  }
+
+  .drug-name-display {
+    font-size: 0.95rem;
   }
 
   .drugs-table th,
@@ -379,89 +298,5 @@ mat-card-content {
 
   .drugs-table th {
     font-size: 0.75rem;
-  }
-
-  .action-btn {
-    padding: 6px 12px;
-    font-size: 0.75rem;
-  }
-}
-
-/* Delete Dialog Styles */
-.delete-dialog-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  animation: fadeIn 0.2s ease-out;
-}
-
-.delete-dialog-container {
-  background: white;
-  border-radius: 8px;
-  width: 90%;
-  max-width: 420px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  animation: slideUp 0.3s ease-out;
-  overflow: hidden;
-}
-
-.delete-dialog-header {
-  padding: 24px 24px 0;
-}
-
-.delete-dialog-header h2 {
-  margin: 0;
-  font-size: 1.5rem;
-  font-weight: 500;
-  color: rgba(0, 0, 0, 0.87);
-}
-
-.delete-dialog-content {
-  padding: 20px 24px;
-  color: rgba(0, 0, 0, 0.87);
-}
-
-.delete-dialog-content p {
-  margin: 0 0 12px 0;
-  font-size: 1rem;
-  line-height: 1.5;
-}
-
-.delete-dialog-content p:last-child {
-  margin-bottom: 0;
-  color: rgba(0, 0, 0, 0.6);
-}
-
-.delete-dialog-actions {
-  padding: 8px 16px 16px;
-  display: flex;
-  justify-content: flex-end;
-  gap: 8px;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes slideUp {
-  from {
-    transform: translateY(20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
   }
 }

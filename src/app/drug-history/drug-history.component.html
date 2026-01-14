@@ -1,0 +1,81 @@
+<!-- Header -->
+<app-header></app-header>
+
+<div class="drug-history-container">
+  <!-- Title and Search Section -->
+  <div class="title-search-container">
+    <div class="title-section">
+      <h2 class="section-title-inline">Drug History</h2>
+      <h5 class="drug-name-display">Drug Name: {{ drug?.name | titlecase }}</h5>
+    </div>
+    <mat-form-field class="search-form-field-inline" appearance="fill">
+      <mat-label>Search</mat-label>
+      <input matInput type="text" [(ngModel)]="value" (keyup.enter)="getSearchDrugLog(value)">
+      <button matSuffix mat-icon-button aria-label="Search" (click)="getSearchDrugLog(value)">
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+
+  <!-- Table Card -->
+  <div class="table-card-container">
+    <mat-card class="table-card">
+      <mat-card-content>
+        <div class="table-responsive">
+          <table class="drugs-table">
+            <thead>
+              <tr>
+                <th>SI. No.</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Available Quantity</th>
+                <th>Added Quantity</th>
+                <th>Sold Quantity</th>
+                <th>Stock</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let log of drugLog | paginate:{itemsPerPage: 10, currentPage: page, totalItems: totalPage * 10}; index as i">
+                <td>{{ (page - 1) * 10 + i + 1 }}</td>
+                <td>{{ log.updatedDate }}</td>
+                <td>{{ log.updatedTime }}</td>
+                <td>
+                  <span class="quantity-badge">
+                    {{ log.availableQuantity }}
+                  </span>
+                </td>
+                <td>
+                  <span class="quantity-badge added-quantity">
+                    +{{ log.addedQuantity }}
+                  </span>
+                </td>
+                <td>
+                  <span class="quantity-badge sold-quantity">
+                    {{ log.soldQuantity }}
+                  </span>
+                </td>
+                <td>
+                  <span class="stock-badge" [class.in-stock]="log.stock === 1" [class.out-of-stock]="log.stock === 0">
+                    {{ log.stock === 1 ? 'In Stock' : 'Out of Stock' }}
+                  </span>
+                </td>
+              </tr>
+              <tr *ngIf="drugLog.length === 0">
+                <td colspan="7" class="no-data">No drug history records found</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="pagination-container" *ngIf="drugLog.length > 0">
+          <pagination-controls 
+            (pageChange)="getPage($event)" 
+            [maxSize]="7" 
+            [responsive]="true" 
+            [previousLabel]="'Previous'"
+            [nextLabel]="'Next'">
+          </pagination-controls>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
