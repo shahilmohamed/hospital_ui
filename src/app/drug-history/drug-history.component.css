@@ -72,6 +72,61 @@
   background-color: white;
 }
 
+.filter-container {
+  max-width: 1400px;
+  margin: 0 auto 30px;
+  padding: 0 20px;
+  animation: fadeInUp 0.6s ease-out;
+  animation-fill-mode: both;
+  animation-delay: 0.1s;
+}
+
+.filter-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.filter-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.date-filter-field {
+  flex: 1;
+  min-width: 200px;
+  background-color: white;
+}
+.search-btn {
+  height: 56px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.table-header-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.filter-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.filter-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
 .table-card-container {
   max-width: 1400px;
   margin: 0 auto 30px;
@@ -261,6 +316,20 @@ mat-card-content {
   .search-form-field-inline {
     width: 100%;
     max-width: 100%;
+  }
+
+  .filter-container {
+    padding: 0 10px;
+  }
+
+  .filter-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .date-filter-field {
+    width: 100%;
+    min-width: 100%;
   }
 
   .table-card-container {

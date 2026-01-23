@@ -145,4 +145,9 @@ export class HttpService {
     return (this.http.post<any>(`${this.url}/drugs/drugLog`, obj, {withCredentials: true}));
   }
 
+  getFilteredDrugLog(obj: any): Observable<any>
+  {
+    return (this.http.post<any>(`${this.url}/drugs/drugLogFilter`, obj, {withCredentials: true}));
+  }
+
 }

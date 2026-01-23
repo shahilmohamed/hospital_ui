@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  url : "hospital-backend-production-7338.up.railway.app"
+  url : "https://hospital-backend-production-7338.up.railway.app"
   // url : "http://localhost:8080"
 
 };
