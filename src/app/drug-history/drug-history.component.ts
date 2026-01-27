@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Drug } from '../model/Drug';
 import { HttpService } from '../http.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-drug-history',
@@ -9,7 +10,9 @@ import { HttpService } from '../http.service';
 })
 export class DrugHistoryComponent implements OnInit, OnDestroy {
 
-  constructor(private httpService: HttpService) { }
+  constructor(private httpService: HttpService,
+    private toastr: ToastrService,
+  ) { }
 
   drug: Drug | null = null;
   drugLog: any[] = [];
@@ -19,6 +22,7 @@ export class DrugHistoryComponent implements OnInit, OnDestroy {
   showFilters: boolean = false;
   fromDate: Date | null = null;
   toDate: Date | null = null;
+  today: Date = new Date();
 
   ngOnInit(): void {
     document.body.className = 'bg_background_addNewPatient';
@@ -63,6 +67,10 @@ export class DrugHistoryComponent implements OnInit, OnDestroy {
     if (!this.fromDate && !this.toDate) {
       this.getDrugLog(pageNumber - 1, 10, this.value);
     }
+    else
+    {
+      this.searchFilters();
+    }
   }
 
   searchFilters(): void {
@@ -72,7 +80,7 @@ export class DrugHistoryComponent implements OnInit, OnDestroy {
       console.log(fDate, tDate);
       let obj = {
         id: this.drug?.id,
-        page: 0,
+        page: this.page - 1,
         size: 10,
         search: '',
         fromDate: fDate,
@@ -88,8 +96,15 @@ export class DrugHistoryComponent implements OnInit, OnDestroy {
         this.totalPage = 0;
       });
       
-    } else {
-      console.log('No date selected');
+    }
+    else if (this.fromDate && !this.toDate) {
+      this.toastr.error('To date is required');
+    }
+    else if (!this.fromDate && this.toDate) {
+      this.toastr.error('From date is required');
+    }
+    else {
+      this.toastr.error('Please select both from and to date');
     }
   }
 
@@ -102,7 +117,6 @@ export class DrugHistoryComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     document.body.className = '';
-    localStorage.removeItem('drug');
   }
 
 }

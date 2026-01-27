@@ -248,6 +248,11 @@ mat-card-content {
   color: #c62828;
 }
 
+.stock-badge.warning-quantity {
+  background: #fff3e0;
+  color: #f57c00;
+}
+
 .pagination-container {
   margin-top: 30px;
   display: flex;

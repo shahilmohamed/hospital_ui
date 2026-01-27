@@ -17,14 +17,14 @@
         <div class="filter-form">
           <mat-form-field appearance="fill" class="date-filter-field">
             <mat-label>From Date</mat-label>
-            <input matInput [matDatepicker]="fromDatePicker" [(ngModel)]="fromDate" (dateChange)="onDateChange()">
+            <input matInput [matDatepicker]="fromDatePicker" [(ngModel)]="fromDate" (dateChange)="onDateChange()" [max]="today">
             <mat-datepicker-toggle matSuffix [for]="fromDatePicker"></mat-datepicker-toggle>
             <mat-datepicker #fromDatePicker></mat-datepicker>
           </mat-form-field>
           
           <mat-form-field appearance="fill" class="date-filter-field">
             <mat-label>To Date</mat-label>
-            <input matInput [matDatepicker]="toDatePicker" [(ngModel)]="toDate" (dateChange)="onDateChange()">
+            <input matInput [matDatepicker]="toDatePicker" [(ngModel)]="toDate" (dateChange)="onDateChange()" [max]="today">
             <mat-datepicker-toggle matSuffix [for]="toDatePicker"></mat-datepicker-toggle>
             <mat-datepicker #toDatePicker></mat-datepicker>
           </mat-form-field>
@@ -68,18 +68,18 @@
                 <td>{{ log.updatedDate }}</td>
                 <td>{{ log.updatedTime }}</td>
                 <td>
-                  <span class="quantity-badge" [class.in-stock]="log.availableQuantity >= 1" [class.out-of-stock]="log.availableQuantity === 0">
+                  <span class="stock-badge" [class.in-stock]="log.availableQuantity >= 1" [class.out-of-stock]="log.availableQuantity === 0" [class.warning-quantity]="log.availableQuantity <= 10 && log.availableQuantity >= 1">
                     {{ log.availableQuantity }}
                   </span>
                 </td>
                 <td>
                   <span class="quantity-badge added-quantity">
-                    +{{ log.addedQuantity }}
+                    + {{ log.addedQuantity }}
                   </span>
                 </td>
                 <td>
                   <span class="quantity-badge sold-quantity">
-                    {{ log.soldQuantity }}
+                    - {{ log.soldQuantity }}
                   </span>
                 </td>
                 <td>
