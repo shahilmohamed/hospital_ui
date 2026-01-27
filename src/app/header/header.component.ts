@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     this.service.logout().subscribe((response: any) => {
-      localStorage.removeItem('login');
+      localStorage.clear();
       this.router.navigate(['/login']);
       this.snackBar.open(response.message, 'Close', { duration: 3000 });
     });

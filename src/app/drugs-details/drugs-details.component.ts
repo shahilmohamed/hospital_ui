@@ -151,6 +151,11 @@ export class DrugsDetailsComponent implements OnInit {
     this.getDrugPage(0, 10, '');
   }
 
+  viewDrugHistory(drug: Drug): void {
+    localStorage.setItem('drug', JSON.stringify(drug));
+    this.router.navigate(['/dashboard/viewDrugHistory']);
+  }
+
   ngOnDestroy(): void {
     document.body.className = '';
   }

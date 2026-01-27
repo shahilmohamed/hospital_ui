@@ -1,27 +1,19 @@
-# Step 1: Build Angular app
-FROM node:14 AS build
+# Build stage
+FROM node:14-alpine AS build
+
 WORKDIR /app
 
 COPY package*.json ./
 RUN npm ci
 
 COPY . .
-RUN npm run build
+RUN npm run build -- --configuration production
 
-# Step 2: Serve using Node.js (Railway-friendly)
-FROM node:14-alpine
-WORKDIR /app
+# Production stage
+FROM nginx:alpine
 
-# Copy built files
-COPY --from=build /app/dist/hospitalUI ./dist
-COPY --from=build /app/package*.json ./
-COPY --from=build /app/server.js ./
+COPY --from=build /app/dist/hospitalUI /usr/share/nginx/html
 
-# Install only production dependencies
-RUN npm install --production --no-optional --ignore-scripts
+EXPOSE 80
 
-# Expose port (Railway will set PORT env variable)
-ENV PORT=3000
-EXPOSE $PORT
-
-CMD ["node", "server.js"]
+CMD ["nginx", "-g", "daemon off;"]
