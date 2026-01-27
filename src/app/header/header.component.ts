@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
 import { HttpService } from '../http.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -13,11 +12,10 @@ export class HeaderComponent implements OnInit {
   constructor(
     private router: Router,
     private service: HttpService,
-    private cookieService: CookieService,
     private snackBar: MatSnackBar
   ) {}
 
-  userName: string = `Dr. ${this.cookieService.get('name')}`;
+  userName: string = `Dr. ${localStorage.getItem('name') || ''}`;
   ngOnInit(): void {}
 
   logout() {
