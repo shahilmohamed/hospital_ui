@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpService } from '../http.service';
 import { NgForm } from '@angular/forms';
-import { CookieService } from 'ngx-cookie-service';
 import { Patient } from '../model/Patient';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -13,7 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class AddNewPatientComponent implements OnInit {
 
-  constructor(private router: Router, private service: HttpService, private cookieService: CookieService, private snackBar: MatSnackBar) { }
+  constructor(private router: Router, private service: HttpService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     document.body.className = "bg_background_addNewPatient";
@@ -35,7 +34,7 @@ export class AddNewPatientComponent implements OnInit {
       address: f.value.address,
       bloodGroup: f.value.bloodGroup
     };
-    if (this.cookieService.get("id"))
+    if (localStorage.getItem("id"))
     {
       this.service.addNewPatient(obj).subscribe((response: any) => {
         if(response.message=="Patient Added Successfully")
