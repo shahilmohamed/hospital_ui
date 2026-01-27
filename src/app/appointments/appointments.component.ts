@@ -1,31 +1,41 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpService } from '../http.service';
 import { Appointment } from '../model/Appointment';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { PrescriptionComponent } from '../prescription/prescription.component';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-appointments',
   templateUrl: './appointments.component.html',
   styleUrls: ['./appointments.component.css']
 })
-export class AppointmentsComponent implements OnInit {
+export class AppointmentsComponent implements OnInit, OnDestroy {
 
-  constructor(private service: HttpService, 
+  private queryParamsSubscription?: Subscription;
+
+  constructor(private service: HttpService,
     private toastr: ToastrService,
-     private dialog: MatDialog) { }
+    private dialog: MatDialog, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     document.body.className = "bg_background_addNewPatient";
     // this.getAllAppointments();
     this.today = this.getTodayDate();
-    this.getTodayAppointments(0, 10, '', this.today);
+    this.queryParamsSubscription = this.route.queryParams.subscribe(params => {
+      this.flag = params['consulted'] === 'true';
+      this.page = 1;
+      this.value = '';
+      this.getTodayAppointments(0, 10, '', this.today, this.flag);
+    });
   }
+  flag: boolean = false;
   appointments: Appointment[] = [];
   value = '';
-  tempPatients: any[]= [];
-  page:number =1;
+  tempPatients: any[] = [];
+  page: number = 1;
   msg: any = "";
   selectedAppointment: Appointment = <Appointment>{};
   totalPage: number = 0;
@@ -87,7 +97,7 @@ export class AppointmentsComponent implements OnInit {
   getTodayDate(): any
   {
     const date = new Date();
-    const day=date.getDate().toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const year = date.getFullYear();
     return `${year}-${month}-${day}`;
@@ -112,45 +122,70 @@ export class AppointmentsComponent implements OnInit {
         this.page = 1;
         this.value = '';
         this.today = this.getTodayDate();
-        this.getTodayAppointments(0, 10, '', this.today);
+        this.getTodayAppointments(0, 10, '', this.today, this.flag);
       }
     });
   }
 
-  async getTodayAppointments(page: number, size: number, search: string, today: string){
+  async getTodayAppointments(page: number, size: number, search: string, today: string, flag: boolean) {
     const obj: any = {
       page: page,
       size: size,
       search: search,
       date: today
     }
-    const response = await this.service.getAppointmentPage(obj).subscribe((response: any) => {
-      if(response.status == 200){
-        this.appointments = response.data;
-        this.tempPatients = [...this.appointments];
-        this.totalPage = response.totalPage;
-      }
-      else if(response.status == 204){
-        this.toastr.info(response.message, 'Info');
-      }
-      else if(response.status == 403){
-        this.toastr.error(response.message, 'Error');
-      }
-    });
+    if (flag) {
+      const response = await this.service.getConsultedAppointmentsPage(obj).subscribe((response: any) => {
+        if (response.status == 200) {
+          this.appointments = response.data;
+          this.tempPatients = [...this.appointments];
+          this.totalPage = response.totalPage;
+        }
+        else if (response.status == 204) {
+          this.appointments = response.data;
+          this.tempPatients = [...this.appointments];
+          this.totalPage = response.totalPage;
+          this.toastr.info(response.message, 'Info');
+        }
+        else if (response.status == 403) {
+          this.toastr.error(response.message, 'Error');
+        }
+      });
+    }
+    else {
+      const response = await this.service.getAppointmentPage(obj).subscribe((response: any) => {
+        if (response.status == 200) {
+          this.appointments = response.data;
+          this.tempPatients = [...this.appointments];
+          this.totalPage = response.totalPage;
+        }
+        else if (response.status == 204) {
+          this.appointments = response.data;
+          this.tempPatients = [...this.appointments];
+          this.toastr.info(response.message, 'Info');
+        }
+        else if (response.status == 403) {
+          this.toastr.error(response.message, 'Error');
+        }
+      });
+    }
   }
 
   getPage(pageNumber: number): void {
     this.page = pageNumber;
-    this.getTodayAppointments(pageNumber - 1, 10, this.value, this.today);
+    this.getTodayAppointments(pageNumber - 1, 10, this.value, this.today, this.flag);
   }
 
   getSearchAppointments(value: string): void {
     this.value = value;
-    this.getTodayAppointments(0, 10, value, this.today);
+    this.getTodayAppointments(0, 10, value, this.today, this.flag);
   }
 
   ngOnDestroy(): void {
     document.body.className = '';
+    if (this.queryParamsSubscription) {
+      this.queryParamsSubscription.unsubscribe();
+    }
   }
 
 }

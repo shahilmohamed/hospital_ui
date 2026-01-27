@@ -12,9 +12,13 @@
                 <mat-icon>add</mat-icon>
                 <span>Add Appointment</span>
             </button>
-            <button mat-menu-item routerLink="/dashboard/viewAppointments">
+            <button mat-menu-item routerLink="/dashboard/viewAppointments" [queryParams]="{consulted: false}">
                 <mat-icon>visibility</mat-icon>
                 <span>View Appointments</span>
+            </button>
+            <button mat-menu-item routerLink="/dashboard/viewAppointments" [queryParams]="{consulted: true}">
+                <mat-icon>visibility</mat-icon>
+                <span>View Consulted Appointments</span>
             </button>
         </mat-menu>
         <button mat-button [matMenuTriggerFor]="patientsMenu" class="dropdown-toggle">Patient Details</button>

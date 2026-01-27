@@ -78,6 +78,11 @@ export class HttpService {
     return (this.http.post<AppointmentResponse>(`${this.url}/appointment/getAppointmentPage`, obj, {withCredentials: true}));
   }
 
+  getConsultedAppointmentsPage(obj: any): Observable<AppointmentResponse>
+  {
+    return (this.http.post<AppointmentResponse>(`${this.url}/appointment/getConsultedAppointmentsPage`, obj, {withCredentials: true}));
+  }
+
   getMedicalHistory(obj: Patient): Observable<MedicalHistoryResponse>
   {
     return (this.http.post<MedicalHistoryResponse>(`${this.url}/history/getHistory`, obj, {withCredentials: true}));
@@ -133,6 +138,16 @@ export class HttpService {
   addHistory(obj: any)
   {
     return (this.http.post(`${this.url}/history/addHistory`, obj, {withCredentials: true}));
+  }
+
+  getDrugLog(obj: any): Observable<any>
+  {
+    return (this.http.post<any>(`${this.url}/drugs/drugLog`, obj, {withCredentials: true}));
+  }
+
+  getFilteredDrugLog(obj: any): Observable<any>
+  {
+    return (this.http.post<any>(`${this.url}/drugs/drugLogFilter`, obj, {withCredentials: true}));
   }
 
 }

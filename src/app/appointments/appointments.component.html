@@ -4,7 +4,8 @@
 <div class="appointments-container">
   <!-- Title and Search Section -->
   <div class="title-search-container">
-    <h2 class="section-title-inline">Appointments</h2>
+    <h2 class="section-title-inline" *ngIf = "!flag">Appointments</h2>
+    <h2 class="section-title-inline" *ngIf = "flag">Consulted Appointments</h2>
     <mat-form-field class="search-form-field-inline" appearance="fill">
       <mat-label>Search</mat-label>
       <input matInput type="text" [(ngModel)]="value" (keyup.enter)="getSearchAppointments(value)"/>
@@ -26,15 +27,17 @@
             <thead>
               <tr>
                 <th>Si. No.</th>
+                <th>App. Id.</th>
                 <th>Name</th>
                 <th>Contact</th>
                 <th>Diagnosis</th>
-                <th>Prescription</th>
+                <th *ngIf="!flag">Prescription</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor=" let patient of tempPatients | paginate : { itemsPerPage: 10, currentPage: page, totalItems: totalPage * 10 }; index as i ">
-                <td>{{ i + 1 }}</td>
+                <td>{{ (page - 1) * 10 + i + 1 }}</td>
+                <td>{{ patient.id }}</td>
                 <td class="patient-name">
                   {{ patient.firstname + " " + patient.lastname | titlecase }}
                 </td>
@@ -44,7 +47,7 @@
                     {{ patient.diagnosis | titlecase }}
                   </span>
                 </td>
-                <td class="action-buttons">
+                <td class="action-buttons" *ngIf="!flag">
                   <button mat-raised-button color="primary" class="action-btn prescription-btn" (click)="addPrescription(patient)" >
                     <mat-icon>add_circle</mat-icon>
                     Add Prescription
