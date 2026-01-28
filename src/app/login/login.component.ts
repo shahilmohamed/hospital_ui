@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { CookieConsentService } from '../service/cookie-consent.service';
-import { CookieHelperService } from '../service/cookie-helper.service';
 
 @Component({
   selector: 'app-login',
@@ -17,8 +16,7 @@ export class LoginComponent implements OnInit {
     private router: Router, 
     private service: HttpService, 
     private cookieService: CookieService,
-    private cookieConsentService: CookieConsentService,
-    private cookieHelperService: CookieHelperService
+    private cookieConsentService: CookieConsentService
   ) { }
 
   ngOnInit(): void {
@@ -67,9 +65,9 @@ export class LoginComponent implements OnInit {
       this.id = loginResponse.data.userId;
       this.jwtToken = loginResponse.data.token;
       localStorage.setItem("login", loginResponse.status);
-      this.cookieHelperService.setCookie("name", this.name, false);
-      this.cookieHelperService.setCookie("id", this.id, false);
-      this.cookieHelperService.setCookie("jwtToken", this.jwtToken, false);
+      localStorage.setItem("name", this.name);
+      localStorage.setItem("id", this.id);
+      localStorage.setItem("jwtToken", this.jwtToken);
       } else {
         this.msg = loginResponse.message;
       }
