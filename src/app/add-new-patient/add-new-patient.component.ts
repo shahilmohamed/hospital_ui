@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpService } from '../http.service';
 import { NgForm } from '@angular/forms';
 import { Patient } from '../model/Patient';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-add-new-patient',
@@ -12,10 +13,15 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class AddNewPatientComponent implements OnInit {
 
-  constructor(private router: Router, private service: HttpService, private snackBar: MatSnackBar) { }
+  constructor(
+    public dialogRef: MatDialogRef<AddNewPatientComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private router: Router, 
+    private service: HttpService, 
+    private snackBar: MatSnackBar
+  ) { }
 
   ngOnInit(): void {
-    document.body.className = "bg_background_addNewPatient";
   }
 
   mobile_number_pattern = /^[6-9]\d{9}$/;
@@ -39,12 +45,11 @@ export class AddNewPatientComponent implements OnInit {
       this.service.addNewPatient(obj).subscribe((response: any) => {
         if(response.message=="Patient Added Successfully")
         {
-          this.router.navigate(['/dashboard/patients']);
+          this.dialogRef.close(true);
           this.snackBar.open(response.message+'.', 'Close', { duration: 3000 });
         }
         else
         {
-          this.router.navigate(['/dashboard/addNewpatient']);
           this.snackBar.open(response.message+'.', 'Close', { duration: 3000 });
         }
       });
@@ -75,8 +80,5 @@ export class AddNewPatientComponent implements OnInit {
     return `${year}-${month}-${day}`;
   }
   
-  ngOnDestroy(): void {
-    document.body.className = '';
-  }
 
 }

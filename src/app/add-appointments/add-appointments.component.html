@@ -1,38 +1,42 @@
-<app-header></app-header>
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <div class="addAppointmentform">
-                <div class="main-div">
-                    <div class="panel">
-                        <h3>Search To Add Appointment</h3>
-                        <hr>
-                        <!-- Form -->
-                        <form #f="ngForm" (ngSubmit)="onSubmit(f)" class="example-form">
-                            <div class="column">
-                                <!-- Contact number -->
-                                <div class="form-group">
-                                    <mat-form-field appearance="fill">
-                                        <mat-label>Mobile Number</mat-label>
-                                        <input matInput ngModel type="text" #contactNumber="ngModel" name="contactNumber" id="contactNumberAppointmentForm">
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <!-- Patient ID -->
-                            <div class="column">
-                                <div class="form-group">
-                                    <mat-form-field appearance="fill">
-                                        <mat-label>Patient ID</mat-label>
-                                        <input matInput ngModel type="text" #patientId="ngModel" name="patientId" id="patientIDrAppointmentForm">
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <!-- Search button -->
-                            <button mat-raised-button class="btn btn-outline-success">Search</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+<h2 mat-dialog-title class="dialog-title-wrapper">
+    <div class="dialog-header-icon">
+        <mat-icon>event</mat-icon>
     </div>
-</div>
+    <div>
+        <h2 class="dialog-title">Search To Add Appointment</h2>
+        <p class="dialog-subtitle">Enter patient details to search</p>
+    </div>
+</h2>
+
+<mat-dialog-content class="dialog-content-wrapper">
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)" class="appointment-search-form">
+        <!-- Contact number -->
+        <div class="form-field-wrapper">
+            <mat-form-field class="form-field" appearance="fill">
+                <mat-label>Mobile Number</mat-label>
+                <input matInput ngModel type="text" #contactNumber="ngModel" name="contactNumber" id="contactNumberAppointmentForm">
+                <mat-icon matPrefix>phone</mat-icon>
+            </mat-form-field>
+        </div>
+
+        <!-- Patient ID -->
+        <div class="form-field-wrapper">
+            <mat-form-field class="form-field" appearance="fill">
+                <mat-label>Patient ID</mat-label>
+                <input matInput ngModel type="text" #patientId="ngModel" name="patientId" id="patientIDrAppointmentForm">
+                <mat-icon matPrefix>badge</mat-icon>
+            </mat-form-field>
+        </div>
+
+        <mat-dialog-actions align="end" class="dialog-actions-wrapper">
+            <button mat-button mat-dialog-close type="button" class="cancel-button">
+                <mat-icon>close</mat-icon>
+                <span>Cancel</span>
+            </button>
+            <button mat-raised-button type="submit" class="search-button">
+                <mat-icon>search</mat-icon>
+                <span>Search</span>
+            </button>
+        </mat-dialog-actions>
+    </form>
+</mat-dialog-content>

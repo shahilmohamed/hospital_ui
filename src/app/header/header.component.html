@@ -32,7 +32,7 @@
                 <span>Appointments</span>
             </button>
             <mat-menu #appointmentsMenu="matMenu" class="custom-menu">
-                <button mat-menu-item routerLink="/dashboard/addAppointment">
+                <button mat-menu-item (click)="openAddAppointmentDialog()">
                     <mat-icon>add</mat-icon>
                     <span>Add Appointment</span>
                 </button>
@@ -53,7 +53,7 @@
                 <span>Patients</span>
             </button>
             <mat-menu #patientsMenu="matMenu" class="custom-menu">
-                <button mat-menu-item routerLink="/dashboard/addNewpatient">
+                <button mat-menu-item (click)="openAddPatientDialog()">
                     <mat-icon>person_add</mat-icon>
                     <span>Add New Patient</span>
                 </button>
@@ -70,7 +70,7 @@
                 <span>Drugs</span>
             </button>
             <mat-menu #drugsMenu="matMenu" class="custom-menu">
-                <button mat-menu-item routerLink="/dashboard/addDrugs">
+                <button mat-menu-item (click)="openAddDrugsDialog()">
                     <mat-icon>add</mat-icon>
                     <span>Add New Drugs</span>
                 </button>

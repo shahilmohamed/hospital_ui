@@ -1,114 +1,129 @@
-<app-header></app-header>
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <div class="addNewpatientform">
-                <div class="main-div shadow p-3 bg-white rounded">
-                    <div class="panel">
-                        <h3>Add new patient</h3>
-                        <hr>
-                        <form #f="ngForm" (ngSubmit)="onSubmit(f)" class="example-form">
-                            <!-- Name -->
-                            <div class="column">
-                                <div class="form-group">
-                                    <mat-form-field appearance="fill">
-                                        <mat-label>First name</mat-label>
-                                        <input matInput ngModel type="text" #firstname="ngModel" name="firstname"
-                                            id="addNewpatientfirstname" required>
-                                    </mat-form-field>
-                                    <mat-form-field class="adjacent-input" appearance="fill">
-                                        <mat-label>Last name</mat-label>
-                                        <input matInput ngModel type="text" #lastname="ngModel" name="lastname"
-                                            id="addNewpatientlastname" required>
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <!-- Gender -->
-                            <div class="column">
-                                <div class="form-group">
-                                    <mat-form-field class="example-full-width" appearance="fill">
-                                        <mat-label>Gender</mat-label>
-                                        <mat-select matInut ngModel #gender="ngModel" name="gender"
-                                            id="addNewpatientgender" required>
-                                            <mat-option value="male">Male</mat-option>
-                                            <mat-option value="female">Female</mat-option>
-                                            <mat-option value="others">Others</mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <!-- Blood group -->
-                            <div class="column">
-                                <div class="form-group">
-                                    <mat-form-field class="example-full-width" appearance="fill">
-                                        <mat-label>Blood Group</mat-label>
-                                        <mat-select matInut ngModel #bloodGroup="ngModel" name="bloodGroup"
-                                            id="addNewpatientbloodgroup" required>
-                                            <mat-option value="a+ve">A+ve</mat-option>
-                                            <mat-option value="a-ve">A-ve</mat-option>
-                                            <mat-option value="b+ve">B+ve</mat-option>
-                                            <mat-option value="b-ve">B-ve</mat-option>
-                                            <mat-option value="ab+ve">AB+ve</mat-option>
-                                            <mat-option value="ab-ve">AB-ve</mat-option>
-                                            <mat-option value="o+ve">O+ve</mat-option>
-                                            <mat-option value="o-ve">O-ve</mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <!-- Dob -->
-                            <div class="column">
-                                <div class="form-group">
-                                    <mat-form-field class="example-full-width" appearance="fill">
-                                        <mat-label>Date of birth</mat-label>
-                                        <input matInput [matDatepicker]="picker" ngModel #dob="ngModel" name="dob"
-                                            id="signupdob" required [max]="today">
-                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                        <mat-datepicker #picker></mat-datepicker>
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <!-- Contact number -->
-                            <div class="column">
-                                <div class="form-group">
-                                    <mat-form-field class="example-full-width" appearance="fill">
-                                        <mat-label>Mobile number</mat-label>
-                                        <input matInput ngModel #contactNumber="ngModel" name="contactNumber"
-                                            id="addNewpatientphoneNumber" class="w-10" [pattern]="mobile_number_pattern"
-                                            type="text" required>
-                                        <div *ngIf="contactNumber.touched && !contactNumber.valid">
-                                            <div class="alert alert-danger" *ngIf="contactNumber.errors?.pattern">
-                                                Enter correct mobile number
-                                            </div>
-                                        </div>
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <!-- Address -->
-                            <div class="column">
-                                <div class="form-group">
-                                    <mat-form-field class="example-full-width" appearance="fill">
-                                        <mat-label>Address</mat-label>
-                                        <input matInput ngModel type="text" #address="ngModel" name="address"
-                                            id="addNewpatientaddress" required>
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <!-- File -->
-                            <!-- <div class="column">
-                                <div class="form-group">
-                                    <div class="example-full-width" appearance="fill">
-                                        <label>Upload file</label>
-                                        <input type="file" (change)="onFileChange($event)" required multiple>
-                                    </div>
-                                </div>
-                            </div> -->
-                            <!-- Add button -->
-                            <button mat-raised-button class="btn btn-outline-primary" [disabled]="!f.valid">Add</button>
-                        </form>
-                    </div>
-                </div>
+<h2 mat-dialog-title class="dialog-title-wrapper">
+    <div class="dialog-header-icon">
+        <mat-icon>person_add</mat-icon>
+    </div>
+    <div>
+        <h2 class="dialog-title">Add New Patient</h2>
+        <p class="dialog-subtitle">Enter patient information</p>
+    </div>
+</h2>
+
+<mat-dialog-content class="dialog-content-wrapper">
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)" class="patient-form">
+        <!-- Name Row -->
+        <div class="form-row">
+            <div class="form-field-wrapper half-width">
+                <mat-form-field class="form-field" appearance="fill">
+                    <mat-label>First Name</mat-label>
+                    <input matInput ngModel type="text" #firstname="ngModel" name="firstname"
+                        id="addNewpatientfirstname" required>
+                    <mat-icon matPrefix>person</mat-icon>
+                    <mat-error *ngIf="firstname.touched && firstname.errors?.required">
+                        First name is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="form-field-wrapper half-width">
+                <mat-form-field class="form-field" appearance="fill">
+                    <mat-label>Last Name</mat-label>
+                    <input matInput ngModel type="text" #lastname="ngModel" name="lastname"
+                        id="addNewpatientlastname" required>
+                    <mat-icon matPrefix>person</mat-icon>
+                    <mat-error *ngIf="lastname.touched && lastname.errors?.required">
+                        Last name is required
+                    </mat-error>
+                </mat-form-field>
             </div>
         </div>
-    </div>
-</div>
+
+        <!-- Gender and Blood Group Row -->
+        <div class="form-row">
+            <div class="form-field-wrapper half-width">
+                <mat-form-field class="form-field" appearance="fill">
+                    <mat-label>Gender</mat-label>
+                    <mat-select ngModel #gender="ngModel" name="gender" id="addNewpatientgender" required>
+                        <mat-option value="male">Male</mat-option>
+                        <mat-option value="female">Female</mat-option>
+                        <mat-option value="others">Others</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="gender.touched && gender.errors?.required">
+                        Gender is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="form-field-wrapper half-width">
+                <mat-form-field class="form-field" appearance="fill">
+                    <mat-label>Blood Group</mat-label>
+                    <mat-select ngModel #bloodGroup="ngModel" name="bloodGroup" id="addNewpatientbloodgroup" required>
+                        <mat-option value="a+ve">A+ve</mat-option>
+                        <mat-option value="a-ve">A-ve</mat-option>
+                        <mat-option value="b+ve">B+ve</mat-option>
+                        <mat-option value="b-ve">B-ve</mat-option>
+                        <mat-option value="ab+ve">AB+ve</mat-option>
+                        <mat-option value="ab-ve">AB-ve</mat-option>
+                        <mat-option value="o+ve">O+ve</mat-option>
+                        <mat-option value="o-ve">O-ve</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="bloodGroup.touched && bloodGroup.errors?.required">
+                        Blood group is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <!-- Date of Birth -->
+        <div class="form-field-wrapper">
+            <mat-form-field class="form-field" appearance="fill">
+                <mat-label>Date of Birth</mat-label>
+                <input matInput [matDatepicker]="picker" ngModel #dob="ngModel" name="dob"
+                    id="signupdob" required [max]="today">
+                <mat-icon matPrefix>calendar_today</mat-icon>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="dob.touched && dob.errors?.required">
+                    Date of birth is required
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <!-- Contact Number -->
+        <div class="form-field-wrapper">
+            <mat-form-field class="form-field" appearance="fill">
+                <mat-label>Mobile Number</mat-label>
+                <input matInput ngModel #contactNumber="ngModel" name="contactNumber"
+                    id="addNewpatientphoneNumber" [pattern]="mobile_number_pattern" type="text" required>
+                <mat-icon matPrefix>phone</mat-icon>
+                <mat-error *ngIf="contactNumber.touched && contactNumber.errors?.pattern">
+                    Please enter a valid 10-digit mobile number
+                </mat-error>
+                <mat-error *ngIf="contactNumber.touched && contactNumber.errors?.required">
+                    Mobile number is required
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <!-- Address -->
+        <div class="form-field-wrapper">
+            <mat-form-field class="form-field" appearance="fill">
+                <mat-label>Address</mat-label>
+                <input matInput ngModel type="text" #address="ngModel" name="address"
+                    id="addNewpatientaddress" required>
+                <mat-icon matPrefix>location_on</mat-icon>
+                <mat-error *ngIf="address.touched && address.errors?.required">
+                    Address is required
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <mat-dialog-actions align="end" class="dialog-actions-wrapper">
+            <button mat-button mat-dialog-close type="button" class="cancel-button">
+                <mat-icon>close</mat-icon>
+                <span>Cancel</span>
+            </button>
+            <button mat-raised-button type="submit" [disabled]="!f.valid" class="submit-button">
+                <mat-icon>person_add</mat-icon>
+                <span>Add Patient</span>
+            </button>
+        </mat-dialog-actions>
+    </form>
+</mat-dialog-content>
