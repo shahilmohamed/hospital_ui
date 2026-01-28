@@ -1,1 +1,132 @@
-<p>footer works!</p>
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-content">
+            <!-- Hospital Information -->
+            <div class="footer-section">
+                <h3 class="footer-title">
+                    <mat-icon>local_hospital</mat-icon>
+                    Hospital Management System
+                </h3>
+                <p class="footer-description">
+                    Providing comprehensive healthcare management solutions for modern hospitals. 
+                    Streamline operations, enhance patient care, and improve efficiency.
+                </p>
+                <div class="social-links">
+                    <a href="#" class="social-link" aria-label="Facebook">
+                        <mat-icon>facebook</mat-icon>
+                    </a>
+                    <a href="#" class="social-link" aria-label="Twitter">
+                        <mat-icon>alternate_email</mat-icon>
+                    </a>
+                    <a href="#" class="social-link" aria-label="LinkedIn">
+                        <mat-icon>linkedin</mat-icon>
+                    </a>
+                    <a href="#" class="social-link" aria-label="Email">
+                        <mat-icon>email</mat-icon>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="footer-section">
+                <h4 class="footer-heading">Quick Links</h4>
+                <ul class="footer-links">
+                    <li>
+                        <a routerLink="/dashboard" class="footer-link">
+                            <mat-icon>home</mat-icon>
+                            <span>Home</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/dashboard/viewAppointments" class="footer-link">
+                            <mat-icon>event</mat-icon>
+                            <span>Appointments</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/dashboard/patients" class="footer-link">
+                            <mat-icon>people</mat-icon>
+                            <span>Patients</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/dashboard/viewDrugs" class="footer-link">
+                            <mat-icon>medication</mat-icon>
+                            <span>Drugs</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Services -->
+            <div class="footer-section">
+                <h4 class="footer-heading">Services</h4>
+                <ul class="footer-links">
+                    <li>
+                        <a href="#" class="footer-link">
+                            <mat-icon>medical_services</mat-icon>
+                            <span>Patient Management</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="footer-link">
+                            <mat-icon>schedule</mat-icon>
+                            <span>Appointment Scheduling</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="footer-link">
+                            <mat-icon>inventory</mat-icon>
+                            <span>Drug Inventory</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="footer-link">
+                            <mat-icon>description</mat-icon>
+                            <span>Prescription Management</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Contact Information -->
+            <div class="footer-section">
+                <h4 class="footer-heading">Contact Us</h4>
+                <ul class="footer-contact">
+                    <li class="contact-item">
+                        <mat-icon>location_on</mat-icon>
+                        <span>123 Medical Center Drive<br>Healthcare City, HC 12345</span>
+                    </li>
+                    <li class="contact-item">
+                        <mat-icon>phone</mat-icon>
+                        <span>+1 (555) 123-4567</span>
+                    </li>
+                    <li class="contact-item">
+                        <mat-icon>email</mat-icon>
+                        <span>info@hospitalmgmt.com</span>
+                    </li>
+                    <li class="contact-item">
+                        <mat-icon>access_time</mat-icon>
+                        <span>Mon - Fri: 8:00 AM - 6:00 PM<br>Sat - Sun: 9:00 AM - 4:00 PM</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <div class="footer-bottom-content">
+                <p class="copyright">
+                    &copy; {{ currentYear }} Hospital Management System. All rights reserved.
+                </p>
+                <div class="footer-bottom-links">
+                    <a href="#" class="footer-bottom-link">Privacy Policy</a>
+                    <span class="separator">|</span>
+                    <a href="#" class="footer-bottom-link">Terms of Service</a>
+                    <span class="separator">|</span>
+                    <a href="#" class="footer-bottom-link">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>

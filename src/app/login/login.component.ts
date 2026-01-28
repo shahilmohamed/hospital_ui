@@ -20,7 +20,6 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    document.body.className = "bg_background";
     this.checkCookieConsent();
   }
 
@@ -76,7 +75,4 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  ngOnDestroy(): void {
-    document.body.className = '';
-  }
 }
