@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AddAppointmentPopupComponent } from '../add-appointment-popup/add-appointment-popup.component';
 import { Router } from '@angular/router';
@@ -16,6 +16,8 @@ import { SearchPatientResponse } from '../model/SearchPatientResponse';
 })
 export class AddAppointmentsComponent implements OnInit {
   constructor(
+    public dialogRef: MatDialogRef<AddAppointmentsComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private router: Router,
@@ -23,7 +25,6 @@ export class AddAppointmentsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    document.body.className = 'bg_background_addAppointment';
   }
 
   msg: string = '';
@@ -73,13 +74,16 @@ export class AddAppointmentsComponent implements OnInit {
   }
 
   openAppointmentDialog(patient: SearchPatient) {
+    this.dialogRef.close();
     this.dialog.open(AddAppointmentPopupComponent, {
-      width: '500px',
+      width: '600px',
+      maxWidth: '90vw',
       data: patient,
+      panelClass: 'modern-dialog'
     });
   }
 
-  ngOnDestroy(): void {
-    document.body.className = '';
+  onCancel(): void {
+    this.dialogRef.close();
   }
 }

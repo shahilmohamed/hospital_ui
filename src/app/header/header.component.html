@@ -1,63 +1,119 @@
 <mat-toolbar class="toolbar">
-    <!-- <span class="hospital-name">🏥 My Hospital</span>
-    <span class="spacer"></span> -->
-    <span class="welcome-message">Welcome, {{ userName|titlecase }}</span>
-    <span class="spacer"></span>
+    <div class="toolbar-content">
+        <!-- Hospital Logo/Name -->
+        <div class="hospital-brand" routerLink="/dashboard" [routerLinkActive]="[]">
+            <mat-icon class="hospital-icon">local_hospital</mat-icon>
+            <span class="hospital-name">Hospital Management</span>
+        </div>
 
-    <nav class="nav-links" fxHide.lt-md>
-        <button mat-button routerLink="/dashboard">Home</button>
-        <button mat-button [matMenuTriggerFor]="appointmentsMenu" class="dropdown-toggle">Appointments</button>
-        <mat-menu #appointmentsMenu="matMenu">
-            <button mat-menu-item routerLink="/dashboard/addAppointment">
-                <mat-icon>add</mat-icon>
-                <span>Add Appointment</span>
+        <span class="spacer"></span>
+
+        <!-- Welcome Message -->
+        <div class="welcome-section">
+            <mat-icon class="welcome-icon">person</mat-icon>
+            <span class="welcome-message">{{ userName|titlecase }}</span>
+        </div>
+
+        <span class="spacer"></span>
+
+        <!-- Desktop Navigation -->
+        <nav class="nav-links" fxHide.lt-md>
+            <button mat-button routerLink="/dashboard" 
+                class="nav-button"
+                [class.active]="isHomeActive()">
+                <mat-icon>home</mat-icon>
+                <span>Home</span>
             </button>
-            <button mat-menu-item routerLink="/dashboard/viewAppointments" [queryParams]="{consulted: false}">
-                <mat-icon>visibility</mat-icon>
-                <span>View Appointments</span>
+            
+            <button mat-button [matMenuTriggerFor]="appointmentsMenu" 
+                class="nav-button dropdown-toggle"
+                [class.active]="isAppointmentsActive()">
+                <mat-icon>event</mat-icon>
+                <span>Appointments</span>
             </button>
-            <button mat-menu-item routerLink="/dashboard/viewAppointments" [queryParams]="{consulted: true}">
-                <mat-icon>visibility</mat-icon>
-                <span>View Consulted Appointments</span>
+            <mat-menu #appointmentsMenu="matMenu" class="custom-menu">
+                <button mat-menu-item (click)="openAddAppointmentDialog()">
+                    <mat-icon>add</mat-icon>
+                    <span>Add Appointment</span>
+                </button>
+                <button mat-menu-item routerLink="/dashboard/viewAppointments" [queryParams]="{consulted: false}">
+                    <mat-icon>visibility</mat-icon>
+                    <span>View Appointments</span>
+                </button>
+                <button mat-menu-item routerLink="/dashboard/viewAppointments" [queryParams]="{consulted: true}">
+                    <mat-icon>check_circle</mat-icon>
+                    <span>View Consulted Appointments</span>
+                </button>
+            </mat-menu>
+
+            <button mat-button [matMenuTriggerFor]="patientsMenu" 
+                class="nav-button dropdown-toggle"
+                [class.active]="isPatientsActive()">
+                <mat-icon>people</mat-icon>
+                <span>Patients</span>
             </button>
-        </mat-menu>
-        <button mat-button [matMenuTriggerFor]="patientsMenu" class="dropdown-toggle">Patient Details</button>
-        <mat-menu #patientsMenu="matMenu">
-            <button mat-menu-item routerLink="/dashboard/addNewpatient">
-                <mat-icon>add</mat-icon>
-                <span>Add new patient</span>
+            <mat-menu #patientsMenu="matMenu" class="custom-menu">
+                <button mat-menu-item (click)="openAddPatientDialog()">
+                    <mat-icon>person_add</mat-icon>
+                    <span>Add New Patient</span>
+                </button>
+                <button mat-menu-item routerLink="/dashboard/patients">
+                    <mat-icon>list</mat-icon>
+                    <span>View Patients</span>
+                </button>
+            </mat-menu>
+
+            <button mat-button [matMenuTriggerFor]="drugsMenu" 
+                class="nav-button dropdown-toggle"
+                [class.active]="isDrugsActive()">
+                <mat-icon>medication</mat-icon>
+                <span>Drugs</span>
             </button>
-            <button mat-menu-item routerLink="/dashboard/patients">
-                <mat-icon>visibility</mat-icon>
-                <span>View patients</span>
+            <mat-menu #drugsMenu="matMenu" class="custom-menu">
+                <button mat-menu-item (click)="openAddDrugsDialog()">
+                    <mat-icon>add</mat-icon>
+                    <span>Add New Drugs</span>
+                </button>
+                <button mat-menu-item routerLink="/dashboard/viewDrugs">
+                    <mat-icon>inventory</mat-icon>
+                    <span>View Drugs</span>
+                </button>
+            </mat-menu>
+
+            <button mat-button (click)="logout()" class="nav-button logout-button">
+                <mat-icon>logout</mat-icon>
+                <span>Logout</span>
             </button>
-        </mat-menu>
-        <button mat-button [matMenuTriggerFor]="drugsMenu" class="dropdown-toggle">Drugs</button>
-        <mat-menu #drugsMenu="matMenu">
-            <button mat-menu-item routerLink="/dashboard/addDrugs">
-                <mat-icon>add</mat-icon>
-                <span>Add New Drugs</span>
-            </button>
-            <button mat-menu-item routerLink="/dashboard/viewDrugs">
-                <mat-icon>visibility</mat-icon>
-                <span>View Drugs</span>
-            </button>
-        </mat-menu>
-        <button mat-button (click)="logout()">Logout</button>
-    </nav>
+        </nav>
+
+        <!-- Mobile Menu Button -->
+        <button mat-icon-button [matMenuTriggerFor]="menu" class="menu-button" fxShow.lt-md>
+            <mat-icon>menu</mat-icon>
+        </button>
+    </div>
 
     <!-- Mobile Menu -->
-    <mat-menu #menu="matMenu">
-        <button mat-menu-item routerLink="/dashboard"><i class="fas fa-home"></i> Home</button>
-        <button mat-menu-item [matMenuTriggerFor]="appointmentsMenu"><i class="fas fa-calendar-check"></i> Appointments</button>
-        <button mat-menu-item [matMenuTriggerFor]="patientsMenu"><i class="fas fa-procedures"></i> Patient Details</button>
-        <button mat-menu-item [matMenuTriggerFor]="drugsMenu"><i class="fas fa-solid fa-pills"></i> Drugs</button>
-        <button mat-menu-item (click)="logout()"><i class="fas fa-sign-out-alt" fxShow.lt-md></i> Logout</button>
+    <mat-menu #menu="matMenu" class="mobile-menu">
+        <button mat-menu-item routerLink="/dashboard">
+            <mat-icon>home</mat-icon>
+            <span>Home</span>
+        </button>
+        <button mat-menu-item [matMenuTriggerFor]="appointmentsMenu">
+            <mat-icon>event</mat-icon>
+            <span>Appointments</span>
+        </button>
+        <button mat-menu-item [matMenuTriggerFor]="patientsMenu">
+            <mat-icon>people</mat-icon>
+            <span>Patient Details</span>
+        </button>
+        <button mat-menu-item [matMenuTriggerFor]="drugsMenu">
+            <mat-icon>medication</mat-icon>
+            <span>Drugs</span>
+        </button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item (click)="logout()" class="mobile-logout">
+            <mat-icon>logout</mat-icon>
+            <span>Logout</span>
+        </button>
     </mat-menu>
-    <!-- menu button -->
-    <button mat-icon-button [matMenuTriggerFor]="menu" class="menu-button" fxShow.lt-md>
-        <mat-icon>menu</mat-icon>
-    </button>
-    <!-- Button icon -->
-     
 </mat-toolbar>
