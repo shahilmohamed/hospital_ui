@@ -10,9 +10,10 @@ import { SearchPatient } from '../model/SearchPatient';
 import { SearchPatientResponse } from '../model/SearchPatientResponse';
 
 @Component({
-  selector: 'app-add-appointments',
-  templateUrl: './add-appointments.component.html',
-  styleUrls: ['./add-appointments.component.css'],
+    selector: 'app-add-appointments',
+    templateUrl: './add-appointments.component.html',
+    styleUrls: ['./add-appointments.component.css'],
+    standalone: false
 })
 export class AddAppointmentsComponent implements OnInit {
   constructor(

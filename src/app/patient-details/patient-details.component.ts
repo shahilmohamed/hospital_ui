@@ -8,9 +8,10 @@ import { ToastrService } from 'ngx-toastr';
 import { PatientResponse } from '../model/PatientResponse';
 
 @Component({
-  selector: 'app-patient-details',
-  templateUrl: './patient-details.component.html',
-  styleUrls: ['./patient-details.component.css']
+    selector: 'app-patient-details',
+    templateUrl: './patient-details.component.html',
+    styleUrls: ['./patient-details.component.css'],
+    standalone: false
 })
 export class PatientDetailsComponent implements OnInit {
 

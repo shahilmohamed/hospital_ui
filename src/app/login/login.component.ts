@@ -6,9 +6,10 @@ import { CookieService } from 'ngx-cookie-service';
 import { CookieConsentService } from '../service/cookie-consent.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.css'],
+    standalone: false
 })
 export class LoginComponent implements OnInit {
 

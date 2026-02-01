@@ -5,9 +5,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddNewPatientComponent } from '../add-new-patient/add-new-patient.component';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+    selector: 'app-home',
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.css'],
+    standalone: false
 })
 export class HomeComponent implements OnInit {
 
