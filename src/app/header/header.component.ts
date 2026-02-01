@@ -61,7 +61,7 @@ export class HeaderComponent implements OnInit {
   openAddAppointmentDialog(): void {
     const dialogRef = this.dialog.open(AddAppointmentsComponent, {
       width: '600px',
-      maxWidth: '90vw',
+      maxWidth: '768px',
       panelClass: 'modern-dialog'
     });
 

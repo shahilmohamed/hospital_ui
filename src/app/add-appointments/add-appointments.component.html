@@ -12,7 +12,7 @@
     <form #f="ngForm" (ngSubmit)="onSubmit(f)" class="appointment-search-form">
         <!-- Contact number -->
         <div class="form-field-wrapper">
-            <mat-form-field class="form-field" appearance="fill">
+            <mat-form-field class="form-field" appearance="outline">
                 <mat-label>Mobile Number</mat-label>
                 <input matInput ngModel type="text" #contactNumber="ngModel" name="contactNumber" id="contactNumberAppointmentForm">
                 <mat-icon matPrefix>phone</mat-icon>
@@ -21,7 +21,7 @@
 
         <!-- Patient ID -->
         <div class="form-field-wrapper">
-            <mat-form-field class="form-field" appearance="fill">
+            <mat-form-field class="form-field" appearance="outline">
                 <mat-label>Patient ID</mat-label>
                 <input matInput ngModel type="text" #patientId="ngModel" name="patientId" id="patientIDrAppointmentForm">
                 <mat-icon matPrefix>badge</mat-icon>

@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     gap: 15px;
-    padding: 0 !important;
+    padding-top: 10px;
     margin: 0 0 20px 0;
 }
 
@@ -38,8 +38,9 @@
 }
 
 .dialog-content-wrapper {
-    padding: 0 !important;
-    min-height: 200px;
+    padding-top: 10px;
+    max-height: 70vh;
+    overflow-y: auto;
 }
 
 .appointment-search-form {
@@ -56,14 +57,30 @@
     width: 100%;
 }
 
-/* Fill appearance styling */
-::ng-deep .form-field .mat-form-field-appearance-fill .mat-form-field-flex {
-    background-color: rgba(0, 0, 0, 0.04);
-    border-radius: 4px 4px 0 0;
+::ng-deep .form-field .mat-form-field-wrapper {
+    padding-bottom: 0;
 }
 
-::ng-deep .form-field .mat-form-field-appearance-fill.mat-focused .mat-form-field-flex {
-    background-color: rgba(0, 0, 0, 0.08);
+::ng-deep .form-field .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: #e0e0e0;
+    border-width: 2px;
+}
+
+::ng-deep .form-field .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+    color: #667eea;
+    border-width: 2px;
+}
+
+::ng-deep .form-field .mat-form-field-appearance-outline.mat-form-field-invalid .mat-form-field-outline-thick {
+    color: #f44336;
+}
+
+::ng-deep .form-field .mat-form-field-label {
+    color: #666;
+}
+
+::ng-deep .form-field.mat-focused .mat-form-field-label {
+    color: #667eea;
 }
 
 ::ng-deep .form-field .mat-form-field-prefix mat-icon {
@@ -85,13 +102,15 @@
 
 .cancel-button {
     color: #666;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
 .cancel-button mat-icon {
     font-size: 18px;
     width: 18px;
     height: 18px;
-    margin-right: 5px;
 }
 
 .search-button {
@@ -100,10 +119,26 @@
     display: flex;
     align-items: center;
     gap: 6px;
+    transition: all 0.3s ease;
+}
+
+.search-button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
 }
 
 .search-button mat-icon {
     font-size: 18px;
     width: 18px;
     height: 18px;
+}
+
+@media (max-width: 768px) {
+    .dialog-title {
+        font-size: 1.25rem;
+    }
+
+    .dialog-subtitle {
+        font-size: 0.85rem;
+    }
 }
