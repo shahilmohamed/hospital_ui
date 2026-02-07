@@ -2,7 +2,11 @@
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
     z-index: 1000;
     padding: 12px 0 0 0;
     height: auto;
@@ -327,35 +331,27 @@
     .toolbar-content {
         padding: 10px 12px;
         gap: 8px;
-    }
-
-    .hospital-name {
-        font-size: 1rem;
-        display: none;
-    }
-
-    .hospital-icon {
-        font-size: 28px;
-        width: 28px;
-        height: 28px;
+        justify-content: flex-start;
     }
 
     .hospital-brand {
-        padding: 6px 10px;
+        display: none !important;
     }
 
     .welcome-section {
         padding: 6px 12px;
-        margin-right: 8px;
+        margin-right: auto;
+        margin-left: 0;
         flex-shrink: 0;
+        order: -1;
     }
 
     .welcome-message {
         font-size: 0.85rem;
-        max-width: 120px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+        max-width: none;
+        overflow: visible;
+        text-overflow: clip;
+        white-space: normal;
     }
 
     .welcome-icon {
@@ -366,8 +362,7 @@
     }
 
     .spacer {
-        flex: 1 1 auto;
-        min-width: 8px;
+        display: none;
     }
 
     .desktop-nav {
@@ -376,6 +371,7 @@
 
     .mobile-menu-btn {
         display: inline-flex !important;
+        margin-left: auto;
     }
 }
 
@@ -390,34 +386,41 @@
     .toolbar-content {
         padding: 8px 10px;
         gap: 6px;
+        justify-content: flex-start;
     }
 
     .hospital-brand {
-        padding: 6px 8px;
-        gap: 6px;
-    }
-
-    .hospital-icon {
-        font-size: 24px;
-        width: 24px;
-        height: 24px;
+        display: none !important;
     }
 
     .welcome-section {
         padding: 5px 10px;
-        margin-right: 5px;
+        margin-right: auto;
+        margin-left: 0;
         gap: 6px;
+        order: -1;
     }
 
     .welcome-message {
         font-size: 0.75rem;
-        max-width: 100px;
+        max-width: none;
+        overflow: visible;
+        text-overflow: clip;
+        white-space: normal;
     }
 
     .welcome-icon {
         font-size: 16px;
         width: 16px;
         height: 16px;
+    }
+
+    .spacer {
+        display: none;
+    }
+
+    .menu-button {
+        margin-left: auto;
     }
 
     .menu-button mat-icon {
@@ -431,22 +434,30 @@
 @media (max-width: 360px) {
     .toolbar-content {
         padding: 6px 8px;
+        justify-content: flex-start;
     }
 
-    .hospital-icon {
-        font-size: 22px;
-        width: 22px;
-        height: 22px;
+    .hospital-brand {
+        display: none !important;
     }
 
     .welcome-section {
         padding: 4px 8px;
-        margin-right: 4px;
+        margin-right: auto;
+        margin-left: 0;
+        order: -1;
     }
 
     .welcome-message {
         font-size: 0.7rem;
-        max-width: 80px;
+        max-width: none;
+        overflow: visible;
+        text-overflow: clip;
+        white-space: normal;
+    }
+
+    .spacer {
+        display: none;
     }
 }
 

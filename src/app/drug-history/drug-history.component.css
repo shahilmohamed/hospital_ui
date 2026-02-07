@@ -2,7 +2,7 @@
   position: relative;
   min-height: calc(100vh - 64px);
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 40px 20px;
+  padding: 110px 20px;
   box-sizing: border-box;
 }
 
@@ -353,7 +353,7 @@ mat-card-content {
 
 @media (max-width: 480px) {
   .drug-history-container {
-    padding: 20px 10px;
+    padding: 100px 10px;
   }
 
   .section-title-inline {

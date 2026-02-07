@@ -2,7 +2,7 @@
   position: relative;
   min-height: calc(100vh - 64px);
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 40px 20px;
+  padding: 110px 20px;
   box-sizing: border-box;
 }
 
@@ -53,7 +53,6 @@
 .search-form-field-inline {
   min-width: 300px;
   max-width: 400px;
-  background-color: white;
   border-radius: 4px;
 }
 
@@ -76,10 +75,6 @@
 
 .search-form-field-inline ::ng-deep .mat-form-field-infix {
   border-top: none;
-}
-
-.search-form-field-inline ::ng-deep input {
-  background-color: white;
 }
 
 .table-card-container {
@@ -320,7 +315,7 @@ mat-card-content {
 
 @media (max-width: 480px) {
   .appointments-container {
-    padding: 20px 10px;
+    padding: 100px 10px;
   }
 
   .welcome-title {

@@ -1,51 +1,69 @@
 <!-- Header -->
 <app-header></app-header>
-<br>
-<!-- Medical history -->
-<div class="container">
-    <h2 class="mb-4" style="display: inline;">Medical History</h2><br>
-    <h5 class="mb-4" style="display: inline;">Patient Name: {{ name | titlecase }}</h5>
-    <span class="float-end">
-        <mat-form-field class="example-form-field" appearance="fill">
-            <mat-label>Search</mat-label>
-            <input matInput type="text" [(ngModel)]="value">
-            <button matSuffix mat-icon-button aria-label="Search" (click)="onClickSearch(value)">
-                <mat-icon>search</mat-icon>
-            </button>
-        </mat-form-field>
-    </span>
-</div>
-<!-- Table -->
-<div class="container mt-4">
-    <span style="color: red;font-weight: bold;margin-top: 5px;">{{msg}}</span>
-    <table class="table table-striped table-hover mt-3 content-table shadow p-3 bg-white rounded">
-        <thead class="thead-dark">
-            <tr>
+
+<div class="medical-history-container">
+  <!-- Title and Search Section -->
+  <div class="title-search-container">
+    <div class="title-section">
+      <h2 class="section-title-inline">Medical History</h2>
+      <h5 class="patient-name-title">Patient Name: {{ name | titlecase }}</h5>
+    </div>
+    <mat-form-field class="search-form-field-inline" appearance="fill">
+      <mat-label>Search</mat-label>
+      <input matInput type="text" [(ngModel)]="value" (keyup.enter)="onClickSearch(value)">
+      <button matSuffix mat-icon-button aria-label="Search" (click)="onClickSearch(value)">
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+
+  <!-- Error Message -->
+  <div class="error-message" *ngIf="msg">
+    <span>{{ msg }}</span>
+  </div>
+
+  <!-- Table -->
+  <div class="table-card-container">
+    <mat-card class="table-card">
+      <mat-card-content>
+        <div class="table-responsive">
+          <table class="history-table">
+            <thead>
+              <tr>
                 <th>SI. No.</th>
                 <th>Diagnosis Date</th>
                 <th>Diagnosis</th>
                 <th>Revisit Date</th>
                 <th>Review</th>
                 <th>Prescription</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let entry of history| paginate:{itemsPerPage: 10, currentPage: p };index as i">
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let entry of history | paginate: { itemsPerPage: 10, currentPage: p }; index as i">
                 <td>{{ i + 1 }}</td>
                 <td>{{ entry.diagnosisDate }}</td>
-                <td>{{ entry.diagnosis | titlecase }}</td>
+                <td class="diagnosis-text">{{ entry.diagnosis | titlecase }}</td>
                 <td>{{ entry.revisitDate }}</td>
                 <td>{{ entry.review }}</td>
-                <td>
-                    <button mat-raised-button class="btn btn-sm btn-info"(click)="viewPrescription(entry.id)">
-                        View Prescription
-                    </button>
+                <td class="action-buttons">
+                  <button mat-raised-button color="primary" class="action-btn view-btn" (click)="viewPrescription(entry.id)">
+                    <mat-icon>medication</mat-icon>
+                    View Prescription
+                  </button>
                 </td>
-            </tr>
-        </tbody>
-    </table>
-    <pagination-controls (pageChange)="p= $event" style="float: right;"></pagination-controls>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="pagination-container">
+          <pagination-controls (pageChange)="p = $event" [maxSize]="7" [responsive]="true" [previousLabel]="'Previous'" [nextLabel]="'Next'">
+          </pagination-controls>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>
+<app-footer></app-footer>
 
 <!-- Modal for Prescription -->
 <div class="modal fade" id="prescriptionModal" tabindex="-1" aria-labelledby="prescriptionModalLabel"
