@@ -3,16 +3,16 @@ import { HttpService } from '../http.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-sign-up',
-  templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.css']
+    selector: 'app-sign-up',
+    templateUrl: './sign-up.component.html',
+    styleUrls: ['./sign-up.component.css'],
+    standalone: false
 })
 export class SignUpComponent implements OnInit {
 
   constructor(private router: Router, private service: HttpService) { }
 
   ngOnInit(): void {
-    document.body.className = "bg_background_signup"
   }
   selectedDate: Date | null = null;
   email_pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -42,9 +42,6 @@ export class SignUpComponent implements OnInit {
     });
   }
 
-  ngOnDestroy(): void {
-    document.body.className = '';
-  }
 
   formatDateToLocal(date: Date): string {
     const year = date.getFullYear();

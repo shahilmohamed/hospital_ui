@@ -5,8 +5,8 @@
     <p class="welcome-subtitle">Manage your hospital operations efficiently and effectively</p>
   </div>
 
-  <div class="cards-grid">
-    <!-- Appointments Section -->
+  <!-- <div class="cards-grid">
+     Appointments Section 
     <mat-card class="feature-card appointments-card" (click)="navigateTo('/dashboard/viewAppointments')">
       <div class="card-icon">
         <mat-icon class="large-icon">event</mat-icon>
@@ -31,7 +31,7 @@
       </mat-card-content>
     </mat-card>
 
-    <!-- Patient Details Section -->
+    Patient Details Section 
     <mat-card class="feature-card patients-card" (click)="navigateTo('/dashboard/patients')">
       <div class="card-icon">
         <mat-icon class="large-icon">people</mat-icon>
@@ -56,7 +56,7 @@
       </mat-card-content>
     </mat-card>
 
-    <!-- Drugs Section -->
+     Drugs Section 
     <mat-card class="feature-card drugs-card" (click)="navigateTo('/dashboard/viewDrugs')">
       <div class="card-icon">
         <mat-icon class="large-icon">medication</mat-icon>
@@ -80,7 +80,7 @@
         </div>
       </mat-card-content>
     </mat-card>
-  </div>
+  </div> -->
 
   <!-- Quick Stats Section -->
   <div class="stats-section">
@@ -98,10 +98,19 @@
         <mat-icon>local_pharmacy</mat-icon>
         <span>Drug Inventory</span>
       </div>
-      <div class="quick-access-item" (click)="navigateTo('/dashboard/addAppointment')">
+      <div class="quick-access-item" (click)="openAddAppointmentDialog()">
         <mat-icon>schedule</mat-icon>
         <span>Schedule Appointment</span>
+      </div>
+      <div class="quick-access-item" (click)="openAddPatientDialog()">
+        <mat-icon>person_add</mat-icon>
+        <span>Add New Patient</span>
+      </div>
+      <div class="quick-access-item" (click)="openAddPatientDialog()">
+        <mat-icon>medication</mat-icon>
+        <span>Add New Drugs</span>
       </div>
     </div>
   </div>
 </div>
+<app-footer></app-footer>

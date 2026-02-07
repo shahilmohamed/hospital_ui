@@ -1,17 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Drug } from '../model/Drug';
 import { CookieService } from 'ngx-cookie-service';
 import { HttpService } from '../http.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-add-drugs',
-  templateUrl: './add-drugs.component.html',
-  styleUrls: ['./add-drugs.component.css'],
+    selector: 'app-add-drugs',
+    templateUrl: './add-drugs.component.html',
+    styleUrls: ['./add-drugs.component.css'],
+    standalone: false
 })
 export class AddDrugsComponent implements OnInit {
   constructor(
+    public dialogRef: MatDialogRef<AddDrugsComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private router: Router,
     private service: HttpService,
     private cookieService: CookieService,
@@ -32,7 +36,7 @@ export class AddDrugsComponent implements OnInit {
     };
     this.service.addDrugs(obj).subscribe((response: any) => {
       if (response.message == 'Drugs Added Successfully') {
-        this.router.navigate(['/dashboard/viewDrugs']);
+        this.dialogRef.close(true);
         this.snackBar.open(response.message+'.', 'Close', { duration: 3000 });
       } else {
         this.snackBar.open(response.message, 'Close', { duration: 3000 });
@@ -47,7 +51,4 @@ export class AddDrugsComponent implements OnInit {
     return `${year}-${month}-${day}`;
   }
 
-  ngOnDestroy(): void {
-    document.body.className = '';
-  }
 }

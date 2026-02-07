@@ -60,6 +60,7 @@
                 <th>Added Quantity</th>
                 <th>Sold Quantity</th>
                 <th>Stock</th>
+                <th>Modified By</th>
               </tr>
             </thead>
             <tbody>
@@ -87,6 +88,11 @@
                     {{ log.availableQuantity >= 1 ? 'In Stock' : 'Out of Stock' }}
                   </span>
                 </td>
+                <td>
+                  <span>
+                    {{ log.modifiedBy | titlecase }}
+                  </span>
+                </td>
               </tr>
               <tr *ngIf="drugLog.length === 0">
                 <td colspan="7" class="no-data">No drug history records found</td>
@@ -107,3 +113,4 @@
     </mat-card>
   </div>
 </div>
+<app-footer></app-footer>

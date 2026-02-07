@@ -5,9 +5,10 @@ import { Drug } from '../model/Drug';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'app-update-drug',
-  templateUrl: './update-drug.component.html',
-  styleUrls: ['./update-drug.component.css']
+    selector: 'app-update-drug',
+    templateUrl: './update-drug.component.html',
+    styleUrls: ['./update-drug.component.css'],
+    standalone: false
 })
 export class UpdateDrugComponent implements OnInit {
 

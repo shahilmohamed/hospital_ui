@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-@import '~bootstrap/dist/css/bootstrap.css';
-@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import 'bootstrap/dist/css/bootstrap.css';
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
@@ -30,4 +30,28 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     border-radius: 16px !important;
     overflow: hidden;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Modern Dialog Styling */
+.modern-dialog .mat-dialog-container {
+    padding: 30px !important;
+    border-radius: 20px !important;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3) !important;
+    max-width: 90vw;
+}
+
+.modern-dialog .mat-dialog-title {
+    padding: 0 !important;
+    margin: 0 0 20px 0 !important;
+}
+
+.modern-dialog .mat-dialog-content {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.modern-dialog .mat-dialog-actions {
+    padding: 0 !important;
+    margin: 0 !important;
 }

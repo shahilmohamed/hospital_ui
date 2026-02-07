@@ -1,39 +1,145 @@
-.addAppointmentform {
-    text-align: center;
+.dialog-title-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding-top: 10px;
+    margin: 0 0 20px 0;
 }
 
-.adjacent-input {
-    padding: 0px 15px 0px;
+.dialog-header-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 12px;
+    color: white;
 }
 
-.main-div {
-    background: rgb(251, 251, 251) none;
-    margin: 10rem auto 30px;
-    width: 80%;
-    padding: 50px 70px 70px 70px;
-    border-radius: 15px;
+.dialog-header-icon mat-icon {
+    font-size: 28px;
+    width: 28px;
+    height: 28px;
 }
 
-.panel {
-    /* border: 0; */
-    border-radius: 0;
-    box-shadow: black;
-    margin-bottom: 0;
+.dialog-title {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
 }
 
-.panel p {
-    font-size: 14px;
-    margin-bottom: 30px;
-    line-height: 24px;
+.dialog-subtitle {
+    margin: 5px 0 0 0;
+    font-size: 0.9rem;
+    color: #666;
+    font-weight: 300;
 }
 
-.example-form {
-    margin: 0 auto;
-    min-width: 150px;
-    max-width: 500px;
+.dialog-content-wrapper {
+    padding-top: 10px;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.appointment-search-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-field-wrapper {
+    padding: 5px 0px 0px 0px;
     width: 100%;
 }
 
-.example-full-width {
+.form-field {
     width: 100%;
+}
+
+::ng-deep .form-field .mat-form-field-wrapper {
+    padding-bottom: 0;
+}
+
+::ng-deep .form-field .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: #e0e0e0;
+    border-width: 2px;
+}
+
+::ng-deep .form-field .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+    color: #667eea;
+    border-width: 2px;
+}
+
+::ng-deep .form-field .mat-form-field-appearance-outline.mat-form-field-invalid .mat-form-field-outline-thick {
+    color: #f44336;
+}
+
+::ng-deep .form-field .mat-form-field-label {
+    color: #666;
+}
+
+::ng-deep .form-field.mat-focused .mat-form-field-label {
+    color: #667eea;
+}
+
+::ng-deep .form-field .mat-form-field-prefix mat-icon {
+    color: #999;
+    margin-right: 8px;
+}
+
+::ng-deep .form-field.mat-focused .mat-form-field-prefix mat-icon {
+    color: #667eea;
+}
+
+.dialog-actions-wrapper {
+    padding: 20px 0 0 0 !important;
+    margin: 0;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.cancel-button {
+    color: #666;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.cancel-button mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+}
+
+.search-button {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.3s ease;
+}
+
+.search-button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+}
+
+.search-button mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+}
+
+@media (max-width: 768px) {
+    .dialog-title {
+        font-size: 1.25rem;
+    }
+
+    .dialog-subtitle {
+        font-size: 0.85rem;
+    }
 }

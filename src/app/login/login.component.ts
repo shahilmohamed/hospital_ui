@@ -6,9 +6,10 @@ import { CookieService } from 'ngx-cookie-service';
 import { CookieConsentService } from '../service/cookie-consent.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.css'],
+    standalone: false
 })
 export class LoginComponent implements OnInit {
 
@@ -20,7 +21,6 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    document.body.className = "bg_background";
     this.checkCookieConsent();
   }
 
@@ -76,7 +76,4 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  ngOnDestroy(): void {
-    document.body.className = '';
-  }
 }

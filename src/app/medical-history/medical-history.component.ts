@@ -9,9 +9,10 @@ import { PrescriptionResponse } from '../model/PrescriptionResponse';
 import { Prescription } from '../model/Prescription';
 
 @Component({
-  selector: 'app-medical-history',
-  templateUrl: './medical-history.component.html',
-  styleUrls: ['./medical-history.component.css']
+    selector: 'app-medical-history',
+    templateUrl: './medical-history.component.html',
+    styleUrls: ['./medical-history.component.css'],
+    standalone: false
 })
 export class MedicalHistoryComponent implements OnInit {
 

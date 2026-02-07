@@ -8,9 +8,10 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-appointments',
-  templateUrl: './appointments.component.html',
-  styleUrls: ['./appointments.component.css']
+    selector: 'app-appointments',
+    templateUrl: './appointments.component.html',
+    styleUrls: ['./appointments.component.css'],
+    standalone: false
 })
 export class AppointmentsComponent implements OnInit, OnDestroy {
 
