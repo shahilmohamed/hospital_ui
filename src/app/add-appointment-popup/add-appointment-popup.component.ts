@@ -7,9 +7,10 @@ import { Patient } from '../model/Patient';
 import { Appointment } from '../model/Appointment';
 
 @Component({
-  selector: 'app-add-appointment-popup',
-  templateUrl: './add-appointment-popup.component.html',
-  styleUrls: ['./add-appointment-popup.component.css'],
+    selector: 'app-add-appointment-popup',
+    templateUrl: './add-appointment-popup.component.html',
+    styleUrls: ['./add-appointment-popup.component.css'],
+    standalone: false
 })
 export class AddAppointmentPopupComponent implements OnInit {
   constructor(

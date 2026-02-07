@@ -4,9 +4,10 @@ import { HttpService } from '../http.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-drug-history',
-  templateUrl: './drug-history.component.html',
-  styleUrls: ['./drug-history.component.css']
+    selector: 'app-drug-history',
+    templateUrl: './drug-history.component.html',
+    styleUrls: ['./drug-history.component.css'],
+    standalone: false
 })
 export class DrugHistoryComponent implements OnInit, OnDestroy {
 

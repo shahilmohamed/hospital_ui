@@ -13,7 +13,7 @@
         <!-- Name Row -->
         <div class="form-row">
             <div class="form-field-wrapper half-width">
-                <mat-form-field class="form-field" appearance="fill">
+                <mat-form-field class="form-field" appearance="outline">
                     <mat-label>First Name</mat-label>
                     <input matInput ngModel type="text" #firstname="ngModel" name="firstname"
                         id="addNewpatientfirstname" required>
@@ -24,7 +24,7 @@
                 </mat-form-field>
             </div>
             <div class="form-field-wrapper half-width">
-                <mat-form-field class="form-field" appearance="fill">
+                <mat-form-field class="form-field" appearance="outline">
                     <mat-label>Last Name</mat-label>
                     <input matInput ngModel type="text" #lastname="ngModel" name="lastname"
                         id="addNewpatientlastname" required>
@@ -39,7 +39,7 @@
         <!-- Gender and Blood Group Row -->
         <div class="form-row">
             <div class="form-field-wrapper half-width">
-                <mat-form-field class="form-field" appearance="fill">
+                <mat-form-field class="form-field" appearance="outline">
                     <mat-label>Gender</mat-label>
                     <mat-select ngModel #gender="ngModel" name="gender" id="addNewpatientgender" required>
                         <mat-option value="male">Male</mat-option>
@@ -52,7 +52,7 @@
                 </mat-form-field>
             </div>
             <div class="form-field-wrapper half-width">
-                <mat-form-field class="form-field" appearance="fill">
+                <mat-form-field class="form-field" appearance="outline">
                     <mat-label>Blood Group</mat-label>
                     <mat-select ngModel #bloodGroup="ngModel" name="bloodGroup" id="addNewpatientbloodgroup" required>
                         <mat-option value="a+ve">A+ve</mat-option>
@@ -73,7 +73,7 @@
 
         <!-- Date of Birth -->
         <div class="form-field-wrapper">
-            <mat-form-field class="form-field" appearance="fill">
+            <mat-form-field class="form-field" appearance="outline">
                 <mat-label>Date of Birth</mat-label>
                 <input matInput [matDatepicker]="picker" ngModel #dob="ngModel" name="dob"
                     id="signupdob" required [max]="today">
@@ -88,7 +88,7 @@
 
         <!-- Contact Number -->
         <div class="form-field-wrapper">
-            <mat-form-field class="form-field" appearance="fill">
+            <mat-form-field class="form-field" appearance="outline">
                 <mat-label>Mobile Number</mat-label>
                 <input matInput ngModel #contactNumber="ngModel" name="contactNumber"
                     id="addNewpatientphoneNumber" [pattern]="mobile_number_pattern" type="text" required>
@@ -104,7 +104,7 @@
 
         <!-- Address -->
         <div class="form-field-wrapper">
-            <mat-form-field class="form-field" appearance="fill">
+            <mat-form-field class="form-field" appearance="outline">
                 <mat-label>Address</mat-label>
                 <input matInput ngModel type="text" #address="ngModel" name="address"
                     id="addNewpatientaddress" required>

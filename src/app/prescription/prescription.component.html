@@ -3,23 +3,23 @@
     <form #f="ngForm" (ngSubmit)="onSubmit(f)">
         <mat-card class="p-4">
             <!-- Appointment date  -->
-            <mat-form-field appearance="fill" class="w-100">
+            <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Appointment Date</mat-label>
                 <input matInput [(ngModel)]="appointmentDetails.diagnosisDate" name="diagnosisDate" required readonly>
             </mat-form-field>
             <!-- diagnosis -->
-            <mat-form-field appearance="fill" class="w-100">
+            <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Disease</mat-label>
                 <input matInput [(ngModel)]="appointmentDetails.diagnosis" name="diagnosis" required readonly>
             </mat-form-field>
             <!-- Contact Number -->
-            <mat-form-field appearance="fill" class="w-100">
+            <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Contact Number</mat-label>
                 <input matInput [(ngModel)]="appointmentDetails.contactNumber" name="contactNumber" required readonly>
             </mat-form-field>
 
             <!-- Review -->
-            <mat-form-field appearance="fill" class="w-100">
+            <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Review</mat-label>
                 <textarea matInput ngModel name="review" rows="10" required></textarea>   
             </mat-form-field>
@@ -27,7 +27,7 @@
             <!-- Drug -->
             <div class="row">
                 <div class="col-md-3 mb-3">
-                    <mat-form-field>
+                    <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Select Medicine</mat-label>
                         <input type="text" matInput [matAutocomplete]="auto"
                             (input)="onSearchChange(($any($event.target)).value)" [value]="selectedDrugName" required/>
@@ -106,7 +106,7 @@
 
             </div>
             <!-- Revisit Date -->
-            <mat-form-field appearance="fill" class="w-100">
+            <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Revisit Date</mat-label>
                 <input matInput [matDatepicker]="picker" ngModel name="revisitDate" [min]="today" required>
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>

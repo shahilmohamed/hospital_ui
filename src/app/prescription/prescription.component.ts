@@ -15,9 +15,10 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-prescription',
-  templateUrl: './prescription.component.html',
-  styleUrls: ['./prescription.component.css'],
+    selector: 'app-prescription',
+    templateUrl: './prescription.component.html',
+    styleUrls: ['./prescription.component.css'],
+    standalone: false
 })
 export class PrescriptionComponent implements OnInit {
   constructor(

@@ -7,9 +7,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-add-drugs',
-  templateUrl: './add-drugs.component.html',
-  styleUrls: ['./add-drugs.component.css'],
+    selector: 'app-add-drugs',
+    templateUrl: './add-drugs.component.html',
+    styleUrls: ['./add-drugs.component.css'],
+    standalone: false
 })
 export class AddDrugsComponent implements OnInit {
   constructor(

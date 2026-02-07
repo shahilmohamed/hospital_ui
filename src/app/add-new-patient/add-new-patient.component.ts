@@ -7,9 +7,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-add-new-patient',
-  templateUrl: './add-new-patient.component.html',
-  styleUrls: ['./add-new-patient.component.css']
+    selector: 'app-add-new-patient',
+    templateUrl: './add-new-patient.component.html',
+    styleUrls: ['./add-new-patient.component.css'],
+    standalone: false
 })
 export class AddNewPatientComponent implements OnInit {
 

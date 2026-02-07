@@ -9,9 +9,10 @@ import { AddNewPatientComponent } from '../add-new-patient/add-new-patient.compo
 import { AddDrugsComponent } from '../add-drugs/add-drugs.component';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.css'],
+    standalone: false
 })
 export class HeaderComponent implements OnInit {
   currentRoute: string = '';
@@ -61,7 +62,7 @@ export class HeaderComponent implements OnInit {
   openAddAppointmentDialog(): void {
     const dialogRef = this.dialog.open(AddAppointmentsComponent, {
       width: '600px',
-      maxWidth: '90vw',
+      maxWidth: '768px',
       panelClass: 'modern-dialog'
     });
 

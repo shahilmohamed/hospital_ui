@@ -9,9 +9,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { UpdateDrugComponent } from '../update-drug/update-drug.component';
 
 @Component({
-  selector: 'app-drugs-details',
-  templateUrl: './drugs-details.component.html',
-  styleUrls: ['./drugs-details.component.css'],
+    selector: 'app-drugs-details',
+    templateUrl: './drugs-details.component.html',
+    styleUrls: ['./drugs-details.component.css'],
+    standalone: false
 })
 export class DrugsDetailsComponent implements OnInit {
   constructor(

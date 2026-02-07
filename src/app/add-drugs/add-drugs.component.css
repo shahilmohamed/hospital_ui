@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     gap: 15px;
-    padding: 0 !important;
+    padding-top: 10px;
     margin: 0 0 20px 0;
 }
 
@@ -15,6 +15,12 @@
     background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
     border-radius: 12px;
     color: white;
+}
+
+.dialog-content-wrapper {
+    padding: 0 !important;
+    max-height: 70vh;
+    overflow-y: auto;
 }
 
 .dialog-header-icon mat-icon {
@@ -62,17 +68,34 @@
 }
 
 .form-field {
+    padding: 5px 10px 0px 10px;
     width: 100%;
 }
 
-/* Fill appearance styling */
-::ng-deep .form-field .mat-form-field-appearance-fill .mat-form-field-flex {
-    background-color: rgba(0, 0, 0, 0.04);
-    border-radius: 4px 4px 0 0;
+::ng-deep .form-field .mat-form-field-wrapper {
+    padding-bottom: 0;
 }
 
-::ng-deep .form-field .mat-form-field-appearance-fill.mat-focused .mat-form-field-flex {
-    background-color: rgba(0, 0, 0, 0.08);
+::ng-deep .form-field .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: #e0e0e0;
+    border-width: 2px;
+}
+
+::ng-deep .form-field .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+    color: #4facfe;
+    border-width: 2px;
+}
+
+::ng-deep .form-field .mat-form-field-appearance-outline.mat-form-field-invalid .mat-form-field-outline-thick {
+    color: #f44336;
+}
+
+::ng-deep .form-field .mat-form-field-label {
+    color: #666;
+}
+
+::ng-deep .form-field.mat-focused .mat-form-field-label {
+    color: #4facfe;
 }
 
 ::ng-deep .form-field .mat-form-field-prefix mat-icon {
@@ -81,7 +104,7 @@
 }
 
 ::ng-deep .form-field.mat-focused .mat-form-field-prefix mat-icon {
-    color: #667eea;
+    color: #4facfe;
 }
 
 .dialog-actions-wrapper {
@@ -96,11 +119,16 @@
     color: #666;
 }
 
+.cancel-button {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
 .cancel-button mat-icon {
     font-size: 18px;
     width: 18px;
     height: 18px;
-    margin-right: 5px;
 }
 
 .submit-button {
@@ -109,6 +137,17 @@
     display: flex;
     align-items: center;
     gap: 6px;
+    transition: all 0.3s ease;
+}
+
+.submit-button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(79, 172, 254, 0.4);
+}
+
+.submit-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
 .submit-button mat-icon {
