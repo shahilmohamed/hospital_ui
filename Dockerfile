@@ -1,5 +1,5 @@
 # Build stage
-FROM node:14-alpine AS build
+FROM node:20-alpine AS build
 
 WORKDIR /app
 
@@ -12,7 +12,7 @@ RUN npm run build -- --configuration production
 # Production stage
 FROM nginx:alpine
 
-COPY --from=build /app/dist/hospitalUI /usr/share/nginx/html
+COPY --from=build /app/dist/hospitalUI/browser /usr/share/nginx/html
 
 EXPOSE 80
 
