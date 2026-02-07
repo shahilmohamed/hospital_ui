@@ -46,7 +46,6 @@
 .search-form-field-inline {
   min-width: 300px;
   max-width: 400px;
-  background-color: white;
   border-radius: 4px;
 }
 
@@ -71,9 +70,6 @@
   border-top: none;
 }
 
-.search-form-field-inline ::ng-deep input {
-  background-color: white;
-}
 
 /* Error Message */
 .error-message {
