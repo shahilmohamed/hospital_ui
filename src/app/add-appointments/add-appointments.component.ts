@@ -52,6 +52,7 @@ export class AddAppointmentsComponent implements OnInit {
         } else {
           const dialogRef = this.dialog.open(PatientSelectDialogComponent, {
             width: '500px',
+            height: '500px',
             data: this.matchedPatients,
           });
 

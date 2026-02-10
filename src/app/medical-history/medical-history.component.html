@@ -18,9 +18,11 @@
   </div>
 
   <!-- Error Message -->
-  <div class="error-message" *ngIf="msg">
-    <span>{{ msg }}</span>
-  </div>
+  @if (msg) {
+    <div class="error-message">
+      <span>{{ msg }}</span>
+    </div>
+  }
 
   <!-- Table -->
   <div class="table-card-container">
@@ -39,19 +41,21 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let entry of history | paginate: { itemsPerPage: 10, currentPage: p }; index as i">
-                <td>{{ i + 1 }}</td>
-                <td>{{ entry.diagnosisDate }}</td>
-                <td class="diagnosis-text">{{ entry.diagnosis | titlecase }}</td>
-                <td>{{ entry.revisitDate }}</td>
-                <td>{{ entry.review }}</td>
-                <td class="action-buttons">
-                  <button mat-raised-button color="primary" class="action-btn view-btn" (click)="viewPrescription(entry.id)">
-                    <mat-icon>medication</mat-icon>
-                    View Prescription
-                  </button>
-                </td>
-              </tr>
+              @for (entry of history | paginate: { itemsPerPage: 10, currentPage: p }; track entry; let i = $index) {
+                <tr>
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ entry.diagnosisDate }}</td>
+                  <td class="diagnosis-text">{{ entry.diagnosis | titlecase }}</td>
+                  <td>{{ entry.revisitDate }}</td>
+                  <td>{{ entry.review }}</td>
+                  <td class="action-buttons">
+                    <button mat-raised-button color="primary" class="action-btn view-btn" (click)="viewPrescription(entry.id)">
+                      <mat-icon>medication</mat-icon>
+                      View Prescription
+                    </button>
+                  </td>
+                </tr>
+              }
             </tbody>
           </table>
         </div>
@@ -67,41 +71,43 @@
 
 <!-- Modal for Prescription -->
 <div class="modal fade" id="prescriptionModal" tabindex="-1" aria-labelledby="prescriptionModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" id="prescriptionModalLabel">Prescription Details</h3>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="prescriptionModalLabel">Prescription Details</h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
 
-            <div class="modal-body">
-                <table class="table table-striped table-hover mt-3 shadow p-3 bg-white rounded">
-                    <thead class="table-light">
-                        <tr>
-                            <th>Drug</th>
-                            <th>Morning</th>
-                            <th>Afternoon</th>
-                            <th>Night</th>
-                            <th>Days</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let drug of selectedPrescription| paginate:{itemsPerPage: 5, currentPage: p1 };index as i">
-                            <td>{{ drug.name }}</td>
-                            <td>{{ drug.dosageMorning ? '✓' : '' }}</td>
-                            <td>{{ drug.dosageAfternoon ? '✓' : '' }}</td>
-                            <td>{{ drug.dosageNight ? '✓' : '' }}</td>
-                            <td>{{ drug.durationDays }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <pagination-controls (pageChange)="p1= $event" style="float: right;"></pagination-controls>
-            </div>
+      <div class="modal-body">
+        <table class="table table-striped table-hover mt-3 shadow p-3 bg-white rounded">
+          <thead class="table-light">
+            <tr>
+              <th>Drug</th>
+              <th>Morning</th>
+              <th>Afternoon</th>
+              <th>Night</th>
+              <th>Days</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (drug of selectedPrescription| paginate:{itemsPerPage: 5, currentPage: p1 }; track drug; let i = $index) {
+              <tr>
+                <td>{{ drug.name }}</td>
+                <td>{{ drug.dosageMorning ? '✓' : '' }}</td>
+                <td>{{ drug.dosageAfternoon ? '✓' : '' }}</td>
+                <td>{{ drug.dosageNight ? '✓' : '' }}</td>
+                <td>{{ drug.durationDays }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+        <pagination-controls (pageChange)="p1= $event" style="float: right;"></pagination-controls>
+      </div>
 
-            <div class="modal-footer">
-                <button mat-raised-button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
+      <div class="modal-footer">
+        <button mat-raised-button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
     </div>
+  </div>
 </div>

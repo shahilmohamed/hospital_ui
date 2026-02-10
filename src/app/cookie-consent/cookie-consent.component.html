@@ -1,4 +1,5 @@
-<div id="cookie-consent-banner" class="cookie-consent-banner" [class.show]="showBanner" *ngIf="showBanner">
+@if (showBanner) {
+  <div id="cookie-consent-banner" class="cookie-consent-banner" [class.show]="showBanner">
     <div class="cookie-consent-container">
       <div class="cookie-consent-content">
         <div class="cookie-icon">
@@ -13,8 +14,8 @@
         <div class="cookie-text">
           <h4 class="cookie-title">We use cookies</h4>
           <p class="cookie-description">
-            We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic. 
-            By clicking "Accept All", you consent to our use of cookies. 
+            We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic.
+            By clicking "Accept All", you consent to our use of cookies.
             <a href="#" class="cookie-link" (click)="$event.preventDefault()">Learn more</a>
           </p>
         </div>
@@ -29,4 +30,4 @@
       </div>
     </div>
   </div>
-  
+}

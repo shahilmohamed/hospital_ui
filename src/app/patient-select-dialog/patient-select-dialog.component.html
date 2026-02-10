@@ -1,11 +1,13 @@
 <h2 mat-dialog-title>Select Patient</h2>
 <mat-dialog-content>
   <mat-list>
-    <mat-list-item *ngFor="let patient of patients" (click)="select(patient)" class="selectable-patient">
-      <div mat-line><strong>{{ patient.firstname+" "+ patient.lastname |titlecase }}</strong> (Age: {{ calculateAge(patient.dob) }})</div>
-      <div mat-line>Mobile: {{ patient.contactNumber }}</div>
-      <div mat-line>Gender: {{ patient.gender | titlecase}}</div>
-    </mat-list-item>
+    @for (patient of patients; track patient) {
+      <mat-list-item (click)="select(patient)" class="selectable-patient">
+        <div mat-line><strong>{{ patient.firstname+" "+ patient.lastname |titlecase }}</strong> (Age: {{ calculateAge(patient.dob) }})</div>
+        <div mat-line>Mobile: {{ patient.contactNumber }}</div>
+        <div mat-line>Gender: {{ patient.gender | titlecase}}</div>
+      </mat-list-item>
+    }
   </mat-list>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
