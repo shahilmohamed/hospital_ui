@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AddAppointmentsComponent } from '../add-appointments/add-appointments.component';
 import { MatDialog } from '@angular/material/dialog';
 import { AddNewPatientComponent } from '../add-new-patient/add-new-patient.component';
+import { AddDrugsComponent } from '../add-drugs/add-drugs.component';
 
 @Component({
     selector: 'app-home',
@@ -41,6 +42,20 @@ export class HomeComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result === true) {
         this.router.navigate(['/dashboard/patients']);
+      }
+    });
+  }
+
+  openAddDrugsDialog(): void {
+    const dialogRef = this.dialog.open(AddDrugsComponent, {
+      width: '600px',
+      maxWidth: '90vw',
+      panelClass: 'modern-dialog'
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === true) {
+        this.router.navigate(['/dashboard/viewDrugs']);
       }
     });
   }

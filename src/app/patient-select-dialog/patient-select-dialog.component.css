@@ -1,6 +1,25 @@
 .selectable-patient {
   cursor: pointer;
+  height: auto !important;
+  min-height: 72px;
+  padding: 8px 0;
 }
+
 .selectable-patient:hover {
   background-color: #f0f0f0;
+}
+
+.selectable-patient [mat-line] {
+  display: block;
+  line-height: 1.5;
+  margin: 4px 0;
+}
+
+mat-list-item {
+  margin-bottom: 8px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+mat-list-item:last-child {
+  border-bottom: none;
 }

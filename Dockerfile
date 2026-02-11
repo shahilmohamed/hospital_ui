@@ -1,5 +1,8 @@
 # Build stage
-FROM node:20-alpine AS build
+FROM node:24-alpine AS build
+
+# Update CA certificates to fix SSL/TLS issues with Google Fonts
+RUN apk update && apk add --no-cache ca-certificates && update-ca-certificates
 
 WORKDIR /app
 

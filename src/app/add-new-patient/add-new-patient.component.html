@@ -1,129 +1,143 @@
 <h2 mat-dialog-title class="dialog-title-wrapper">
-    <div class="dialog-header-icon">
-        <mat-icon>person_add</mat-icon>
-    </div>
-    <div>
-        <h2 class="dialog-title">Add New Patient</h2>
-        <p class="dialog-subtitle">Enter patient information</p>
-    </div>
+  <div class="dialog-header-icon">
+    <mat-icon>person_add</mat-icon>
+  </div>
+  <div>
+    <h2 class="dialog-title">Add New Patient</h2>
+    <p class="dialog-subtitle">Enter patient information</p>
+  </div>
 </h2>
 
 <mat-dialog-content class="dialog-content-wrapper">
-    <form #f="ngForm" (ngSubmit)="onSubmit(f)" class="patient-form">
-        <!-- Name Row -->
-        <div class="form-row">
-            <div class="form-field-wrapper half-width">
-                <mat-form-field class="form-field" appearance="outline">
-                    <mat-label>First Name</mat-label>
-                    <input matInput ngModel type="text" #firstname="ngModel" name="firstname"
-                        id="addNewpatientfirstname" required>
-                    <mat-icon matPrefix>person</mat-icon>
-                    <mat-error *ngIf="firstname.touched && firstname.errors?.required">
-                        First name is required
-                    </mat-error>
-                </mat-form-field>
-            </div>
-            <div class="form-field-wrapper half-width">
-                <mat-form-field class="form-field" appearance="outline">
-                    <mat-label>Last Name</mat-label>
-                    <input matInput ngModel type="text" #lastname="ngModel" name="lastname"
-                        id="addNewpatientlastname" required>
-                    <mat-icon matPrefix>person</mat-icon>
-                    <mat-error *ngIf="lastname.touched && lastname.errors?.required">
-                        Last name is required
-                    </mat-error>
-                </mat-form-field>
-            </div>
-        </div>
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)" class="patient-form">
+    <!-- Name Row -->
+    <div class="form-row">
+      <div class="form-field-wrapper half-width">
+        <mat-form-field class="form-field" appearance="outline">
+          <mat-label>First Name</mat-label>
+          <input matInput ngModel type="text" #firstname="ngModel" name="firstname" id="addNewpatientfirstname"
+            required>
+          <mat-icon matPrefix>person</mat-icon>
+          @if (firstname.touched && firstname.errors?.required) {
+          <mat-error>
+            First name is required
+          </mat-error>
+          }
+        </mat-form-field>
+      </div>
+      <div class="form-field-wrapper half-width">
+        <mat-form-field class="form-field" appearance="outline">
+          <mat-label>Last Name</mat-label>
+          <input matInput ngModel type="text" #lastname="ngModel" name="lastname" id="addNewpatientlastname" required>
+          <mat-icon matPrefix>person</mat-icon>
+          @if (lastname.touched && lastname.errors?.required) {
+          <mat-error>
+            Last name is required
+          </mat-error>
+          }
+        </mat-form-field>
+      </div>
+    </div>
 
-        <!-- Gender and Blood Group Row -->
-        <div class="form-row">
-            <div class="form-field-wrapper half-width">
-                <mat-form-field class="form-field" appearance="outline">
-                    <mat-label>Gender</mat-label>
-                    <mat-select ngModel #gender="ngModel" name="gender" id="addNewpatientgender" required>
-                        <mat-option value="male">Male</mat-option>
-                        <mat-option value="female">Female</mat-option>
-                        <mat-option value="others">Others</mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="gender.touched && gender.errors?.required">
-                        Gender is required
-                    </mat-error>
-                </mat-form-field>
-            </div>
-            <div class="form-field-wrapper half-width">
-                <mat-form-field class="form-field" appearance="outline">
-                    <mat-label>Blood Group</mat-label>
-                    <mat-select ngModel #bloodGroup="ngModel" name="bloodGroup" id="addNewpatientbloodgroup" required>
-                        <mat-option value="a+ve">A+ve</mat-option>
-                        <mat-option value="a-ve">A-ve</mat-option>
-                        <mat-option value="b+ve">B+ve</mat-option>
-                        <mat-option value="b-ve">B-ve</mat-option>
-                        <mat-option value="ab+ve">AB+ve</mat-option>
-                        <mat-option value="ab-ve">AB-ve</mat-option>
-                        <mat-option value="o+ve">O+ve</mat-option>
-                        <mat-option value="o-ve">O-ve</mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="bloodGroup.touched && bloodGroup.errors?.required">
-                        Blood group is required
-                    </mat-error>
-                </mat-form-field>
-            </div>
-        </div>
+    <!-- Gender and Blood Group Row -->
+    <div class="form-row">
+      <div class="form-field-wrapper half-width">
+        <mat-form-field class="form-field" appearance="outline">
+          <mat-label>Gender</mat-label>
+          <mat-select ngModel #gender="ngModel" name="gender" id="addNewpatientgender" required>
+            <mat-option value="male">Male</mat-option>
+            <mat-option value="female">Female</mat-option>
+            <mat-option value="others">Others</mat-option>
+          </mat-select>
+          @if (gender.touched && gender.errors?.required) {
+          <mat-error>
+            Gender is required
+          </mat-error>
+          }
+        </mat-form-field>
+      </div>
+      <div class="form-field-wrapper half-width">
+        <mat-form-field class="form-field" appearance="outline">
+          <mat-label>Blood Group</mat-label>
+          <mat-select ngModel #bloodGroup="ngModel" name="bloodGroup" id="addNewpatientbloodgroup" required>
+            <mat-option value="a+ve">A+ve</mat-option>
+            <mat-option value="a-ve">A-ve</mat-option>
+            <mat-option value="b+ve">B+ve</mat-option>
+            <mat-option value="b-ve">B-ve</mat-option>
+            <mat-option value="ab+ve">AB+ve</mat-option>
+            <mat-option value="ab-ve">AB-ve</mat-option>
+            <mat-option value="o+ve">O+ve</mat-option>
+            <mat-option value="o-ve">O-ve</mat-option>
+          </mat-select>
+          @if (bloodGroup.touched && bloodGroup.errors?.required) {
+          <mat-error>
+            Blood group is required
+          </mat-error>
+          }
+        </mat-form-field>
+      </div>
+    </div>
 
-        <!-- Date of Birth -->
-        <div class="form-field-wrapper">
-            <mat-form-field class="form-field" appearance="outline">
-                <mat-label>Date of Birth</mat-label>
-                <input matInput [matDatepicker]="picker" ngModel #dob="ngModel" name="dob"
-                    id="signupdob" required [max]="today">
-                <mat-icon matPrefix>calendar_today</mat-icon>
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-                <mat-error *ngIf="dob.touched && dob.errors?.required">
-                    Date of birth is required
-                </mat-error>
-            </mat-form-field>
-        </div>
+    <!-- Date of Birth -->
+    <div class="form-field-wrapper">
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>Date of Birth</mat-label>
+        <input matInput [matDatepicker]="picker" ngModel #dob="ngModel" name="dob" id="signupdob" required
+          [max]="today">
+        <mat-icon matPrefix>calendar_today</mat-icon>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        @if (dob.touched && dob.errors?.required) {
+        <mat-error>
+          Date of birth is required
+        </mat-error>
+        }
+      </mat-form-field>
+    </div>
 
-        <!-- Contact Number -->
-        <div class="form-field-wrapper">
-            <mat-form-field class="form-field" appearance="outline">
-                <mat-label>Mobile Number</mat-label>
-                <input matInput ngModel #contactNumber="ngModel" name="contactNumber"
-                    id="addNewpatientphoneNumber" [pattern]="mobile_number_pattern" type="text" required>
-                <mat-icon matPrefix>phone</mat-icon>
-                <mat-error *ngIf="contactNumber.touched && contactNumber.errors?.pattern">
-                    Please enter a valid 10-digit mobile number
-                </mat-error>
-                <mat-error *ngIf="contactNumber.touched && contactNumber.errors?.required">
-                    Mobile number is required
-                </mat-error>
-            </mat-form-field>
-        </div>
+    <!-- Contact Number -->
+    <div class="form-field-wrapper">
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>Mobile Number</mat-label>
+        <input matInput ngModel #contactNumber="ngModel" name="contactNumber" id="addNewpatientphoneNumber"
+          [pattern]="mobile_number_pattern" type="text" required>
+        <mat-icon matPrefix>phone</mat-icon>
+        @if (contactNumber.touched && contactNumber.errors?.pattern) {
+        <mat-error>
+          Please enter a valid 10-digit mobile number
+        </mat-error>
+        }
+        @if (contactNumber.touched && contactNumber.errors?.required) {
+        <mat-error>
+          Mobile number is required
+        </mat-error>
+        }
+      </mat-form-field>
+    </div>
 
-        <!-- Address -->
-        <div class="form-field-wrapper">
-            <mat-form-field class="form-field" appearance="outline">
-                <mat-label>Address</mat-label>
-                <input matInput ngModel type="text" #address="ngModel" name="address"
-                    id="addNewpatientaddress" required>
-                <mat-icon matPrefix>location_on</mat-icon>
-                <mat-error *ngIf="address.touched && address.errors?.required">
-                    Address is required
-                </mat-error>
-            </mat-form-field>
-        </div>
+    <!-- Address -->
+    <div class="form-field-wrapper">
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>Address</mat-label>
+        <input matInput ngModel type="text" #address="ngModel" name="address" id="addNewpatientaddress" required>
+        <mat-icon matPrefix>location_on</mat-icon>
+        @if (address.touched && address.errors?.required) {
+        <mat-error>
+          Address is required
+        </mat-error>
+        }
+      </mat-form-field>
+    </div>
 
-        <mat-dialog-actions align="end" class="dialog-actions-wrapper">
-            <button mat-button mat-dialog-close type="button" class="cancel-button">
-                <mat-icon>close</mat-icon>
-                <span>Cancel</span>
-            </button>
-            <button mat-raised-button type="submit" [disabled]="!f.valid" class="submit-button">
-                <mat-icon>person_add</mat-icon>
-                <span>Add Patient</span>
-            </button>
-        </mat-dialog-actions>
-    </form>
+    <mat-dialog-actions align="end" class="dialog-actions-wrapper">
+      <button mat-button mat-dialog-close type="button" class="cancel-button">
+        <mat-icon>close</mat-icon>
+        <span>Cancel</span>
+      </button>
+      <button mat-raised-button type="submit" [disabled]="!f.valid" class="submit-button">
+        <mat-icon>person_add</mat-icon>
+        <span>Add Patient</span>
+      </button>
+    </mat-dialog-actions>
+  </form>
 </mat-dialog-content>
