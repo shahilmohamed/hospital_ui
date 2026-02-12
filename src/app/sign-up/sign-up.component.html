@@ -171,9 +171,15 @@
           </div>
 
           <!-- Error Message -->
-          @if (incorrect) {
+          @if (incorrect=='User already taken') {
           <div class="error-message">
             <mat-icon>error_outline</mat-icon>
+            <span>{{incorrect}}</span>
+          </div>
+          }
+          @if (incorrect =='User registered successfully'){
+          <div class="error-message" style="color: #4caf50; border: 1px solid #4caf50; background: #e8f5e9;">
+            <mat-icon style="color: #4caf50;">check_circle_outline</mat-icon>
             <span>{{incorrect}}</span>
           </div>
           }
