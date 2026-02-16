@@ -4,12 +4,16 @@
 <div class="appointments-container">
   <!-- Title and Search Section -->
   <div class="title-search-container">
-    <h2 class="section-title-inline" *ngIf = "!flag">Appointments</h2>
-    <h2 class="section-title-inline" *ngIf = "flag">Consulted Appointments</h2>
+    @if (!flag) {
+    <h2 class="section-title-inline">Appointments</h2>
+    }
+    @if (flag) {
+    <h2 class="section-title-inline">Consulted Appointments</h2>
+    }
     <mat-form-field class="search-form-field-inline" appearance="fill">
       <mat-label>Search</mat-label>
-      <input matInput type="text" [(ngModel)]="value" (keyup.enter)="getSearchAppointments(value)"/>
-      <button matSuffix mat-icon-button aria-label="Search" (click)="getSearchAppointments(value)" >
+      <input matInput type="text" [(ngModel)]="value" (keyup.enter)="getSearchAppointments(value)" />
+      <button matSuffix mat-icon-button aria-label="Search" (click)="getSearchAppointments(value)">
         <mat-icon>search</mat-icon>
       </button>
     </mat-form-field>
@@ -19,9 +23,11 @@
   <div class="table-card-container">
     <mat-card class="table-card">
       <mat-card-content>
-        <div class="error-message" *ngIf="msg">
+        @if (msg) {
+        <div class="error-message">
           <span>{{ msg }}</span>
         </div>
+        }
         <div class="table-responsive">
           <table class="appointments-table">
             <thead>
@@ -31,11 +37,15 @@
                 <th>Name</th>
                 <th>Contact</th>
                 <th>Diagnosis</th>
-                <th *ngIf="!flag">Prescription</th>
+                @if (!flag) {
+                <th>Prescription</th>
+                }
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor=" let patient of tempPatients | paginate : { itemsPerPage: 10, currentPage: page, totalItems: totalPage * 10 }; index as i ">
+              @for ( patient of tempPatients | paginate : { itemsPerPage: 10, currentPage: page, totalItems: totalPage *
+              10 }; track patient; let i = $index) {
+              <tr>
                 <td>{{ (page - 1) * 10 + i + 1 }}</td>
                 <td>{{ patient.id }}</td>
                 <td class="patient-name">
@@ -47,18 +57,23 @@
                     {{ patient.diagnosis | titlecase }}
                   </span>
                 </td>
-                <td class="action-buttons" *ngIf="!flag">
-                  <button mat-raised-button color="primary" class="action-btn prescription-btn" (click)="addPrescription(patient)" >
+                @if (!flag) {
+                <td class="action-buttons">
+                  <button mat-raised-button color="primary" class="action-btn prescription-btn"
+                    (click)="addPrescription(patient)">
                     <mat-icon>add_circle</mat-icon>
                     Add Prescription
                   </button>
                 </td>
+                }
               </tr>
+              }
             </tbody>
           </table>
         </div>
         <div class="pagination-container">
-          <pagination-controls (pageChange)="getPage($event)" [maxSize]="7" [responsive]="true" [previousLabel]="'Previous'" [nextLabel]="'Next'" >
+          <pagination-controls (pageChange)="getPage($event)" [maxSize]="7" [responsive]="true"
+            [previousLabel]="'Previous'" [nextLabel]="'Next'">
           </pagination-controls>
         </div>
       </mat-card-content>

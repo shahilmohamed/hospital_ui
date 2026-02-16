@@ -33,27 +33,29 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let patient of tempPatients | paginate : { itemsPerPage: 10, currentPage: page, totalItems: totalPage * 10 }; index as i">
-                <td>{{ patient.id }}</td>
-                <td class="patient-name">
-                  {{ patient.firstname + " " + patient.lastname | titlecase }}
-                </td>
-                <td>{{ patient.gender | titlecase }}</td>
-                <td>{{ calculateAge(patient.dob) }}</td>
-                <td>{{ patient.contactNumber }}</td>
-                <td>
-                  <span class="blood-group-badge">
-                    {{ patient.bloodGroup | titlecase }}
-                  </span>
-                </td>
-                <td>{{ patient.address | titlecase }}</td>
-                <td class="action-buttons">
-                  <a [routerLink]="['/dashboard/medical-history', patient.id]" mat-raised-button color="primary" class="action-btn view-btn">
-                    <mat-icon>history</mat-icon>
-                    View History
-                  </a>
-                </td>
-              </tr>
+              @for (patient of tempPatients | paginate : { itemsPerPage: 10, currentPage: page, totalItems: totalPage * 10 }; track patient; let i = $index) {
+                <tr>
+                  <td>{{ patient.id }}</td>
+                  <td class="patient-name">
+                    {{ patient.firstname + " " + patient.lastname | titlecase }}
+                  </td>
+                  <td>{{ patient.gender | titlecase }}</td>
+                  <td>{{ calculateAge(patient.dob) }}</td>
+                  <td>{{ patient.contactNumber }}</td>
+                  <td>
+                    <span class="blood-group-badge">
+                      {{ patient.bloodGroup | titlecase }}
+                    </span>
+                  </td>
+                  <td>{{ patient.address | titlecase }}</td>
+                  <td class="action-buttons">
+                    <a [routerLink]="['/dashboard/medical-history', patient.id]" mat-raised-button color="primary" class="action-btn view-btn">
+                      <mat-icon>history</mat-icon>
+                      View History
+                    </a>
+                  </td>
+                </tr>
+              }
             </tbody>
           </table>
         </div>

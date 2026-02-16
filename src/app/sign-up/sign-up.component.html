@@ -1,176 +1,201 @@
 <div class="signup-container">
-    <div class="signup-wrapper">
-        <div class="signup-card">
-            <!-- Header Section -->
-            <div class="signup-header">
-                <div class="header-icon">
-                    <mat-icon>person_add</mat-icon>
-                </div>
-                <h2 class="signup-title">Create Account</h2>
-                <p class="signup-subtitle">Join us today! It's quick and easy.</p>
-            </div>
-
-            <!-- Form Section -->
-            <div class="signup-content">
-                <form #f="ngForm" (ngSubmit)="onSubmit(f)" class="signup-form">
-                    <!-- Name Fields Row -->
-                    <div class="form-row">
-                        <div class="form-field-wrapper half-width">
-                            <mat-form-field class="form-field" appearance="outline">
-                                <mat-label>First Name</mat-label>
-                                <input matInput ngModel type="text" #firstname="ngModel" name="firstname" 
-                                    id="signupfname" required>
-                                <mat-icon matPrefix>person</mat-icon>
-                                <mat-error *ngIf="firstname.touched && firstname.errors?.required">
-                                    First name is required
-                                </mat-error>
-                            </mat-form-field>
-                        </div>
-                        <div class="form-field-wrapper half-width">
-                            <mat-form-field class="form-field" appearance="outline">
-                                <mat-label>Last Name</mat-label>
-                                <input matInput ngModel type="text" #lastname="ngModel" name="lastname" 
-                                    id="signuplname" required>
-                                <mat-icon matPrefix>person</mat-icon>
-                                <mat-error *ngIf="lastname.touched && lastname.errors?.required">
-                                    Last name is required
-                                </mat-error>
-                            </mat-form-field>
-                        </div>
-                    </div>
-
-                    <!-- Date of Birth -->
-                    <div class="form-field-wrapper">
-                        <mat-form-field class="form-field" appearance="outline">
-                            <mat-label>Date of Birth</mat-label>
-                            <input matInput [matDatepicker]="picker" ngModel #dob="ngModel" name="dob"
-                                id="signupdob" [max]="today" required>
-                            <mat-icon matPrefix>calendar_today</mat-icon>
-                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                            <mat-datepicker #picker></mat-datepicker>
-                            <mat-error *ngIf="dob.touched && dob.errors?.required">
-                                Date of birth is required
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
-
-                    <!-- Gender and Role Row -->
-                    <div class="form-row">
-                        <div class="form-field-wrapper half-width">
-                            <mat-form-field class="form-field" appearance="outline">
-                                <mat-label>Gender</mat-label>
-                                <mat-select ngModel #gender="ngModel" name="gender" id="signupgender" required>
-                                    <mat-option value="male">Male</mat-option>
-                                    <mat-option value="female">Female</mat-option>
-                                    <mat-option value="others">Others</mat-option>
-                                </mat-select>
-                                <mat-error *ngIf="gender.touched && gender.errors?.required">
-                                    Gender is required
-                                </mat-error>
-                            </mat-form-field>
-                        </div>
-                        <div class="form-field-wrapper half-width">
-                            <mat-form-field class="form-field" appearance="outline">
-                                <mat-label>Role</mat-label>
-                                <mat-select ngModel #role="ngModel" name="role" id="signuprole" required>
-                                    <mat-option value="doctor">Doctor</mat-option>
-                                    <mat-option value="patient">Patient</mat-option>
-                                    <mat-option value="nurse">Nurse</mat-option>
-                                </mat-select>
-                                <mat-error *ngIf="role.touched && role.errors?.required">
-                                    Role is required
-                                </mat-error>
-                            </mat-form-field>
-                        </div>
-                    </div>
-
-                    <!-- Specialization -->
-                    <div class="form-field-wrapper">
-                        <mat-form-field class="form-field" appearance="outline">
-                            <mat-label>Specialization</mat-label>
-                            <mat-select ngModel #specialization="ngModel" name="specialization"
-                                id="signupspecialization" required>
-                                <mat-option value="ayurvedha">Ayurvedha</mat-option>
-                                <mat-option value="general medicine">General Medicine</mat-option>
-                                <mat-option value="general surgery">General Surgery</mat-option>
-                                <mat-option value="ent">ENT</mat-option>
-                            </mat-select>
-                            <mat-error *ngIf="specialization.touched && specialization.errors?.required">
-                                Specialization is required
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
-
-                    <!-- Email -->
-                    <div class="form-field-wrapper">
-                        <mat-form-field class="form-field" appearance="outline">
-                            <mat-label>Email Address</mat-label>
-                            <input matInput type="email" ngModel #email="ngModel" name="email"
-                                id="signupmailid" [pattern]="email_pattern" required>
-                            <mat-icon matPrefix>email</mat-icon>
-                            <mat-error *ngIf="email.touched && email.errors?.pattern">
-                                Please enter a valid email address
-                            </mat-error>
-                            <mat-error *ngIf="email.touched && email.errors?.required">
-                                Email is required
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
-
-                    <!-- Password -->
-                    <div class="form-field-wrapper">
-                        <mat-form-field class="form-field" appearance="outline">
-                            <mat-label>Password</mat-label>
-                            <input matInput ngModel #password="ngModel" name="password" id="signuppassword"
-                                [pattern]="password_pattern" type="password" required>
-                            <mat-icon matPrefix>lock</mat-icon>
-                            <mat-error *ngIf="password.touched && password.errors?.pattern">
-                                Password must contain uppercase, lowercase, number, and special character (min 8 chars)
-                            </mat-error>
-                            <mat-error *ngIf="password.touched && password.errors?.required">
-                                Password is required
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
-
-                    <!-- Mobile Number -->
-                    <div class="form-field-wrapper">
-                        <mat-form-field class="form-field" appearance="outline">
-                            <mat-label>Mobile Number</mat-label>
-                            <input matInput ngModel #phoneNumber="ngModel" name="phoneNumber" id="signupphoneNumber"
-                                [pattern]="mobile_number_pattern" type="text" required>
-                            <mat-icon matPrefix>phone</mat-icon>
-                            <mat-error *ngIf="phoneNumber.touched && phoneNumber.errors?.pattern">
-                                Please enter a valid 10-digit mobile number
-                            </mat-error>
-                            <mat-error *ngIf="phoneNumber.touched && phoneNumber.errors?.required">
-                                Mobile number is required
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
-
-                    <!-- Error Message -->
-                    <div *ngIf="incorrect" class="error-message">
-                        <mat-icon>error_outline</mat-icon>
-                        <span>{{incorrect}}</span>
-                    </div>
-
-                    <!-- Signup Button -->
-                    <button mat-raised-button type="submit" class="signup-button" [disabled]="!f.valid">
-                        <mat-icon>person_add</mat-icon>
-                        <span>Create Account</span>
-                    </button>
-                </form>
-
-                <!-- Login Link -->
-                <div class="login-link">
-                    <p>Already have an account?</p>
-                    <button mat-stroked-button routerLink="/login" class="login-button-link">
-                        <mat-icon>login</mat-icon>
-                        <span>Sign In</span>
-                    </button>
-                </div>
-            </div>
+  <div class="signup-wrapper">
+    <div class="signup-card">
+      <!-- Header Section -->
+      <div class="signup-header">
+        <div class="header-icon">
+          <mat-icon>person_add</mat-icon>
         </div>
+        <h2 class="signup-title">Create Account</h2>
+        <p class="signup-subtitle">Join us today! It's quick and easy.</p>
+      </div>
+
+      <!-- Form Section -->
+      <div class="signup-content">
+        <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="signup-form">
+          <!-- Name Fields Row -->
+          <div class="form-row">
+            <div class="form-field-wrapper half-width">
+              <mat-form-field class="form-field" appearance="outline">
+                <mat-label>First Name</mat-label>
+                <input matInput formControlName="firstname" type="text" id="signupfname">
+                <mat-icon matPrefix>person</mat-icon>
+                @if (f['firstname'].touched && f['firstname'].errors?.['required']) {
+                <mat-error>
+                  First name is required
+                </mat-error>
+                }
+              </mat-form-field>
+            </div>
+            <div class="form-field-wrapper half-width">
+              <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Last Name</mat-label>
+                <input matInput formControlName="lastname" type="text" id="signuplname">
+                <mat-icon matPrefix>person</mat-icon>
+                @if (f['lastname'].touched && f['lastname'].errors?.['required']) {
+                <mat-error>
+                  Last name is required
+                </mat-error>
+                }
+              </mat-form-field>
+            </div>
+          </div>
+
+          <!-- Date of Birth -->
+          <div class="form-field-wrapper">
+            <mat-form-field class="form-field" appearance="outline">
+              <mat-label>Date of Birth</mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="dob" id="signupdob" [max]="today">
+              <mat-icon matPrefix>calendar_today</mat-icon>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              @if (f['dob'].touched && f['dob'].errors?.['required']) {
+              <mat-error>
+                Date of birth is required
+              </mat-error>
+              }
+            </mat-form-field>
+          </div>
+
+          <!-- Gender and Role Row -->
+          <div class="form-row">
+            <div class="form-field-wrapper half-width">
+              <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Gender</mat-label>
+                <mat-select formControlName="gender" id="signupgender">
+                  <mat-option value="male">Male</mat-option>
+                  <mat-option value="female">Female</mat-option>
+                  <mat-option value="others">Others</mat-option>
+                </mat-select>
+                @if (f['gender'].touched && f['gender'].errors?.['required']) {
+                <mat-error>
+                  Gender is required
+                </mat-error>
+                }
+              </mat-form-field>
+            </div>
+            <div class="form-field-wrapper half-width">
+              <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Role</mat-label>
+                <mat-select formControlName="role" id="signuprole">
+                  <mat-option value="doctor">Doctor</mat-option>
+                  <mat-option value="patient">Patient</mat-option>
+                  <mat-option value="nurse">Nurse</mat-option>
+                </mat-select>
+                @if (f['role'].touched && f['role'].errors?.['required']) {
+                <mat-error>
+                  Role is required
+                </mat-error>
+                }
+              </mat-form-field>
+            </div>
+          </div>
+
+          <!-- Specialization -->
+          <div class="form-field-wrapper">
+            <mat-form-field class="form-field" appearance="outline">
+              <mat-label>Specialization</mat-label>
+              <mat-select formControlName="specialization" id="signupspecialization">
+                <mat-option value="ayurvedha">Ayurvedha</mat-option>
+                <mat-option value="general medicine">General Medicine</mat-option>
+                <mat-option value="general surgery">General Surgery</mat-option>
+                <mat-option value="ent">ENT</mat-option>
+              </mat-select>
+              @if (f['specialization'].touched && f['specialization'].errors?.['required']) {
+              <mat-error>
+                Specialization is required
+              </mat-error>
+              }
+            </mat-form-field>
+          </div>
+
+          <!-- Email -->
+          <div class="form-field-wrapper">
+            <mat-form-field class="form-field" appearance="outline">
+              <mat-label>Email Address</mat-label>
+              <input matInput type="email" formControlName="email" id="signupmailid">
+              <mat-icon matPrefix>email</mat-icon>
+              @if (f['email'].touched && f['email'].errors?.['pattern']) {
+              <mat-error>
+                Please enter a valid email address
+              </mat-error>
+              }
+              @if (f['email'].touched && f['email'].errors?.['required']) {
+              <mat-error>
+                Email is required
+              </mat-error>
+              }
+            </mat-form-field>
+          </div>
+
+          <!-- Password -->
+          <div class="form-field-wrapper">
+            <mat-form-field class="form-field" appearance="outline">
+              <mat-label>Password</mat-label>
+              <input matInput formControlName="password" id="signuppassword" type="password">
+              <mat-icon matPrefix>lock</mat-icon>
+              @if (f['password'].touched && f['password'].errors?.['pattern']) {
+              <mat-error>
+                Password must contain uppercase, lowercase, number, and special character (min 8 chars)
+              </mat-error>
+              }
+              @if (f['password'].touched && f['password'].errors?.['required']) {
+              <mat-error>
+                Password is required
+              </mat-error>
+              }
+            </mat-form-field>
+          </div>
+
+          <!-- Mobile Number -->
+          <div class="form-field-wrapper">
+            <mat-form-field class="form-field" appearance="outline">
+              <mat-label>Mobile Number</mat-label>
+              <input matInput formControlName="phoneNumber" id="signupphoneNumber" type="text">
+              <mat-icon matPrefix>phone</mat-icon>
+              @if (f['phoneNumber'].touched && f['phoneNumber'].errors?.['pattern']) {
+              <mat-error>
+                Please enter a valid 10-digit mobile number
+              </mat-error>
+              }
+              @if (f['phoneNumber'].touched && f['phoneNumber'].errors?.['required']) {
+              <mat-error>
+                Mobile number is required
+              </mat-error>
+              }
+            </mat-form-field>
+          </div>
+
+          <!-- Error Message -->
+          @if (incorrect=='User already taken') {
+          <div class="error-message">
+            <mat-icon>error_outline</mat-icon>
+            <span>{{incorrect}}</span>
+          </div>
+          }
+          @if (incorrect =='User registered successfully'){
+          <div class="error-message" style="color: #4caf50; border: 1px solid #4caf50; background: #e8f5e9;">
+            <mat-icon style="color: #4caf50;">check_circle_outline</mat-icon>
+            <span>{{incorrect}}</span>
+          </div>
+          }
+
+          <!-- Signup Button -->
+          <button mat-raised-button type="submit" class="signup-button" [disabled]="!signupForm.valid">
+            <mat-icon>person_add</mat-icon>
+            <span>Create Account</span>
+          </button>
+        </form>
+
+        <!-- Login Link -->
+        <div class="login-link">
+          <p>Already have an account?</p>
+          <button mat-stroked-button routerLink="/login" class="login-button-link">
+            <mat-icon>login</mat-icon>
+            <span>Sign In</span>
+          </button>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

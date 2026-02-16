@@ -1,51 +1,56 @@
 <h2 mat-dialog-title class="dialog-title-wrapper">
-    <div class="dialog-header-icon">
-        <mat-icon>event</mat-icon>
-    </div>
-    <div>
-        <h2 class="dialog-title">Add Appointment</h2>
-        <p class="dialog-subtitle">Add appointment for {{patient_name | titlecase}}</p>
-    </div>
+  <div class="dialog-header-icon">
+    <mat-icon>event</mat-icon>
+  </div>
+  <div>
+    <h2 class="dialog-title">Add Appointment</h2>
+    <p class="dialog-subtitle">Add appointment for {{patient_name | titlecase}}</p>
+  </div>
 </h2>
 
 <mat-dialog-content class="dialog-content-wrapper">
-    <form #f="ngForm" (ngSubmit)="onSubmit(f)" class="appointment-form">
-        <!-- Appointment date  -->
-        <div class="form-field-wrapper">
-            <mat-form-field class="form-field" appearance="outline">
-                <mat-label>Appointment Date</mat-label>
-                <input matInput [matDatepicker]="picker" ngModel #diagnosisDate="ngModel" name="diagnosisDate" [min]="today" required>
-                <mat-icon matPrefix>calendar_today</mat-icon>
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-                <mat-error *ngIf="diagnosisDate.touched && diagnosisDate.errors?.required">
-                    Appointment date is required
-                </mat-error>
-            </mat-form-field>
-        </div>
-        
-        <!-- diagnosis -->
-        <div class="form-field-wrapper">
-            <mat-form-field class="form-field" appearance="outline">
-                <mat-label>Disease</mat-label>
-                <input matInput ngModel #diagnosis="ngModel" name="diagnosis" required>
-                <mat-icon matPrefix>healing</mat-icon>
-                <mat-error *ngIf="diagnosis.touched && diagnosis.errors?.required">
-                    Disease is required
-                </mat-error>
-            </mat-form-field>
-        </div>
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)" class="appointment-form">
+    <!-- Appointment date  -->
+    <div class="form-field-wrapper">
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>Appointment Date</mat-label>
+        <input matInput [matDatepicker]="picker" ngModel #diagnosisDate="ngModel" name="diagnosisDate" [min]="today"
+          required>
+        <mat-icon matPrefix>calendar_today</mat-icon>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        @if (diagnosisDate.touched && diagnosisDate.errors?.required) {
+        <mat-error>
+          Appointment date is required
+        </mat-error>
+        }
+      </mat-form-field>
+    </div>
 
-        <!-- Button -->
-        <mat-dialog-actions align="end" class="dialog-actions-wrapper">
-            <button mat-button mat-dialog-close type="button" class="cancel-button">
-                <mat-icon>close</mat-icon>
-                <span>Cancel</span>
-            </button>
-            <button mat-raised-button type="submit" [disabled]="!f.valid" class="submit-button">
-                <mat-icon>save</mat-icon>
-                <span>Save</span>
-            </button>
-        </mat-dialog-actions>
-    </form>
+    <!-- diagnosis -->
+    <div class="form-field-wrapper">
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>Disease</mat-label>
+        <input matInput ngModel #diagnosis="ngModel" name="diagnosis" required>
+        <mat-icon matPrefix>healing</mat-icon>
+        @if (diagnosis.touched && diagnosis.errors?.required) {
+        <mat-error>
+          Disease is required
+        </mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+    <!-- Button -->
+    <mat-dialog-actions align="end" class="dialog-actions-wrapper">
+      <button mat-button mat-dialog-close type="button" class="cancel-button">
+        <mat-icon>close</mat-icon>
+        <span>Cancel</span>
+      </button>
+      <button mat-raised-button type="submit" [disabled]="!f.valid" class="submit-button">
+        <mat-icon>save</mat-icon>
+        <span>Save</span>
+      </button>
+    </mat-dialog-actions>
+  </form>
 </mat-dialog-content>
