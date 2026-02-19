@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../http.service';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 
 @Component({
     selector: 'app-sign-up',
@@ -36,7 +36,7 @@ export class SignUpComponent implements OnInit {
     });
   }
 
-  onSubmit() {
+  onSubmit(fd: FormGroupDirective) {
     if (this.signupForm.valid) {
       let obj = {
         firstname: this.signupForm.value.firstname,
@@ -53,6 +53,12 @@ export class SignUpComponent implements OnInit {
         this.incorrect = response.message;
         if (this.incorrect == 'User registered successfully') {
           this.signupForm.reset();
+          fd.resetForm(); 
+          if (!fd) {
+            this.signupForm.reset();
+            this.signupForm.markAsPristine();
+            this.signupForm.markAsUntouched();
+          }
         }
       });
     } else {
