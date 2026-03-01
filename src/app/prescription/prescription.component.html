@@ -1,36 +1,62 @@
-<h2 mat-dialog-title>Add Prescription to {{patientName | titlecase}}</h2>
-<mat-dialog-content>
-  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
-    <mat-card class="p-4">
-      <!-- Appointment date  -->
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Appointment Date</mat-label>
-        <input matInput [(ngModel)]="appointmentDetails.diagnosisDate" name="diagnosisDate" required readonly>
-      </mat-form-field>
-      <!-- diagnosis -->
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Disease</mat-label>
-        <input matInput [(ngModel)]="appointmentDetails.diagnosis" name="diagnosis" required readonly>
-      </mat-form-field>
-      <!-- Contact Number -->
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Contact Number</mat-label>
-        <input matInput [(ngModel)]="appointmentDetails.contactNumber" name="contactNumber" required readonly>
-      </mat-form-field>
+<h2 mat-dialog-title class="dialog-title-wrapper">
+  <div class="dialog-header-icon">
+    <mat-icon>medication</mat-icon>
+  </div>
+  <div>
+    <h2 class="dialog-title">Add Prescription</h2>
+    <p class="dialog-subtitle">Prescription for {{patientName | titlecase}}</p>
+  </div>
+</h2>
 
-      <!-- Review -->
-      <mat-form-field appearance="outline" class="w-100">
+<mat-dialog-content class="dialog-content-wrapper">
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)" class="prescription-form">
+    <!-- Patient Information Section -->
+    <div class="info-section">
+      <h3 class="section-heading">Appointment Information</h3>
+      <div class="form-row">
+        <div class="form-field-wrapper half-width">
+          <mat-form-field class="form-field" appearance="outline">
+            <mat-label>Appointment Date</mat-label>
+            <input matInput [(ngModel)]="appointmentDetails.diagnosisDate" name="diagnosisDate" required readonly>
+            <mat-icon matPrefix>calendar_today</mat-icon>
+          </mat-form-field>
+        </div>
+        <div class="form-field-wrapper half-width">
+          <mat-form-field class="form-field" appearance="outline">
+            <mat-label>Contact Number</mat-label>
+            <input matInput [(ngModel)]="appointmentDetails.contactNumber" name="contactNumber" required readonly>
+            <mat-icon matPrefix>phone</mat-icon>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="form-field-wrapper">
+        <mat-form-field class="form-field" appearance="outline">
+          <mat-label>Disease/Diagnosis</mat-label>
+          <input matInput [(ngModel)]="appointmentDetails.diagnosis" name="diagnosis" required readonly>
+          <mat-icon matPrefix>healing</mat-icon>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <!-- Review Section -->
+    <div class="form-field-wrapper">
+      <mat-form-field class="form-field" appearance="outline">
         <mat-label>Review</mat-label>
-        <textarea matInput ngModel name="review" rows="10" required></textarea>
+        <textarea matInput ngModel name="review" rows="5" required></textarea>
+        <mat-icon matPrefix>description</mat-icon>
       </mat-form-field>
+    </div>
 
-      <!-- Drug -->
-      <div class="row">
-        <div class="col-md-3 mb-3">
-          <mat-form-field appearance="outline" class="w-100">
+    <!-- Medicine Section -->
+    <div class="medicine-section">
+      <h3 class="section-heading">Add Medicine</h3>
+      <div class="form-row">
+        <div class="form-field-wrapper medicine-field">
+          <mat-form-field class="form-field" appearance="outline">
             <mat-label>Select Medicine</mat-label>
             <input type="text" matInput [matAutocomplete]="auto" (input)="onSearchChange(($any($event.target)).value)"
               [value]="selectedDrugName" required />
+            <mat-icon matPrefix>medication</mat-icon>
             <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onOptionSelected($event)">
               @for (drug of drugs; track drug) {
               <mat-option [value]="drug.name">
@@ -45,45 +71,51 @@
             </mat-autocomplete>
           </mat-form-field>
         </div>
-
-        <!-- Morning -->
-        <div class="col-md-2 mb-3">
-          <mat-form-field appearance="outline" class="w-100">
+      </div>
+      <div class="form-row">
+        <div class="form-field-wrapper dosage-field">
+          <mat-form-field class="form-field" appearance="outline">
             <mat-label>Morning</mat-label>
             <input matInput type="number" min="0" max="1" [(ngModel)]="dosage.morning" name="morning" />
+            <mat-icon matPrefix>wb_sunny</mat-icon>
           </mat-form-field>
         </div>
-
-        <!-- Afternoon -->
-        <div class="col-md-2 mb-3">
-          <mat-form-field appearance="outline" class="w-100">
+        <div class="form-field-wrapper dosage-field">
+          <mat-form-field class="form-field" appearance="outline">
             <mat-label>Afternoon</mat-label>
             <input matInput type="number" min="0" max="1" [(ngModel)]="dosage.afternoon" name="afternoon" />
+            <mat-icon matPrefix>brightness_5</mat-icon>
           </mat-form-field>
         </div>
-
-        <!-- Evening -->
-        <div class="col-md-2 mb-3">
-          <mat-form-field appearance="outline" class="w-100">
+        <div class="form-field-wrapper dosage-field">
+          <mat-form-field class="form-field" appearance="outline">
             <mat-label>Evening</mat-label>
             <input matInput type="number" min="0" max="1" [(ngModel)]="dosage.evening" name="evening" />
+            <mat-icon matPrefix>brightness_3</mat-icon>
           </mat-form-field>
         </div>
-
-        <!-- Days -->
-        <div class="col-md-2 mb-3">
-          <mat-form-field appearance="outline" class="w-100">
+        <div class="form-field-wrapper dosage-field">
+          <mat-form-field class="form-field" appearance="outline">
             <mat-label>Days</mat-label>
             <input matInput type="number" min="1" [(ngModel)]="days" name="days" required />
+            <mat-icon matPrefix>schedule</mat-icon>
           </mat-form-field>
         </div>
       </div>
-      <mat-dialog-actions align="end">
-        <button mat-button color="primary" type="button" (click)="addDrug()">Add</button>
-      </mat-dialog-actions>
-      @if (prescriptionList.length > 0) {
-      <div>
-        <table class="table table-bordered table-striped">
+      <div class="add-button-wrapper">
+        <button mat-raised-button type="button" (click)="addDrug()" class="add-medicine-button">
+          <mat-icon>add_circle</mat-icon>
+          <span>Add Medicine</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Prescription List -->
+    @if (prescriptionList.length > 0) {
+    <div class="prescription-list-section">
+      <h3 class="section-heading">Prescription List</h3>
+      <div class="table-responsive">
+        <table class="prescription-table">
           <thead>
             <tr>
               <th>Id</th>
@@ -99,31 +131,66 @@
             @for (item of prescriptionList; track item; let i = $index) {
             <tr>
               <td>{{ item.id }}</td>
-              <td>{{ item.name }}</td>
-              <td>{{ item.dosageMorning }}</td>
-              <td>{{ item.dosageAfternoon }}</td>
-              <td>{{ item.dosageNight }}</td>
+              <td class="medicine-name">{{ item.name | titlecase }}</td>
+              <td class="dosage-cell">{{ item.dosageMorning ? '✓' : '-' }}</td>
+              <td class="dosage-cell">{{ item.dosageAfternoon ? '✓' : '-' }}</td>
+              <td class="dosage-cell">{{ item.dosageNight ? '✓' : '-' }}</td>
               <td>{{ item.durationDays }}</td>
-              <td><button mat-button color="warn" (click)="removeDrug(i)">Remove</button></td>
+              <td class="action-cell">
+                <button mat-icon-button color="warn" (click)="removeDrug(i)" class="remove-button">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
             </tr>
             }
           </tbody>
         </table>
       </div>
-      }
-      <!-- Revisit Date -->
-      <mat-form-field appearance="outline" class="w-100">
+    </div>
+    }
+
+    <!-- Revisit Date -->
+    <div class="form-field-wrapper">
+      <mat-form-field class="form-field" appearance="outline">
         <mat-label>Revisit Date</mat-label>
         <input matInput [matDatepicker]="picker" ngModel name="revisitDate" [min]="today" required>
+        <mat-icon matPrefix>event</mat-icon>
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
-      <!-- Button -->
-      <mat-dialog-actions align="end">
-        <button mat-button mat-dialog-close type="button">Cancel</button>
-        <button mat-button color="primary" type="submit"
-          [disabled]="!f.valid || prescriptionList.length === 0">Save</button>
-      </mat-dialog-actions>
-    </mat-card>
+    </div>
+
+    <!-- Action Buttons -->
+    <mat-dialog-actions align="end" class="dialog-actions-wrapper">
+      <button mat-button mat-dialog-close type="button" class="cancel-button">
+        <mat-icon>close</mat-icon>
+        <span>Cancel</span>
+      </button>
+      <button mat-raised-button type="submit" class="submit-button"
+        [disabled]="!f.valid || prescriptionList.length === 0">
+        <mat-icon>save</mat-icon>
+        <span>Save Prescription</span>
+      </button>
+    </mat-dialog-actions>
   </form>
 </mat-dialog-content>
+
+<!-- Download Confirmation Dialog -->
+@if (showDownloadDialog) {
+  <div class="download-dialog-overlay" (click)="onCancelDownload()">
+    <div class="download-dialog-container" (click)="$event.stopPropagation()">
+      <div class="download-dialog-header">
+        <h2 mat-dialog-title>Download Prescription PDF?</h2>
+      </div>
+      <div class="download-dialog-content">
+        <p>Do you want to download the prescription PDF now?</p>
+      </div>
+      <div class="download-dialog-actions">
+        <button mat-button (click)="onCancelDownload()">No</button>
+        <button mat-raised-button color="primary" (click)="onConfirmDownload()">
+          Yes
+        </button>
+      </div>
+    </div>
+  </div>
+}

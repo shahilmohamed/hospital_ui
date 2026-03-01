@@ -76,6 +76,8 @@ export class PrescriptionComponent implements OnInit {
   doctor: Doctor | null = null;
   today: Date = new Date();
   searchSubject = new Subject<string>();
+  showDownloadDialog: boolean = false;
+  selectedHistoryId: number | null = null;
 
   async onSubmit(f: any) {
     try {
@@ -110,14 +112,21 @@ export class PrescriptionComponent implements OnInit {
         .toPromise();
       if(historyResponse.status == 200){
         this.toastr.success(historyResponse.message, 'Success');
+        if(historyResponse.data && historyResponse.data.id) {
+          this.selectedHistoryId = historyResponse.data.id;
+          this.showDownloadDialog = true;
+          return;
+        }
+        this.dialogRef.close(true);
       }
       else if(historyResponse.status == 204){
         this.toastr.info(historyResponse.message, 'Info');
+        this.dialogRef.close(false);
       }
       else if(historyResponse.status == 403){
         this.toastr.error(historyResponse.message, 'Error');
+        this.dialogRef.close(false);
       }
-      this.dialogRef.close(true);
     } catch (error) {
       console.error('Error while submitting form', error);
     }
@@ -220,6 +229,41 @@ export class PrescriptionComponent implements OnInit {
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const day = date.getDate().toString().padStart(2, '0');
     return `${year}-${month}-${day}`;
+  }
+
+  generateAndDownloadPdf(historyId: number): void {
+    this.service.generatePrescriptionPdf(historyId).subscribe(
+      (blob: Blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `prescription_${historyId}_${this.patientName.replace(/\s+/g, '_')}.pdf`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+        this.toastr.success('Prescription PDF downloaded successfully', 'Success');
+      },
+      (error: any) => {
+        console.error('Error generating PDF:', error);
+        this.toastr.error('Failed to generate PDF', 'Error');
+      }
+    );
+  }
+
+  onConfirmDownload(): void {
+    if (this.selectedHistoryId) {
+      this.generateAndDownloadPdf(this.selectedHistoryId);
+    }
+    this.showDownloadDialog = false;
+    this.selectedHistoryId = null;
+    this.dialogRef.close(true);
+  }
+
+  onCancelDownload(): void {
+    this.showDownloadDialog = false;
+    this.selectedHistoryId = null;
+    this.dialogRef.close(true);
   }
 
   ngOnDestroy(): void {

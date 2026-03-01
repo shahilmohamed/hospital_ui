@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { UpdateDrugComponent } from '../update-drug/update-drug.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
     selector: 'app-drugs-details',
@@ -20,7 +21,8 @@ export class DrugsDetailsComponent implements OnInit {
     private cookieService: CookieService,
     private toastr: ToastrService,
     private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -41,9 +43,9 @@ export class DrugsDetailsComponent implements OnInit {
     this.service.getAllDrugs().subscribe(
       (response: DrugsResponse) => {
         if (response.status == 204) {
-          this.toastr.info(response.message, 'Info');
+          this.snackBar.open(response.message, 'Close', { duration: 3000 });
         } else if (response.status == 403) {
-          this.toastr.error(response.message, 'Error');
+          this.snackBar.open(response.message, 'Close', { duration: 3000 });
         } else {
           this.drugs = response.data;
           this.tempDrugs = [...this.drugs];
@@ -84,9 +86,9 @@ export class DrugsDetailsComponent implements OnInit {
     this.service.getDrugPage(obj).subscribe(
       (response: DrugsResponse) => {
         if (response.status == 204) {
-          this.toastr.info(response.message, 'Info');
+          this.snackBar.open(response.message, 'Close', { duration: 3000 });
         } else if (response.status == 403) {
-          this.toastr.error(response.message, 'Error');
+          this.snackBar.open(response.message, 'Close', { duration: 3000 });
         } else {
           this.totalPage = response.totalPage;
           this.drugs = response.data;
@@ -126,12 +128,12 @@ export class DrugsDetailsComponent implements OnInit {
     if (this.selectedDrug) {
       this.service.deleteDrug(this.selectedDrug).subscribe(
         () => {
-          this.toastr.success('Drug deleted successfully', 'Success');
+          this.snackBar.open('Drug deleted successfully', 'Close', { duration: 3000 });
           this.refreshComponent();
         },
         (error) => {
           console.error('Error deleting drug:', error);
-          this.toastr.error('Unable to delete drug', 'Error');
+          this.snackBar.open('Unable to delete drug', 'Close', { duration: 3000 });
           this.showDeleteDialog = false;
           this.selectedDrug = null;
         }

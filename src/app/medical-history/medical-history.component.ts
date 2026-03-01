@@ -7,6 +7,7 @@ import { MedicalHistoryResponse } from '../model/MedicalHistoryResponse';
 import { PatientHistory } from '../model/PatientHistory';
 import { PrescriptionResponse } from '../model/PrescriptionResponse';
 import { Prescription } from '../model/Prescription';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-medical-history',
@@ -25,8 +26,13 @@ export class MedicalHistoryComponent implements OnInit {
   filteredHistory:PatientHistory[] = [];
   p: number = 1;
   p1: number = 1;
+  currentHistoryId: number = 0;
 
-  constructor(private route: ActivatedRoute, private service: HttpService) { }
+  constructor(
+    private route: ActivatedRoute, 
+    private service: HttpService,
+    private toastr: ToastrService
+  ) { }
 
   ngOnInit() {
     this.patientId = Number(this.route.snapshot.paramMap.get('id'));
@@ -65,6 +71,7 @@ export class MedicalHistoryComponent implements OnInit {
   }
 
   viewPrescription(historyId: number) {
+    this.currentHistoryId = historyId;
     const history: PatientHistory = {
       id: historyId,
       diagnosisDate: '',
@@ -80,6 +87,31 @@ export class MedicalHistoryComponent implements OnInit {
         const modal = document.getElementById('prescriptionModal');
         if (modal) new bootstrap.Modal(modal).show();
       });
+  }
+
+  generateAndDownloadPdf(): void {
+    if (!this.currentHistoryId) {
+      this.toastr.error('No history selected', 'Error');
+      return;
+    }
+    
+    this.service.generatePrescriptionPdf(this.currentHistoryId).subscribe(
+      (blob: Blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `prescription_${this.currentHistoryId}_${this.name.replace(/\s+/g, '_')}.pdf`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+        this.toastr.success('Prescription PDF downloaded successfully', 'Success');
+      },
+      (error: any) => {
+        console.error('Error generating PDF:', error);
+        this.toastr.error('Failed to generate PDF', 'Error');
+      }
+    );
   }
 
   onClickSearch(value: string): void {
