@@ -150,4 +150,12 @@ export class HttpService {
     return (this.http.post<any>(`${this.url}/drugs/drugLogFilter`, obj, {withCredentials: true}));
   }
 
+  generatePrescriptionPdf(historyId: number): Observable<Blob>
+  {
+    return (this.http.get(`${this.url}/history/generatePrescriptionPdf/${historyId}`, {
+      responseType: 'blob',
+      withCredentials: true
+    }));
+  }
+
 }

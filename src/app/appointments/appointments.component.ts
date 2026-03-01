@@ -112,7 +112,7 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
   openPrescriptionDialog(appointment: Appointment)
   {
     const dialogRef = this.dialog.open(PrescriptionComponent, {
-      width: '800px',
+      width: '1500px',
       data: appointment
     });
     dialogRef.afterClosed().subscribe((result) => {
