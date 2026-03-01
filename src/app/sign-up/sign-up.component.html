@@ -12,7 +12,7 @@
 
       <!-- Form Section -->
       <div class="signup-content">
-        <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="signup-form">
+        <form [formGroup]="signupForm" #fd="ngForm" (ngSubmit)="onSubmit(fd)" class="signup-form">
           <!-- Name Fields Row -->
           <div class="form-row">
             <div class="form-field-wrapper half-width">
