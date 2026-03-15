@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as bootstrap from 'bootstrap';
 import { HttpService } from '../http.service';
 import { Patient } from './../model/Patient';
@@ -30,6 +30,7 @@ export class MedicalHistoryComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute, 
+    private router: Router,
     private service: HttpService,
     private toastr: ToastrService
   ) { }
@@ -70,16 +71,16 @@ export class MedicalHistoryComponent implements OnInit {
       });
   }
 
-  viewPrescription(historyId: number) {
-    this.currentHistoryId = historyId;
+  viewPrescription(historyObj: PatientHistory) {
+    this.currentHistoryId = historyObj.id;
     const history: PatientHistory = {
-      id: historyId,
-      diagnosisDate: '',
-      diagnosis: '',
-      revisitDate: '',
-      review: '',
-      doctor_id: 0,
-      patient_id: 0
+      id: this.currentHistoryId,
+      diagnosisDate: historyObj.diagnosisDate,
+      diagnosis: historyObj.diagnosis,
+      revisitDate: historyObj.revisitDate,
+      review: historyObj.review,
+      doctor_id: historyObj.doctor_id,
+      patient_id: historyObj.patient_id
     };
     this.service.getPrescriptionById(history)
       .subscribe((response: PrescriptionResponse) => {
@@ -112,6 +113,34 @@ export class MedicalHistoryComponent implements OnInit {
         this.toastr.error('Failed to generate PDF', 'Error');
       }
     );
+  }
+
+  generateMedicineBill(): void {
+    if (!this.currentHistoryId || this.selectedPrescription.length === 0) {
+      this.toastr.error('No prescription selected', 'Error');
+      return;
+    }
+    
+    // Store prescription data and patient info in localStorage
+    const billingData = {
+      prescription: this.selectedPrescription,
+      patientName: this.name,
+      historyId: this.currentHistoryId,
+      patientId: this.patientId
+    };
+    
+    localStorage.setItem('billingData', JSON.stringify(billingData));
+    
+    // Close modal and navigate to drug billing
+    const modal = document.getElementById('prescriptionModal');
+    if (modal) {
+      const bootstrapModal = bootstrap.Modal.getInstance(modal);
+      if (bootstrapModal) {
+        bootstrapModal.hide();
+      }
+    }
+    
+    this.router.navigate(['/dashboard/drugBilling']);
   }
 
   onClickSearch(value: string): void {

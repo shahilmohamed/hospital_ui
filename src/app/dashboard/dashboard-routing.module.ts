@@ -11,6 +11,7 @@ import { AddDrugsComponent } from '../add-drugs/add-drugs.component';
 import { DrugsDetailsComponent } from '../drugs-details/drugs-details.component';
 import { UpdateDrugComponent } from '../update-drug/update-drug.component';
 import { DrugHistoryComponent } from '../drug-history/drug-history.component';
+import { DrugBillingComponent } from '../drug-billing/drug-billing.component';
 
 const routes: Routes = [
   {
@@ -49,6 +50,9 @@ const routes: Routes = [
   },
   {
     path: 'viewDrugHistory', component: DrugHistoryComponent
+  },
+  {
+    path: 'drugBilling', component: DrugBillingComponent
   }
 ];
 
