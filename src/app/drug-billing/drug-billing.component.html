@@ -1,0 +1,146 @@
+<!-- Header -->
+<app-header></app-header>
+
+<div class="drug-billing-container">
+  <!-- Title Section -->
+  <div class="title-container">
+    <h2 class="section-title">Drug Billing</h2>
+  </div>
+
+  <!-- Content Card -->
+  <div class="content-card-container">
+    <mat-card class="content-card">
+      <mat-card-content>
+        <!-- Patient and Doctor Information -->
+        <div class="info-section">
+          <h3 class="section-heading">Patient & Doctor Information</h3>
+          <div class="form-row">
+            <div class="form-field-wrapper half-width">
+              <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Patient Name</mat-label>
+                <input matInput [(ngModel)]="patientName" name="patientName" required>
+                <mat-icon matPrefix>person</mat-icon>
+              </mat-form-field>
+            </div>
+            <div class="form-field-wrapper half-width">
+              <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Biller Name</mat-label>
+                <input matInput [(ngModel)]="billerName" name="billerName" required>
+                <mat-icon matPrefix>local_hospital</mat-icon>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+        <!-- Add Drug Section -->
+        <div class="medicine-section">
+          <h3 class="section-heading">Add Medicine</h3>
+          <div class="form-row">
+            <div class="form-field-wrapper medicine-field">
+              <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Select Medicine</mat-label>
+                <input type="text" matInput [matAutocomplete]="auto" 
+                  (input)="onSearchChange(($any($event.target)).value)"
+                  [value]="selectedDrugName" />
+                <mat-icon matPrefix>medication</mat-icon>
+                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onOptionSelected($event)">
+                  @for (drug of drugs; track drug) {
+                    <mat-option [value]="drug.name">
+                      {{ drug.name | titlecase }} - ₹{{ drug.perPieceRate }}
+                    </mat-option>
+                  }
+                  @if (loading) {
+                    <mat-option disabled>
+                      Loading more...
+                    </mat-option>
+                  }
+                </mat-autocomplete>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="add-button-wrapper">
+            <button mat-raised-button type="button" (click)="addDrugToBill()" class="add-medicine-button" [disabled]="!selectedDrugName.trim() || !selectedDrugId">
+              <mat-icon>add_circle</mat-icon>
+              <span>Add Medicine</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Bill Items Table -->
+        @if (billItems.length > 0) {
+          <div class="bill-list-section">
+            <h3 class="section-heading">Bill Items</h3>
+            <div class="table-responsive">
+              <table class="bill-table">
+                <thead>
+                  <tr>
+                    <th>SI. No.</th>
+                    <th>Medicine Name</th>
+                    <th>MRP</th>
+                    <th>Per Piece Rate</th>
+                    <th>Quantity</th>
+                    <th>Total Amount</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (item of billItems; track item; let i = $index) {
+                    <tr>
+                      <td>{{ i + 1 }}</td>
+                      <td class="medicine-name">{{ item.drugName | titlecase }}</td>
+                      <td>₹{{ (item.mrp).toFixed(3) }}</td>
+                      <td>₹{{ (item.perPieceRate).toFixed(3) }}</td>
+                      <td>
+                        <mat-form-field class="quantity-field" appearance="outline">
+                          <input matInput type="number" min="1" 
+                            [(ngModel)]="item.qty" 
+                            (ngModelChange)="updateQuantity(i, item.qty)"
+                            name="quantity{{i}}">
+                        </mat-form-field>
+                      </td>
+                      <td class="total-amount">₹{{ (item.totalAmount).toFixed(3) }}</td>
+                      <td class="action-cell">
+                        <button mat-icon-button color="warn" (click)="removeDrug(i)" class="remove-button">
+                          <mat-icon>delete</mat-icon>
+                        </button>
+                      </td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          </div>
+        }
+
+        <!-- Bill Summary -->
+        @if (billItems.length > 0) {
+          <div class="bill-summary-section">
+            <div class="summary-card">
+              <h3 class="summary-title">Bill Summary</h3>
+              <div class="summary-row">
+                <span class="summary-label">Total Amount:</span>
+                <span class="summary-value">₹{{ getTotalAmount() }}</span>
+              </div>
+            </div>
+          </div>
+        }
+
+        <!-- Action Buttons -->
+        <div class="action-buttons-section">
+          <button mat-raised-button color="warn" (click)="clearBill()" class="clear-button">
+            <mat-icon>clear</mat-icon>
+            <span>Clear Bill</span>
+          </button>
+          <button mat-raised-button color="primary" (click)="generateBill()" 
+            [disabled]="billItems.length === 0 || !patientName.trim() || !billerName.trim()" 
+            class="generate-button">
+            <mat-icon>receipt</mat-icon>
+            <span>Generate Bill</span>
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<app-footer></app-footer>

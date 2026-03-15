@@ -78,7 +78,6 @@ export class DrugHistoryComponent implements OnInit, OnDestroy {
     if (this.fromDate && this.toDate) {
       const fDate = this.formatDateToLocal(this.fromDate);
       const tDate = this.formatDateToLocal(this.toDate);
-      console.log(fDate, tDate);
       let obj = {
         id: this.drug?.id,
         page: this.page - 1,

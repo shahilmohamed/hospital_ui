@@ -158,4 +158,14 @@ export class HttpService {
     }));
   }
 
+  getDrugsByIds(obj: any): Observable<any>
+  {
+    return (this.http.post<any>(`${this.url}/drugs/getDrugByIds`, obj, {withCredentials: true}));
+  }
+
+  generateBill(obj: any): Observable<any>
+  {
+    return (this.http.post<any>(`${this.url}/invoice/add`,obj, {withCredentials: true}))
+  }
+
 }
