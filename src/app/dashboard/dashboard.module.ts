@@ -24,6 +24,7 @@ import { RouterModule } from '@angular/router';
 import { UpdateDrugComponent } from '../update-drug/update-drug.component';
 import { DrugHistoryComponent } from '../drug-history/drug-history.component';
 import { DrugBillingComponent } from '../drug-billing/drug-billing.component';
+import { BulkImportDrugsComponent } from '../bulk-import-drugs/bulk-import-drugs.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { DrugBillingComponent } from '../drug-billing/drug-billing.component';
     DrugsDetailsComponent,
     UpdateDrugComponent,
     DrugHistoryComponent,
-    DrugBillingComponent
+    DrugBillingComponent,
+    BulkImportDrugsComponent
   ],
   imports: [
     CommonModule,

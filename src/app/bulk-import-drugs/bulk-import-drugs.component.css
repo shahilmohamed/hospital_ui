@@ -1,0 +1,89 @@
+.content {
+  display: block;
+}
+
+.help-box {
+  background: #f7f8fb;
+  border: 1px solid #e6e8ef;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.help-box p {
+  margin: 0 0 8px 0;
+}
+
+.help-box .note {
+  color: #555;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.upload-box {
+  padding: 12px;
+  border: 1px dashed #cfd6e4;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.file-label {
+  display: inline-block;
+}
+
+.file-label input[type="file"] {
+  display: none;
+}
+
+.file-label-text {
+  display: inline-block;
+  padding: 8px 12px;
+  border: 1px solid #cfd6e4;
+  border-radius: 6px;
+  cursor: pointer;
+  background: #fff;
+}
+
+.file-info,
+.status {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #333;
+}
+
+.preview h3,
+.errors h3 {
+  margin: 10px 0;
+  font-size: 15px;
+}
+
+.table-wrap {
+  overflow: auto;
+  max-height: 260px;
+  border: 1px solid #e6e8ef;
+  border-radius: 8px;
+}
+
+.preview-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.preview-table th,
+.preview-table td {
+  padding: 8px;
+  border-bottom: 1px solid #edf0f7;
+  text-align: left;
+  font-size: 13px;
+}
+
+.errors ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.errors li {
+  margin-bottom: 6px;
+  font-size: 13px;
+  color: #b00020;
+}
