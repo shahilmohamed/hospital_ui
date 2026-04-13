@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { UpdateDrugComponent } from '../update-drug/update-drug.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { BulkImportDrugsComponent } from '../bulk-import-drugs/bulk-import-drugs.component';
 
 @Component({
     selector: 'app-drugs-details',
@@ -157,6 +158,19 @@ export class DrugsDetailsComponent implements OnInit {
   viewDrugHistory(drug: Drug): void {
     localStorage.setItem('drug', JSON.stringify(drug));
     this.router.navigate(['/dashboard/viewDrugHistory']);
+  }
+
+  openBulkImport(): void {
+    const dialogRef = this.dialog.open(BulkImportDrugsComponent, {
+      width: '900px',
+      maxWidth: '95vw'
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === true) {
+        this.getDrugPage(0, 10, '');
+      }
+    });
   }
 
   ngOnDestroy(): void {

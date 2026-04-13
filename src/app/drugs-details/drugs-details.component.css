@@ -40,6 +40,17 @@
   animation-fill-mode: both;
 }
 
+/* Title + bulk import grouped so the button stays visible next to the heading */
+.title-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px 18px;
+  flex: 1;
+  min-width: 0;
+}
+
 .section-title-inline {
   color: white;
   font-size: 2rem;
@@ -47,7 +58,32 @@
   margin: 0;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   text-align: center;
-  flex: 1;
+  flex: 0 1 auto;
+}
+
+/* Matches table card (white surface) — readable on purple gradient */
+.bulk-import-btn {
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.98) !important;
+  color: #5a67d8 !important;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  padding: 0 18px !important;
+  min-height: 44px;
+  border-radius: 10px !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18) !important;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.bulk-import-btn mat-icon {
+  margin-right: 6px;
+  color: #667eea;
+}
+
+.bulk-import-btn:hover {
+  background: #ffffff !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.22) !important;
+  transform: translateY(-1px);
 }
 
 .search-form-field-inline {
@@ -326,8 +362,19 @@ mat-card-content {
 
   .title-search-container {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
     padding: 0 10px;
+  }
+
+  .title-row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .bulk-import-btn {
+    width: 100%;
+    max-width: 320px;
+    justify-content: center;
   }
 
   .search-form-field-inline {
