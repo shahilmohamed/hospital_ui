@@ -1,0 +1,74 @@
+<h2 mat-dialog-title>Bulk Import Drugs Stock</h2>
+
+<mat-dialog-content class="content">
+  <div class="help-box">
+    <p><strong>Excel columns:</strong> {{ expectedHeadersText }}</p>
+    <p class="note">
+      - <strong>name, mrp, perPieceRate, quantity</strong> are required.<br />
+      - If the drug <strong>name already exists</strong>, we will
+      <strong>update</strong> it; otherwise we will <strong>add</strong> it.
+    </p>
+    <button mat-stroked-button color="primary" type="button" (click)="downloadTemplateCsv()">
+      Download Template (CSV)
+    </button>
+  </div>
+
+  <div class="upload-box">
+    <label class="file-label">
+      <input type="file" accept=".xlsx,.xls" (change)="onFileSelected($event)" [disabled]="isReadingFile || isImporting"/>
+      <span class="file-label-text"> Choose Excel File </span>
+    </label>
+
+    <div class="file-info" *ngIf="selectedFileName">
+      <strong>Selected:</strong> {{ selectedFileName }}
+    </div>
+
+    <div class="status" *ngIf="isReadingFile">Reading file...</div>
+  </div>
+
+  <div class="preview" *ngIf="rows.length > 0">
+    <h3>Preview (first 20 rows)</h3>
+    <div class="table-wrap">
+      <table class="preview-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>MRP</th>
+            <th>Per Piece Rate</th>
+            <th>Quantity</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let r of rows.slice(0, 20)">
+            <td>{{ r.rowNumber }}</td>
+            <td>{{ r.name }}</td>
+            <td>{{ r.mrp }}</td>
+            <td>{{ r.perPieceRate }}</td>
+            <td>{{ r.quantity }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="errors" *ngIf="errors.length > 0">
+    <h3>Errors</h3>
+    <ul>
+      <li *ngFor="let e of errors">
+        <strong *ngIf="e.rowNumber > 0">Row {{ e.rowNumber }}:</strong>
+        <strong *ngIf="e.rowNumber === 0">File:</strong>
+        {{ e.message }}
+      </li>
+    </ul>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button type="button" (click)="onClose()" [disabled]="isImporting">
+    Close
+  </button>
+  <button mat-raised-button color="primary" type="button" (click)="importNow()" [disabled]="isReadingFile || isImporting || rows.length === 0 || errors.length > 0">
+    Import Now
+  </button>
+</mat-dialog-actions>

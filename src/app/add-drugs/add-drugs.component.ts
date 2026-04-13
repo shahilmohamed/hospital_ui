@@ -34,7 +34,7 @@ export class AddDrugsComponent implements OnInit {
       addedDate: this.formatDateToLocal(new Date()),
       updatedDate: this.formatDateToLocal(new Date()),
     };
-    this.service.addDrugs(obj).subscribe((response: any) => {
+    this.service.addDrug(obj).subscribe((response: any) => {
       if (response.message == 'Drugs Added Successfully') {
         this.dialogRef.close(true);
         this.snackBar.open(response.message+'.', 'Close', { duration: 3000 });

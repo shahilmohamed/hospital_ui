@@ -93,7 +93,7 @@ export class HttpService {
     return (this.http.post<any>(`${this.url}/prescription/getPrescription`, obj, {withCredentials: true}));
   }
 
-  addDrugs(obj: Drug)
+  addDrug(obj: Drug)
   {
     return (this.http.post(`${this.url}/drugs/addDrug`, obj, {withCredentials: true}));
   }
@@ -163,9 +163,24 @@ export class HttpService {
     return (this.http.post<any>(`${this.url}/drugs/getDrugByIds`, obj, {withCredentials: true}));
   }
 
+  getDrugsByName(obj: any): Observable<any>
+  {
+    return (this.http.post<any>(`${this.url}/drugs/getDrugByNames`, obj, {withCredentials: true}));
+  }
+
   generateBill(obj: any): Observable<any>
   {
     return (this.http.post<any>(`${this.url}/invoice/add`,obj, {withCredentials: true}))
+  }
+
+  addDrugs(obj: Drug[])
+  {
+    return (this.http.post(`${this.url}/drugs/addDrugs`, obj, {withCredentials: true}));
+  }
+
+  updateDrugs(drugs: Drug[]): Observable<any>
+  {
+    return (this.http.put(`${this.url}/drugs/updateDrugs`, drugs, {withCredentials: true}));
   }
 
 }
