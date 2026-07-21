@@ -209,6 +209,7 @@ export class PrescriptionComponent implements OnInit {
       dosageAfternoon: this.dosage.afternoon > 0 ? true : false,
       dosageNight: this.dosage.evening > 0 ? true : false,
       durationDays: this.days,
+      drugId: this.selectedDrugId ? this.selectedDrugId : 0,
     };
     this.prescriptionList.push(newDrug);
     this.resetFields();

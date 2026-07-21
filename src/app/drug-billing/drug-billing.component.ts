@@ -108,14 +108,14 @@ export class DrugBillingComponent implements OnInit {
   // Convert prescription items to bill items
   convertPrescriptionToBillItems(prescriptions: Prescription[]): void {
     
-    const drugIds: number[] = prescriptions.map((prescription) => prescription.id);
+    const drugIds: number[] = prescriptions.map((prescription) => prescription.drugId);
     
     this.service.getDrugsByIds({ ids: drugIds }).subscribe(
       (response: any) => {
         if (response.status === 200 && response.data) {
           const drugs: Drug[] = response.data;
           prescriptions.forEach((prescription) => {
-            const drug = drugs.find((d) => d.id === prescription.id);
+            const drug = drugs.find((d) => d.id === prescription.drugId);
             
             if (drug) {
               let mrng = prescription.dosageMorning ? 1 : 0;

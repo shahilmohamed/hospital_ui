@@ -142,7 +142,7 @@ export class HttpService {
 
   getDrugLog(obj: any): Observable<any>
   {
-    return (this.http.post<any>(`${this.url}/drugs/drugLog`, obj, {withCredentials: true}));
+    return (this.http.post<any>(`${this.url}/drugs/drugLogHistory`, obj, {withCredentials: true}));
   }
 
   getFilteredDrugLog(obj: any): Observable<any>
@@ -181,6 +181,11 @@ export class HttpService {
   updateDrugs(drugs: Drug[]): Observable<any>
   {
     return (this.http.put(`${this.url}/drugs/updateDrugs`, drugs, {withCredentials: true}));
+  }
+
+  getAllInvoicesPage(obj: any): Observable<any>
+  {
+    return (this.http.post<any>(`${this.url}/invoice/getAllInvoices`, obj, {withCredentials: true}));
   }
 
 }
