@@ -5,4 +5,5 @@ export interface Prescription {
   dosageMorning: boolean;
   dosageAfternoon: boolean;
   dosageNight: boolean;
+  drugId: number;
 }
