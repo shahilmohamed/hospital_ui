@@ -25,6 +25,7 @@ import { UpdateDrugComponent } from '../update-drug/update-drug.component';
 import { DrugHistoryComponent } from '../drug-history/drug-history.component';
 import { DrugBillingComponent } from '../drug-billing/drug-billing.component';
 import { BulkImportDrugsComponent } from '../bulk-import-drugs/bulk-import-drugs.component';
+import { InvoiceDetailsComponent } from '../invoice-details/invoice-details.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { BulkImportDrugsComponent } from '../bulk-import-drugs/bulk-import-drugs
     UpdateDrugComponent,
     DrugHistoryComponent,
     DrugBillingComponent,
-    BulkImportDrugsComponent
+    BulkImportDrugsComponent,
+    InvoiceDetailsComponent
   ],
   imports: [
     CommonModule,

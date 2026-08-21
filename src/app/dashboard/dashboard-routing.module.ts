@@ -12,6 +12,7 @@ import { DrugsDetailsComponent } from '../drugs-details/drugs-details.component'
 import { UpdateDrugComponent } from '../update-drug/update-drug.component';
 import { DrugHistoryComponent } from '../drug-history/drug-history.component';
 import { DrugBillingComponent } from '../drug-billing/drug-billing.component';
+import { InvoiceDetailsComponent } from '../invoice-details/invoice-details.component';
 
 const routes: Routes = [
   {
@@ -53,6 +54,9 @@ const routes: Routes = [
   },
   {
     path: 'drugBilling', component: DrugBillingComponent
+  },
+  {
+    path: 'invoice', component: InvoiceDetailsComponent
   }
 ];
 

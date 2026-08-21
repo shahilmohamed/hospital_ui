@@ -1,0 +1,104 @@
+<!-- Header -->
+<app-header></app-header>
+
+<div class="invoice-container">
+  <!-- Title and Search Section -->
+  <div class="title-search-container">
+    <div class="title-row">
+      <h2 class="section-title-inline">Invoice Details</h2>
+    </div>
+
+    <mat-form-field class="search-form-field-inline" appearance="fill">
+      <mat-label>Search</mat-label>
+      <input matInput type="text">
+      <button matSuffix mat-icon-button aria-label="Search">
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+  <!-- Table -->
+  <div class="table-card-container">
+    <mat-card class="table-card">
+      <mat-card-content>
+        <div class="table-responsive">
+          <table class="drugs-table">
+            <thead>
+              <tr>
+                <th>Invoice ID</th>
+                <th>Biller Name</th>
+                <th>Patient Name</th>
+                <th>Total Amount</th>
+                <th>Invoice Date</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (invoice of invoices | paginate:{ id: 'invoiceList', itemsPerPage: 10, currentPage: page, totalItems: totalPage * 10}; track invoice.id; let i = $index) {
+              <tr>
+                <td>{{invoice.invoiceNumber}}</td>
+                <td>{{invoice.billerName}}</td>
+                <td>{{invoice.patientName}}</td>
+                <td>₹{{invoice.invoiceAmount}}</td>
+                <td>{{invoice.invoiceDate}}</td>
+                <td class="action-buttons">
+                  <button mat-raised-button color="white" class="action-btn view-btn"
+                    (click)="viewInvoiceDetails(invoice)">
+                    <mat-icon>visibility</mat-icon>
+                  </button>
+                </td>
+              </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+        <div class="pagination-container">
+          <pagination-controls id="invoiceList" (pageChange)="getPage($event)" [maxSize]="7" [responsive]="true"
+            [previousLabel]="'Previous'" [nextLabel]="'Next'">
+          </pagination-controls>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <app-footer></app-footer>
+
+  <!-- Invoice details Popup -->
+  <div class="modal fade" id="invoiceDetailsModal" tabindex="-1" aria-labelledby="invoiceDetailsModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="invoiceDetailsModalLabel">Invoice No: {{selectedInvoiceNumber}} Details</h3>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+          <table class="table table-striped table-hover mt-3 shadow p-3 bg-white rounded">
+            <thead class="table-light">
+              <tr>
+                <th>S.No</th>
+                <th>Drug Name</th>
+                <th>Quantity</th>
+                <th>Total Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (invoiceItem of selectedInvoiceItems | paginate:{ id: 'invoiceItems', itemsPerPage: 5, currentPage: itemsPage}; track invoiceItem; let i = $index) {
+              <tr>
+                <td>{{ (itemsPage - 1) * 5 + i + 1 }}</td>
+                <td>{{ invoiceItem.name }}</td>
+                <td>{{ invoiceItem.qty }}</td>
+                <td>₹{{ invoiceItem.totalPrice }}</td>
+              </tr>
+              }
+            </tbody>
+          </table>
+          <pagination-controls id="invoiceItems" (pageChange)="pageChangeItems($event)" [maxSize]="7"
+            [responsive]="true" [previousLabel]="'Previous'" [nextLabel]="'Next'" style="float: right;"></pagination-controls>
+        </div>
+
+        <div class="modal-footer">
+          <button mat-raised-button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>

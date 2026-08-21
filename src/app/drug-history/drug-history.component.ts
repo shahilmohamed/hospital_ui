@@ -117,6 +117,7 @@ export class DrugHistoryComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     document.body.className = '';
+    localStorage.removeItem('drug');
   }
 
 }

@@ -4,6 +4,7 @@ import { AddAppointmentsComponent } from '../add-appointments/add-appointments.c
 import { MatDialog } from '@angular/material/dialog';
 import { AddNewPatientComponent } from '../add-new-patient/add-new-patient.component';
 import { AddDrugsComponent } from '../add-drugs/add-drugs.component';
+import { HttpService } from '../http.service';
 
 @Component({
     selector: 'app-home',
@@ -14,10 +15,14 @@ import { AddDrugsComponent } from '../add-drugs/add-drugs.component';
 export class HomeComponent implements OnInit {
 
   constructor(private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private http: HttpService
   ) { }
 
   ngOnInit(): void {
+    this.http.getDoctorById(Number(localStorage.getItem('id')!)).subscribe((res: any) => {
+      
+    });
   }
 
   openAddAppointmentDialog(): void {
