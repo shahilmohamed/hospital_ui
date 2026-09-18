@@ -54,6 +54,7 @@ export class UpdateDrugComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
   }
 
 }
